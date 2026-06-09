@@ -51,22 +51,29 @@
       .radar-glow {
         animation: radar-pulse 3s infinite cubic-bezier(0.215, 0.610, 0.355, 1);
       }
-      /* Nowe dynamiczne tło sieci cyfrowej */
-      @keyframes grid-move {
-        0% { background-position: 0 0; }
-        100% { background-position: 40px 40px; }
+      /* Liquid Aura Drift - Płynny ruch luksusowego światła w tle */
+      @keyframes aura-drift {
+        0% { transform: translate(-30%, -30%) rotate(0deg) scale(1); }
+        33% { transform: translate(20%, 10%) rotate(120deg) scale(1.2); }
+        66% { transform: translate(-10%, 40%) rotate(240deg) scale(0.9); }
+        100% { transform: translate(-30%, -30%) rotate(360deg) scale(1); }
       }
-      .bg-grid-effect {
-        background-image: linear-gradient(to right, rgba(0, 155, 248, 0.03) 1px, transparent 1px),
-                          linear-gradient(to bottom, rgba(0, 155, 248, 0.03) 1px, transparent 1px);
-        background-size: 40px 40px;
-        animation: grid-move 8s linear infinite;
+      .bg-aura-blur {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(0, 155, 248, 0.15) 0%, transparent 70%);
+        top: 20%;
+        left: 20%;
+        filter: blur(80px);
+        animation: aura-drift 20s infinite alternate ease-in-out;
+        will-change: transform;
       }
     </style>
   </head>
   <body data-page="bio" class="bg-ink text-paper antialiased flex flex-col justify-center items-center min-h-screen relative p-4 sm:p-6 lg:p-8 overflow-hidden">
-    <div class="absolute inset-0 bg-grid-effect pointer-events-none"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_20%,#000000_90%)] pointer-events-none"></div>
+    <div class="bg-aura-blur pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,#000000_95%)] pointer-events-none"></div>
     <canvas id="grain-canvas" aria-hidden="true"></canvas>
 
     <div class="profile-perspective w-full max-w-3xl z-10 my-auto">
@@ -103,7 +110,7 @@
           </a>
 
           <a href="https://www.tiktok.com/@xarowomusic" target="_blank" rel="noreferrer" aria-label="TikTok" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
-            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 448 512"><path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25v178.72a162.55 162.55 0 1 1-250-135.79 161.66 161.66 0 0 1 47.16-17.16v84.34a81.56 81.56 0 1 0 40.23 68.62V0h86.09a121 121 0 0 0 21.46 64.91 119.22 119.22 0 0 0 54.34 39.53V209.91z"/></svg>
+            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12.53.02C13.84.06 15 .53 16 1.36c.15.12.23.17.4.11A6.97 6.97 0 0 0 20.31 0h2.9c-.07 1.25-.41 2.37-1.08 3.39-.76 1.16-1.78 2-3.08 2.46-.15.05-.22.13-.22.3v3.46c-.01 3.32-.99 6.14-3.09 8.44-2.08 2.28-4.73 3.4-7.75 3.4a10.05 10.05 0 0 1-7.15-2.91C1.04 16.33.01 13.73 0 10.75c-.01-3.14 1.09-5.79 3.37-7.9A10.01 10.01 0 0 1 10.58.02c.65.01 1.29.01 1.95 0zm-1.84 5.92c-1.32.02-2.46.5-3.38 1.46-.89.92-1.32 2.05-1.32 3.34.01 1.29.47 2.4 1.37 3.32.92.94 2.05 1.41 3.38 1.41 1.31 0 2.42-.46 3.34-1.4.91-.93 1.36-2.05 1.37-3.35v-4c-1.17-.02-2.25-.44-3.14-1.22-.65-.57-.11-.56-.62-.56z"/></svg>
           </a>
 
           <a href="https://open.spotify.com/artist/0T08LlrmaZesOsWD3VCrmw" target="_blank" rel="noreferrer" aria-label="Spotify" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
@@ -111,7 +118,7 @@
           </a>
 
           <a href="https://soundcloud.com/xarowo" target="_blank" rel="noreferrer" aria-label="SoundCloud" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
-            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 640 512"><path d="M575.4 227.4c-32.3 0-51.7 17.1-58.4 28.9c-12.2-61.9-66.4-106.7-130.6-106.7c-21 0-41 4.9-59.2 14.1c-19.4-48-66-81.7-120.3-81.7c-57.8 0-106.9 38.3-122.9 91.1C37.5 186.2 0 231.7 0 287.4c0 62.9 51.5 112.6 114.6 112.6h460.8c35.6 0 64.6-28.8 64.6-64c0-35.1-29-63.9-64.6-63.9c-.1 0-.1 4.7 0 5.3z"/></svg>
+            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M11.56 16.75h.57V8.53h-.57zm-1.43 0h.58V7.47h-.58zm2.86 0h.57V8.12h-.57zm-4.29 0h.58V8.38h-.58zm5.72 0h.57V9.06h-.57zm-7.15 0h.58V9.81h-.58zm8.58 0h.57v-8.1h-.57zm-10.01 0h.58v-5.6h-.58zm11.44 0h.57V8.89h-.57zm-12.87 0h.58v-4.13h-.58zm14.3 0c1.78 0 3.22-1.4 3.22-3.13s-1.44-3.13-3.22-3.13c-.23 0-.46.03-.68.08V9.11c-.56-2.58-2.91-4.49-5.74-4.49-2.31 0-4.33 1.27-5.32 3.16-.31-.11-.64-.17-.98-.17-1.47 0-2.68 1.12-2.85 2.56a1.9 1.9 0 0 0-.68-.13c-1.05 0-1.91.82-1.91 1.83 0 1 .86 1.83 1.91 1.83h16.25z"/></svg>
           </a>
 
           <a href="https://www.youtube.com/@xarowo" target="_blank" rel="noreferrer" aria-label="YouTube" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
@@ -119,7 +126,7 @@
           </a>
 
           <a href="https://music.apple.com/us/artist/xarowo/1769504567" target="_blank" rel="noreferrer" aria-label="Apple Music" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
-            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 448 512"><path d="M422.5 130.6c-17.7 5.8-37.5 10-57.1 12.3c3.5-30.8 19.3-54.3 47-66.5c4.6-2 5.8-7.9 2.5-11.4c-11.8-12.7-27.4-21.6-45.1-25c-43.1-8.2-82.6 15.8-95.2 56.6c-4.4 14.1-6 29.1-5.1 44.1c-43.4-.6-84.9-10.7-121.7-30.1c-4.8-2.5-10.7-.1-12.2 5.1c-13.8 47.9-5.1 94.6 24.3 133.7c19 25.3 46.2 43.1 77.2 51.1v40.3c0 30.6-18.7 58.1-47.3 69.3c-15.3 6-31.9 8.3-48.4 6.8c-5.4-.5-9.7 3.9-9.2 9.3c3.2 35.8 22.3 66.8 52.8 84.8c27.1 16 58.9 21.6 90.1 16c59.3-10.6 102.3-62.1 102.3-122.4v-166c23.6-7.3 46.5-18.2 66.9-32.9c4.2-3 4.1-9.4-.9-12.1z"/></svg>
+            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.33 12.35c-.09.52-.45.91-.97 1.05-.37.1-.76.01-1.1-.16-.21-.1-.4-.25-.6-.36-.08-.04-.17-.05-.26-.01-.31.17-.64.32-.99.37-.44.07-.84-.08-1.16-.4-.33-.33-.45-.75-.4-1.21.06-.48.32-.86.74-1.11.37-.23.79-.33 1.22-.34.31 0 .61.04.91.12.08.02.13-.01.17-.07.15-.27.23-.56.22-.88-.01-.51-.3-.85-.8-.91-.33-.04-.64.04-.92.2-.24.14-.39.34-.47.61-.04.13-.11.19-.24.16-.22-.04-.34-.18-.34-.41 0-.39.22-.71.54-.93.47-.32.99-.42 1.55-.31.8.17 1.27.72 1.31 1.54.04.72.02 1.44.01 2.16v.58z"/></svg>
           </a>
 
           <a href="https://www.twitch.tv/xarowomusic" target="_blank" rel="noreferrer" aria-label="Twitch" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
