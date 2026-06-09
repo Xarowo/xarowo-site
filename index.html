@@ -3,29 +3,31 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content="Xarowo - Official Gateway. Electronic music, digital assets, and sonic architecture." />
+    <meta name="description" content="Xarowo - Official Gateway." />
     <meta http-equiv="refresh" content="2; url=home/" />
     <title>Xarowo</title>
     <link rel="canonical" href="home/" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       globalThis.tailwind = globalThis.tailwind || {};
-      tailwind.config = { theme: { extend: { colors: { electric: "#009BF8", ink: "#000000", paper: "#FFFFFF" }, fontFamily: { display: ["Moderniz", "Inter", "Arial", "sans-serif"] } } } };
+      tailwind.config = { theme: { extend: { colors: { electric: "#009BF8", ink: "#000000" }, fontFamily: { display: ["Moderniz", "Inter", "Arial", "sans-serif"] } } } };
     </script>
     <style>
-      @keyframes pulseGlow {
-        0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(0, 155, 248, 0.35)); opacity: 0.9; }
-        50% { transform: scale(1.02); filter: drop-shadow(0 0 30px rgba(0, 155, 248, 0.7)); opacity: 1; }
+      /* Prosta i płynna animacja wyłaniania się z ciemności (Fade In) */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(4px); }
+        to { opacity: 1; transform: translateY(0); }
       }
-      @keyframes loadProgress {
+      /* Płynne ładowanie paska statusu */
+      @keyframes loadBar {
         0% { width: 0%; }
         100% { width: 100%; }
       }
-      .animate-pulse-glow {
-        animation: pulseGlow 2s infinite ease-in-out;
+      .animate-fade-in {
+        animation: fadeIn 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
       }
-      .animate-progress {
-        animation: loadProgress 1.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      .animate-load-bar {
+        animation: loadBar 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
       }
       body {
         min-height: 100dvh;
@@ -37,33 +39,39 @@
   </head>
   <body class="text-white antialiased flex flex-col items-center justify-between overflow-hidden select-none px-4">
     
-    <div class="pt-[5vh] w-full max-w-7xl flex justify-between items-center text-[9px] font-mono tracking-widest text-zinc-600 uppercase px-4">
-      <div class="flex items-center gap-2">
-        <span class="h-1.5 w-1.5 rounded-full bg-electric animate-ping"></span>
-        <span>SYS.ONLINE</span>
-      </div>
-      <div>CORE_V.2026.INIT</div>
+    <div class="animate-fade-in pt-[6vh] w-full max-w-7xl flex justify-between items-center text-[9px] font-mono tracking-widest text-zinc-600 uppercase px-4" style="animation-delay: 0.1s;">
+      <div>STATUS // ONLINE</div>
+      <div>CORE_INIT_2026</div>
     </div>
 
-    <div class="flex flex-col items-center justify-center flex-1 max-w-sm w-full gap-5">
-      <div class="animate-pulse-glow bg-zinc-950/40 border border-zinc-900 p-6 rounded-3xl backdrop-blur-md">
-        <img src="assets/xarowo-mark.png" alt="Xarowo Logomark" class="h-16 w-16 sm:h-20 sm:w-20 object-contain block" />
+    <div class="animate-fade-in flex flex-col items-center justify-center flex-1 max-w-sm w-full gap-5" style="animation-delay: 0.2s;">
+      <div class="bg-zinc-950 border border-zinc-900 p-5 rounded-2xl shadow-2xl">
+        <img src="assets/xarowo-mark.png" alt="Xarowo" class="h-16 w-16 object-contain block" />
       </div>
       
       <div class="text-center">
-        <h1 class="font-display text-2xl sm:text-3xl font-black uppercase tracking-[0.25em] text-electric">
-          Xarowo
-        </h1>
-        <p class="text-[9px] font-mono tracking-[0.15em] text-zinc-500 uppercase mt-2">
-          Connecting to digital node...
-        </p>
+        <h1 class="font-display text-2xl font-black uppercase tracking-[0.25em] text-electric">Xarowo</h1>
       </div>
 
-      <div class="w-44 h-0.5 bg-zinc-900 rounded-full overflow-hidden mt-1">
-        <div class="h-full bg-electric animate-progress rounded-full"></div>
+      <div class="w-32 h-[2px] bg-zinc-900 rounded-full overflow-hidden mt-1">
+        <div class="h-full bg-electric animate-load-bar rounded-full"></div>
       </div>
     </div>
 
-    <div class="pb-[4vh] w-full max-w-xl flex flex-col items-center gap-6 z-10 px-4 box-border">
-      
-      <a href="home/" class="group inline-flex items-center gap-3 bg-zinc-950
+    <div class="animate-fade-in pb-[5vh] w-full max-w-xl px-4 box-border text-center" style="animation-delay: 0.3s;">
+      <div class="w-full border-t border-zinc-900 pt-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-[10px] font-mono text-zinc-500 uppercase tracking-wider">
+        <div class="text-electric font-bold tracking-widest animate-pulse">LOADING PROTOCOL...</div>
+        <div class="text-zinc-400">
+          WROCŁAW // POLAND <span class="text-zinc-600">[51.1079° N]</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Po 1.3 sekundy (zaraz po zakończeniu animacji paska) strona płynnie przeskakuje do home/
+      setTimeout(() => {
+        window.location.href = "home/";
+      }, 1300);
+    </script>
+  </body>
+</html>
