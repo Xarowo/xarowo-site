@@ -14,21 +14,21 @@
   </head>
   <body data-page="music" class="bg-paper text-ink antialiased dark:bg-ink dark:text-paper">
     <canvas id="grain-canvas" aria-hidden="true"></canvas>
+
     <header class="fixed inset-x-0 top-0 z-40 border-b border-[color:var(--hairline)] bg-[color:var(--panel)] backdrop-blur-xl">
       <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Primary">
-        <a href="../home/" class="flex items-center gap-3 transition hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-electric">
-          <span class="font-display text-lg tracking-tight text-electric">XAROWO</span>
+        <a href="../home/" class="flex items-center gap-3" aria-label="Xarowo home">
+          <img src="../assets/xarowo-mark.png" alt="" class="brand-mark h-10 w-10 object-contain" />
+          <span class="font-display text-lg font-black uppercase text-electric">Xarowo</span>
         </a>
-        <div class="flex items-center gap-6">
-          <div class="hidden sm:flex sm:gap-6">
-            <a class="text-xs font-black uppercase tracking-wider text-[color:var(--soft-fg)] transition hover:text-[color:var(--fg)]" href="../home/">Home</a>
-            <a class="text-xs font-black uppercase tracking-wider text-electric" href="./" aria-current="page">Music</a>
-            <a class="text-xs font-black uppercase tracking-wider text-[color:var(--soft-fg)] transition hover:text-[color:var(--fg)]" href="../contact/">Contact</a>
-          </div>
-          <button id="theme-toggle" class="group relative inline-flex h-9 w-9 items-center justify-center border border-[color:var(--hairline)] bg-[color:var(--panel-strong)] transition hover:border-[color:var(--fg)]" type="button" aria-label="Toggle visual layout profile">
-            <span class="font-display text-[10px] font-black uppercase tracking-tighter text-[color:var(--fg)] group-hover:text-electric" data-theme-icon>D</span>
-          </button>
+        <div class="hidden items-center gap-8 text-sm font-bold uppercase sm:flex">
+          <a class="nav-link transition hover:text-electric" data-page="home" href="../home/">Home</a>
+          <a class="nav-link transition hover:text-electric text-electric" data-page="music" href="../music/">Music</a>
+          <a class="nav-link transition hover:text-electric" data-page="contact" href="../contact/">Contact</a>
         </div>
+        <button data-theme-toggle class="x-button premium-glow grid h-11 w-11 place-items-center border border-[color:var(--fg)] bg-[color:var(--bg)] text-electric transition hover:bg-electric hover:text-white dark:border-electric" type="button" aria-label="Toggle dark mode">
+          <span data-theme-icon aria-hidden="true">L</span>
+        </button>
       </nav>
     </header>
 
@@ -84,45 +84,39 @@
       document.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById("catalog-list");
         
-        // Ponieważ GitHub / Vercel nie dają prostej listy plików w folderze bez API,
-        // Decap CMS zapisuje pliki w data/music/. Najlepszym i najszybszym sposobem,
-        // aby pobrać je bez bazy danych, jest odpytanie publicznego API GitHuba Twojego repozytorium:
         fetch('https://api.github.com/repos/Xarowo/xarowo-site/contents/data/music')
           .then(res => {
-            if (!res.ok) throw new Error("Brak plików muzycznych lub repozytorium jest prywatne");
+            if (!res.ok) throw new Error("Brak plików JSON");
             return res.json();
           })
           .then(files => {
-            // Filtrujemy tylko pliki .json
             const jsonFiles = files.filter(f => f.name.endsWith('.json'));
             if(jsonFiles.length === 0) {
               container.innerHTML = '<p class="py-8 text-center text-sm font-bold text-[color:var(--soft-fg)] uppercase col-span-full">NO AUDIO NODES FOUND IN DATABASE</p>';
               return;
             }
 
-            container.innerHTML = ""; // Czyścimy loader
+            container.innerHTML = "";
 
-            // Pobieramy zawartość każdego pliku z osobna
             jsonFiles.forEach(file => {
               fetch(`../data/music/${file.name}`)
                 .then(r => r.json())
                 .then(release => {
-                  // Renderujemy kartę albumu/singla dopasowaną do Twojego layoutu
                   const card = document.createElement("article");
                   card.className = "reveal magnetic-card border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 backdrop-blur-xl transition hover:border-electric";
                   
-                  // Obsługa obrazka okładki (zabezpieczenie ścieżki względnej)
                   const coverSrc = release.cover ? (release.cover.startsWith('/') ? `..${release.cover}` : `../${release.cover}`) : '../assets/xarowo-mark.png';
 
+                  // UŻYWAMY KLAS Z TAILWINDA DLA PEWNOŚCI DOBREGO KONTRASTU
                   card.innerHTML = `
-                    <div class="relative overflow-hidden aspect-square w-full bg-[color:var(--panel-strong)] mb-4 border border-[color:var(--hairline)]">
-                      <img src="${coverSrc}" alt="${release.title}" class="w-full h-full object-cover transition duration-500 hover:scale-105" />
+                    <div class="relative overflow-hidden aspect-square w-full bg-zinc-800 mb-4 border border-[color:var(--hairline)]">
+                      <img src="${coverSrc}" alt="${release.title}" class="w-full h-full object-cover transition duration-500 hover:scale-105 block" />
                     </div>
                     <p class="text-[10px] font-black uppercase text-electric tracking-widest">${release.release_date || '2026 RELEASE'}</p>
-                    <h2 class="font-display mt-2 text-xl uppercase tracking-tight text-[color:var(--fg)]">${release.title}</h2>
+                    <h2 class="font-display mt-2 text-xl uppercase tracking-tight text-neutral-900 dark:text-white">${release.title}</h2>
                     <div class="mt-4 pt-4 border-t border-[color:var(--hairline)] flex items-center justify-between">
-                      <a href="${release.link || '#'}" target="_blank" rel="noreferrer" class="text-xs font-black uppercase tracking-wider text-[color:var(--fg)] hover:text-electric transition inline-flex items-center gap-2">
-                        LAUNCH NODE <span>→</span>
+                      <a href="${release.link || '#'}" target="_blank" rel="noreferrer" class="text-xs font-black uppercase tracking-wider text-neutral-900 dark:text-white hover:text-electric transition inline-flex items-center gap-2">
+                        LAUNCH NODE <span class="text-electric">→</span>
                       </a>
                     </div>
                   `;
@@ -132,7 +126,7 @@
           })
           .catch(err => {
             console.error(err);
-            container.innerHTML = '<p class="py-8 text-center text-sm font-bold text-[color:var(--soft-fg)] uppercase col-span-full">OFFLINE MODE // LOAD DEFAULT CATALOG IN SITE.JS</p>';
+            container.innerHTML = '<p class="py-8 text-center text-sm font-bold text-[color:var(--soft-fg)] uppercase col-span-full">OFFLINE MODE // CATALOG ERROR</p>';
           });
       });
     </script>
