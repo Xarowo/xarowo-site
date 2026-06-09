@@ -9,6 +9,33 @@
   <body>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-    <script src="https://unpkg.com/decap-cms@3.1.2/dist/decap-cms.js"></script>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+    <script>
+      // Tworzymy bezpieczny, czysty komponent kalendarza HTML5
+      CMS.registerWidget('date', window.createClass({
+        handleChange: function(e) {
+          this.props.onChange(e.target.value);
+        },
+        render: function() {
+          var value = this.props.value || '';
+          return window.h('input', {
+            type: 'date',
+            value: value,
+            onChange: this.handleChange,
+            className: this.props.classNameWrapper,
+            style: {
+              width: '100%',
+              height: '58px',
+              padding: '16px',
+              fontSize: '16px',
+              border: '2px solid #dfdfe3',
+              borderRadius: '5px',
+              backgroundColor: '#fff'
+            }
+          });
+        }
+      }));
+    </script>
   </body>
 </html>
