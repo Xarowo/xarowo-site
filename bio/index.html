@@ -101,8 +101,8 @@
             <svg id="pause-icon" class="h-5 w-5 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
           </button>
           <div class="flex-1 min-w-0">
-            <span id="player-track-title" class="block text-xs font-black uppercase tracking-wide text-white truncate">Syncing feed...</span>
-            <span id="player-track-album" class="block text-[10px] font-bold text-zinc-500 uppercase tracking-wider truncate">Xarowo Grid</span>
+            <span id="player-track-title" class="block text-xs font-black uppercase tracking-wide text-white truncate">Wczytywanie...</span>
+            <span id="player-track-album" class="block text-[10px] font-bold text-zinc-500 uppercase tracking-wider truncate">Połączenie z bazą...</span>
             <div class="w-full bg-zinc-800 h-1 rounded-full mt-2 overflow-hidden cursor-pointer" id="player-progress-container">
               <div id="player-progress-bar" class="bg-electric h-full w-0 transition-all duration-100"></div>
             </div>
@@ -138,12 +138,12 @@
         const progressContainer = document.getElementById("player-progress-container");
 
         try {
-          // Pobieranie pliku generowanego bezpośrednio przez CMS
+          // Pobieranie danych z pliku JSON generowanego przez Decap CMS
           const response = await fetch('../data/biopage.json');
-          if (!response.ok) throw new Error("Plik data/biopage.json nie istnieje. Zapisz zmiany w CMS.");
+          if (!response.ok) throw new Error("Brak pliku biopage.json");
           const cmsData = await response.json();
 
-          // 1. DYNAMICZNY GENERATOR IKON I LINKÓW
+          // 1. Renderowanie tylko i wyłącznie ikon z CMS
           if (cmsData.socials && cmsData.socials.length > 0) {
             grid.innerHTML = cmsData.socials.map(item => `
               <a href="${item.url}" target="_blank" rel="noreferrer" aria-label="${item.name}" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
@@ -153,13 +153,13 @@
               </a>
             `).join('');
           } else {
-            grid.innerHTML = `<div class="col-span-4 text-xs text-zinc-500 uppercase font-bold tracking-widest py-4">Brak dodanych aplikacji w panelu</div>`;
+            grid.innerHTML = `<div class="col-span-4 text-xs text-zinc-600 uppercase font-bold tracking-widest py-4">Brak linków. Dodaj je w panelu admina.</div>`;
           }
 
-          // 2. PARSOWANIE AUDIO Z CMS (Poprawione klucze z config.yml)
+          // 2. Dynamiczne ładowanie audio z kluczy podanych w config.yml
           if (cmsData.player_source) {
             audio.src = cmsData.player_source;
-            trackTitle.textContent = cmsData.player_title || "ID TRACK";
+            trackTitle.textContent = cmsData.player_title || "UTWÓR BEZ TYTUŁU";
             trackAlbum.textContent = cmsData.player_album || "XAROWO RECORDS";
 
             playBtn.addEventListener("click", () => {
@@ -189,14 +189,15 @@
               }
             });
           } else {
-            trackTitle.textContent = "Brak aktywnego utworu";
-            trackAlbum.textContent = "Ustaw plik w CMS";
+            trackTitle.textContent = "Player nieaktywny";
+            trackAlbum.textContent = "Wgraj utwór w CMS";
           }
 
         } catch (err) {
-          console.error("Błąd synchronizacji z CMS:", err);
-          trackTitle.textContent = "Błąd synchronizacji CMS";
-          grid.innerHTML = `<div class="col-span-4 text-xs text-red-500 font-bold uppercase tracking-wide">Sync Error // Sprawdź data/biopage.json</div>`;
+          console.error("CMS Sync Error:", err);
+          trackTitle.textContent = "Błąd synchronizacji";
+          trackAlbum.textContent = "Sprawdź panel CMS";
+          grid.innerHTML = `<div class="col-span-4 text-xs text-zinc-600 font-bold uppercase tracking-widest py-4">Oczekiwanie na zapis w CMS...</div>`;
         }
 
         // Efekt Tilt 3D dla PC
