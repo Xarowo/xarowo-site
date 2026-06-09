@@ -1,4 +1,15 @@
 @font-face {
+  font-family: 'Moderniz';
+  src: url('moderniz.woff2') format('woff2');
+  font-display: swap; /* Przeglądarka od razu pokaże tekst, a font podmieni się niezauważalnie */
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('inter.woff2') format('woff2');
+  font-display: swap;
+}
+@font-face {
   font-family: "Moderniz";
   src: url("fonts/Moderniz.otf") format("opentype");
   font-weight: 400;
