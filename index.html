@@ -2,28 +2,77 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="refresh" content="0; url=home/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Xarowo - Official Gateway. Electronic music, digital assets, and sonic architecture." />
+    <meta http-equiv="refresh" content="2; url=home/" />
     <title>Xarowo</title>
     <link rel="canonical" href="home/" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      globalThis.tailwind = globalThis.tailwind || {};
+      tailwind.config = { theme: { extend: { colors: { electric: "#009BF8", ink: "#000000", paper: "#FFFFFF" }, fontFamily: { display: ["Moderniz", "Inter", "Arial", "sans-serif"] } } } };
+    </script>
     <style>
-      body {
-        margin: 0;
-        min-height: 100vh;
-        display: grid;
-        place-items: center;
-        background: #ffffff;
-        color: #000000;
-        font-family: Arial, sans-serif;
+      /* Animacja pulsowania neonu bramy */
+      @keyframes pulseGlow {
+        0%, 100% { transform: scale(1); filter: drop-shadow(0 0 15px rgba(0, 155, 248, 0.4)); opacity: 0.9; }
+        50% { transform: scale(1.03); filter: drop-shadow(0 0 35px rgba(0, 155, 248, 0.8)); opacity: 1; }
       }
-      a {
-        color: #009bf8;
-        font-weight: 900;
-        text-transform: uppercase;
+      /* Animacja paska ładowania (cyberpunkowy progres) */
+      @keyframes loadProgress {
+        0% { width: 0%; }
+        100% { width: 100%; }
+      }
+      .animate-pulse-glow {
+        animation: pulseGlow 2s infinite ease-in-out;
+      }
+      .animate-progress {
+        animation: loadProgress 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+      }
+      body {
+        min-height: 100dvh;
+        background-color: #000000;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
       }
     </style>
   </head>
-  <body>
-    <a href="home/">Enter Xarowo</a>
+  <body class="text-white antialiased flex flex-col items-center justify-between overflow-hidden select-none px-4">
+    
+    <div class="pt-[6vh] opacity-20 text-[10px] font-mono tracking-[0.3em] uppercase text-center w-full">
+      INITIALIZING SECURE SIGNAL LAYER // 2026
+    </div>
+
+    <div class="flex flex-col items-center justify-center flex-1 max-w-sm w-full gap-6">
+      <div class="animate-pulse-glow bg-zinc-950/50 border border-zinc-800 p-6 rounded-3xl backdrop-blur-md">
+        <img src="assets/xarowo-mark.png" alt="Xarowo Logomark" class="h-20 w-20 object-contain block" />
+      </div>
+      
+      <div class="text-center">
+        <h1 class="font-display text-2xl sm:text-3xl font-black uppercase tracking-[0.2em] text-electric">
+          Xarowo
+        </h1>
+        <p class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 mt-2">
+          Digital Asset Gateway
+        </p>
+      </div>
+
+      <div class="w-40 h-0.5 bg-zinc-900 rounded-full overflow-hidden mt-2 border border-zinc-950">
+        <div class="h-full bg-electric animate-progress rounded-full"></div>
+      </div>
+    </div>
+
+    <div class="pb-[6vh] w-full max-w-xs text-center z-10">
+      <a href="home/" class="group inline-flex items-center gap-3 bg-zinc-950/60 border border-zinc-800 hover:border-electric px-6 py-3.5 text-xs font-black uppercase tracking-widest text-white transition-all duration-300 rounded-xl w-full justify-center active:scale-95">
+        <span>Enter Protocol</span>
+        <span class="text-electric transition-transform duration-300 group-hover:translate-x-1">→</span>
+      </a>
+    </div>
+
+    <script>
+      setTimeout(() => {
+        window.location.href = "home/";
+      }, 1500);
+    </script>
   </body>
 </html>
