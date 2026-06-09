@@ -41,7 +41,7 @@ collections:
     format: "json"
     fields:
       - { label: "Tytuł wydania", name: "title", widget: "string" }
-      - { label: "Data wydania", name: "release_date", widget: "date" }
+      - { label: "Data wydania", name: "release_date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
       - { label: "Okładka (Zdjęcie)", name: "cover", widget: "image" }
       - { label: "Link do Spotify/SoundCloud", name: "link", widget: "string" }
       - { label: "Opis / Tracklista", name: "body", widget: "markdown" }
