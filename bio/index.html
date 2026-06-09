@@ -92,11 +92,7 @@
 
         <hr class="border-zinc-900 my-8 max-w-xs mx-auto relative z-10" />
 
-        <div id="social-grid" class="relative z-10 grid grid-cols-4 gap-4 sm:flex sm:flex-wrap sm:justify-center sm:gap-6 max-w-xl mx-auto px-2 mb-8">
-          <div class="col-span-4 text-xs font-bold uppercase text-zinc-600 tracking-widest animate-pulse">Connecting to API...</div>
-        </div>
-
-        <div class="relative z-10 max-w-md mx-auto bg-zinc-900/40 border border-zinc-800/80 rounded-2xl p-4 flex items-center gap-4 text-left backdrop-blur-md">
+        <div class="relative z-10 max-w-md mx-auto bg-zinc-900/40 border border-zinc-800/80 rounded-2xl p-4 flex items-center gap-4 text-left backdrop-blur-md mb-4">
           <button id="player-play-btn" class="h-12 w-12 flex items-center justify-center bg-electric hover:bg-white text-white hover:text-ink rounded-full transition-colors flex-shrink-0">
             <svg id="play-icon" class="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             <svg id="pause-icon" class="h-5 w-5 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
@@ -128,7 +124,6 @@
     <script src="../assets/site.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", async () => {
-        const grid = document.getElementById("social-grid");
         const audio = document.getElementById("audio-element");
         const playBtn = document.getElementById("player-play-btn");
         const playIcon = document.getElementById("play-icon");
@@ -139,25 +134,11 @@
         const progressContainer = document.getElementById("player-progress-container");
 
         try {
-          // Pobieranie danych wygenerowanych przez Decap CMS
           const response = await fetch('../data/biopage.json');
           if (!response.ok) throw new Error("CMS data file missing");
           const cmsData = await response.json();
 
-          // 1. Renderowanie Twoich własnych ikon z CMS
-          if (cmsData.socials && cmsData.socials.length > 0) {
-            grid.innerHTML = cmsData.socials.map(item => `
-              <a href="${item.url}" target="_blank" rel="noreferrer" aria-label="${item.name}" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
-                <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                  ${item.svg}
-                </svg>
-              </a>
-            `).join('');
-          } else {
-            grid.innerHTML = `<div class="col-span-4 text-xs text-zinc-500 uppercase font-bold">No social links configured.</div>`;
-          }
-
-          // 2. Podłączenie danych playera audio z CMS
+          // Podłączenie danych playera audio z CMS
           if (cmsData.player_source) {
             audio.src = cmsData.player_source;
             trackTitle.textContent = cmsData.player_title || "Untitled Track";
@@ -191,10 +172,10 @@
 
         } catch (err) {
           console.error("CMS Sync Error:", err);
-          grid.innerHTML = `<div class="col-span-4 text-xs text-red-500 font-bold uppercase">Sync failed // Verify biopage.json</div>`;
+          trackTitle.textContent = "Sync failed // Verify biopage.json";
         }
 
-        // 3. Efekt Tilt 3D dla PC
+        // Efekt Tilt 3D dla PC
         const card = document.querySelector(".glass-profile-card");
         if (card && !('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
           card.addEventListener("mousemove", (e) => {
