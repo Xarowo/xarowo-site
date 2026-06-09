@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Xarowo music, discography, Spotify embed, YouTube embed, and release controller." />
+    <title>Xarowo | Music</title>
+    <script>
+      globalThis.tailwind = globalThis.tailwind || {};
+      tailwind.config = { darkMode: "class", theme: { extend: { colors: { electric: "#009BF8", ink: "#000000", paper: "#FFFFFF" }, fontFamily: { display: ["Moderniz", "Inter", "Arial", "sans-serif"] } } } };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/site.css" />
+  </head>
+  <body data-page="music" class="bg-paper text-ink antialiased dark:bg-ink dark:text-paper">
+    <canvas id="grain-canvas" aria-hidden="true"></canvas>
+    <header class="fixed inset-x-0 top-0 z-40 border-b border-[color:var(--hairline)] bg-[color:var(--panel)] backdrop-blur-xl">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Primary">
+        <a href="../home/" class="flex items-center gap-3 transition hover:opacity-85 focus-visible:outline focus-visible:outline-2 focus-visible:outline-electric">
+          <span class="font-display text-lg tracking-tight text-electric">XAROWO</span>
+        </a>
+        <div class="flex items-center gap-6">
+          <div class="hidden sm:flex sm:gap-6">
+            <a class="text-xs font-black uppercase tracking-wider text-[color:var(--soft-fg)] transition hover:text-[color:var(--fg)]" href="../home/">Home</a>
+            <a class="text-xs font-black uppercase tracking-wider text-electric" href="./" aria-current="page">Music</a>
+            <a class="text-xs font-black uppercase tracking-wider text-[color:var(--soft-fg)] transition hover:text-[color:var(--fg)]" href="../contact/">Contact</a>
+          </div>
+          <button id="theme-toggle" class="group relative inline-flex h-9 w-9 items-center justify-center border border-[color:var(--hairline)] bg-[color:var(--panel-strong)] transition hover:border-[color:var(--fg)]" type="button" aria-label="Toggle visual layout profile">
+            <span class="font-display text-[10px] font-black uppercase tracking-tighter text-[color:var(--fg)] group-hover:text-electric" data-theme-icon>D</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main class="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8">
+      <section class="border-b border-[color:var(--hairline)] py-12 md:py-20" aria-labelledby="music-heading">
+        <div class="max-w-3xl">
+          <h1 id="music-heading" class="reveal font-display text-4xl font-normal uppercase tracking-tight text-[color:var(--fg)] sm:text-6xl md:text-7xl">Discography</h1>
+          <p class="reveal text-muted mt-6 text-base font-bold leading-relaxed text-[color:var(--soft-fg)] sm:text-lg">Sonic architecture and release log. Use the dynamic controller below to scan indexes, apply filters, and access audio nodes across verified platforms.</p>
+        </div>
+      </section>
+
+      <section class="border-b border-[color:var(--hairline)] py-10" aria-label="Release navigation">
+        <div class="reveal flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div class="relative max-w-md flex-1">
+            <label for="catalog-search" class="sr-only">Search catalog</label>
+            <input id="catalog-search" type="search" placeholder="SEARCH CATALOG INDEX..." class="w-full border border-[color:var(--hairline)] bg-[color:var(--panel-strong)] px-4 py-3 font-display text-xs font-black uppercase tracking-wider text-[color:var(--fg)] placeholder-[color:var(--soft-fg)] transition focus:border-electric focus:outline-none focus:ring-0" />
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <button class="filter-btn active border border-electric bg-electric px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white transition" data-filter="all">ALL</button>
+            <button class="filter-btn border border-[color:var(--hairline)] bg-[color:var(--panel-strong)] px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-[color:var(--fg)] transition hover:border-[color:var(--fg)]" data-filter="2026">2026</button>
+            <button class="filter-btn border border-[color:var(--hairline)] bg-[color:var(--panel-strong)] px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-[color:var(--fg)] transition hover:border-[color:var(--fg)]" data-filter="active">ACTIVE</button>
+            <button class="filter-btn border border-[color:var(--hairline)] bg-[color:var(--panel-strong)] px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-[color:var(--fg)] transition hover:border-[color:var(--fg)]" data-filter="paused">ARCHIVE</button>
+          </div>
+        </div>
+
+        <div id="catalog-list" class="reveal mt-10 grid gap-4 transition-all duration-300">
+          <p class="py-8 text-center text-sm font-bold text-[color:var(--soft-fg)] uppercase">Initializing digital log...</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-[color:var(--hairline)] px-4 py-8 text-sm font-bold text-[color:var(--soft-fg)] sm:px-6 lg:px-8">
+      <div class="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <span>© 2026 Xarowo. Official digital asset.</span>
+        <a class="text-electric" href="https://spotify.com" target="_blank" rel="noreferrer">Spotify</a>
+      </div>
+    </footer>
+
+    <aside id="cookie-banner" class="cookie-hidden fixed inset-x-4 bottom-4 z-50 mx-auto max-w-4xl border border-[color:var(--fg)] bg-[color:var(--bg)] p-5 text-[color:var(--fg)] premium-glow transition duration-500 dark:border-electric sm:p-6" role="dialog" aria-live=\"polite\" aria-label="Cookie consent">
+      <div class="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
+        <div>
+          <p class="text-lg font-black uppercase text-electric">Privacy signal</p>
+          <p class="mt-2 text-sm leading-6 text-[color:var(--soft-fg)]">Optional analytics can help measure listening traffic and site performance. Consent is stored locally on this device.</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <button id="decline-cookies" class="border border border-[color:var(--hairline)] px-5 py-3 text-sm font-black uppercase transition hover:border-electric hover:text-electric" type="button">Decline</button>
+          <button id="accept-cookies" class="border border-electric bg-electric px-5 py-3 text-sm font-black uppercase text-white transition hover:-translate-y-0.5" type="button">Accept</button>
+        </div>
+      </div>
+    </aside>
+
+    <script src="../assets/site.js"></script>
+  </body>
+</html>
