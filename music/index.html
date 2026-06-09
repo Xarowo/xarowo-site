@@ -49,13 +49,11 @@
           <div class="flex flex-wrap items-center gap-3">
             <button class="filter-btn active border border-electric bg-electric px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-white transition" data-filter="all">ALL</button>
             <button class="filter-btn border border-[color:var(--hairline)] bg-[color:var(--panel-strong)] px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-[color:var(--fg)] transition hover:border-[color:var(--fg)]" data-filter="2026">2026</button>
-            <button class="filter-btn border border-[color:var(--hairline)] bg-[color:var(--panel-strong)] px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-[color:var(--fg)] transition hover:border-[color:var(--fg)]" data-filter="active">ACTIVE</button>
-            <button class="filter-btn border border-[color:var(--hairline)] bg-[color:var(--panel-strong)] px-4 py-2.5 text-[10px] font-black uppercase tracking-wider text-[color:var(--fg)] transition hover:border-[color:var(--fg)]" data-filter="paused">ARCHIVE</button>
           </div>
         </div>
 
-        <div id="catalog-list" class="reveal mt-10 grid gap-4 transition-all duration-300">
-          <p class="py-8 text-center text-sm font-bold text-[color:var(--soft-fg)] uppercase">Initializing digital log...</p>
+        <div id="catalog-list" class="reveal mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-300">
+          <p class="py-8 text-center text-sm font-bold text-[color:var(--soft-fg)] uppercase col-span-full">Initializing digital log...</p>
         </div>
       </section>
     </main>
@@ -67,19 +65,76 @@
       </div>
     </footer>
 
-    <aside id="cookie-banner" class="cookie-hidden fixed inset-x-4 bottom-4 z-50 mx-auto max-w-4xl border border-[color:var(--fg)] bg-[color:var(--bg)] p-5 text-[color:var(--fg)] premium-glow transition duration-500 dark:border-electric sm:p-6" role="dialog" aria-live=\"polite\" aria-label="Cookie consent">
+    <aside id="cookie-banner" class="cookie-hidden fixed inset-x-4 bottom-4 z-50 mx-auto max-w-4xl border border-[color:var(--fg)] bg-[color:var(--bg)] p-5 text-[color:var(--fg)] premium-glow transition duration-500 dark:border-electric sm:p-6" role="dialog" aria-live="polite" aria-label="Cookie consent">
       <div class="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
         <div>
           <p class="text-lg font-black uppercase text-electric">Privacy signal</p>
           <p class="mt-2 text-sm leading-6 text-[color:var(--soft-fg)]">Optional analytics can help measure listening traffic and site performance. Consent is stored locally on this device.</p>
         </div>
         <div class="flex flex-wrap gap-3">
-          <button id="decline-cookies" class="border border border-[color:var(--hairline)] px-5 py-3 text-sm font-black uppercase transition hover:border-electric hover:text-electric" type="button">Decline</button>
-          <button id="accept-cookies" class="border border-electric bg-electric px-5 py-3 text-sm font-black uppercase text-white transition hover:-translate-y-0.5" type="button">Accept</button>
+          <button id="decline-cookies" class="border border-[color:var(--hairline)] px-5 py-3 text-sm font-black uppercase transition hover:border-electric hover:text-electric" type="button">Decline</button>
+          <button id="accept-cookies" class="border border-electric bg-electric px-5 py-3 text-sm font-black uppercase text-white transition hover:-translate-0.5" type="button">Accept</button>
         </div>
       </div>
     </aside>
 
     <script src="../assets/site.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const container = document.getElementById("catalog-list");
+        
+        // Ponieważ GitHub / Vercel nie dają prostej listy plików w folderze bez API,
+        // Decap CMS zapisuje pliki w data/music/. Najlepszym i najszybszym sposobem,
+        // aby pobrać je bez bazy danych, jest odpytanie publicznego API GitHuba Twojego repozytorium:
+        fetch('https://api.github.com/repos/Xarowo/xarowo-site/contents/data/music')
+          .then(res => {
+            if (!res.ok) throw new Error("Brak plików muzycznych lub repozytorium jest prywatne");
+            return res.json();
+          })
+          .then(files => {
+            // Filtrujemy tylko pliki .json
+            const jsonFiles = files.filter(f => f.name.endsWith('.json'));
+            if(jsonFiles.length === 0) {
+              container.innerHTML = '<p class="py-8 text-center text-sm font-bold text-[color:var(--soft-fg)] uppercase col-span-full">NO AUDIO NODES FOUND IN DATABASE</p>';
+              return;
+            }
+
+            container.innerHTML = ""; // Czyścimy loader
+
+            // Pobieramy zawartość każdego pliku z osobna
+            jsonFiles.forEach(file => {
+              fetch(`../data/music/${file.name}`)
+                .then(r => r.json())
+                .then(release => {
+                  // Renderujemy kartę albumu/singla dopasowaną do Twojego layoutu
+                  const card = document.createElement("article");
+                  card.className = "reveal magnetic-card border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 backdrop-blur-xl transition hover:border-electric";
+                  
+                  // Obsługa obrazka okładki (zabezpieczenie ścieżki względnej)
+                  const coverSrc = release.cover ? (release.cover.startsWith('/') ? `..${release.cover}` : `../${release.cover}`) : '../assets/xarowo-mark.png';
+
+                  card.innerHTML = `
+                    <div class="relative overflow-hidden aspect-square w-full bg-[color:var(--panel-strong)] mb-4 border border-[color:var(--hairline)]">
+                      <img src="${coverSrc}" alt="${release.title}" class="w-full h-full object-cover transition duration-500 hover:scale-105" />
+                    </div>
+                    <p class="text-[10px] font-black uppercase text-electric tracking-widest">${release.release_date || '2026 RELEASE'}</p>
+                    <h2 class="font-display mt-2 text-xl uppercase tracking-tight text-[color:var(--fg)]">${release.title}</h2>
+                    <div class="mt-4 pt-4 border-t border-[color:var(--hairline)] flex items-center justify-between">
+                      <a href="${release.link || '#'}" target="_blank" rel="noreferrer" class="text-xs font-black uppercase tracking-wider text-[color:var(--fg)] hover:text-electric transition inline-flex items-center gap-2">
+                        LAUNCH NODE <span>→</span>
+                      </a>
+                    </div>
+                  `;
+                  container.appendChild(card);
+                });
+            });
+          })
+          .catch(err => {
+            console.error(err);
+            container.innerHTML = '<p class="py-8 text-center text-sm font-bold text-[color:var(--soft-fg)] uppercase col-span-full">OFFLINE MODE // LOAD DEFAULT CATALOG IN SITE.JS</p>';
+          });
+      });
+    </script>
   </body>
 </html>
