@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: TWOJ_GITHUB_USER/NAZWA_REPOZYTORIUM  # Zmienisz to po wrzuceniu na GitHub
+  repo: Xarowo/xarowo-site  # Zmienisz to po wrzuceniu na GitHub
   branch: main
 
 media_folder: "assets" # Zdjęcia okładek trafią do Twojego folderu assets
