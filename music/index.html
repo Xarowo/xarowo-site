@@ -73,7 +73,7 @@
         </div>
         <div class="flex flex-wrap gap-3">
           <button id="decline-cookies" class="border border-[color:var(--hairline)] px-5 py-3 text-sm font-black uppercase transition hover:border-electric hover:text-electric" type="button">Decline</button>
-          <button id="accept-cookies" class="border border-electric bg-electric px-5 py-3 text-sm font-black uppercase text-white transition hover:-translate-0.5" type="button">Accept</button>
+          <button id="accept-cookies" class="border border-electric bg-electric px-5 py-3 text-sm font-black uppercase text-white transition hover:-translate-y-0.5" type="button">Accept</button>
         </div>
       </div>
     </aside>
@@ -83,50 +83,76 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById("catalog-list");
-        
-        fetch('https://api.github.com/repos/Xarowo/xarowo-site/contents/data/music')
+
+        // Funkcja pomocnicza budująca kartę wydania w HTML z poprawnym kontrastem kolorów
+        function renderReleaseCard(title, date, cover, link) {
+          const card = document.createElement("article");
+          card.className = "reveal magnetic-card border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 backdrop-blur-xl transition hover:border-electric";
+          
+          // Zabezpieczenie ścieżki do okładki
+          let coverSrc = '../assets/xarowo-mark.png';
+          if (cover) {
+            coverSrc = cover.startsWith('/') ? `..${cover}` : `../${cover}`;
+          }
+
+          card.innerHTML = `
+            <div class="relative overflow-hidden aspect-square w-full bg-zinc-900 mb-4 border border-[color:var(--hairline)]">
+              <img src="${coverSrc}" alt="${title}" class="w-full h-full object-cover transition duration-500 hover:scale-105 block" />
+            </div>
+            <p class="text-[10px] font-black uppercase text-electric tracking-widest">${date || '2026 RELEASE'}</p>
+            <h2 class="font-display mt-2 text-xl uppercase tracking-tight text-neutral-900 dark:text-white">${title}</h2>
+            <div class="mt-4 pt-4 border-t border-[color:var(--hairline)] flex items-center justify-between">
+              <a href="${link || '#'}" target="_blank" rel="noreferrer" class="text-xs font-black uppercase tracking-wider text-neutral-900 dark:text-white hover:text-electric transition inline-flex items-center gap-2">
+                LAUNCH NODE <span class="text-electric">→</span>
+              </a>
+            </div>
+          `;
+          container.appendChild(card);
+        }
+
+        // Funkcja ładująca domyślne wydanie (w razie blokady API GitHuba)
+        function loadFallbackRelease() {
+          container.innerHTML = ""; // Czyszczenie loadera
+          renderReleaseCard(
+            "FIRST DROP Sequence",
+            "2026-03-15",
+            "/assets/xarowo-banner.png",
+            "https://spotify.com"
+          );
+        }
+
+        // Odpytujemy API GitHuba (wymuszone małe litery w nazwie użytkownika dla bezpieczeństwa)
+        fetch('https://api.github.com/repos/xarowo/xarowo-site/contents/data/music')
           .then(res => {
-            if (!res.ok) throw new Error("Brak plików JSON");
+            if (!res.ok) throw new Error("GitHub API rate limit lub brak folderu");
             return res.json();
           })
           .then(files => {
             const jsonFiles = files.filter(f => f.name.endsWith('.json'));
             if(jsonFiles.length === 0) {
-              container.innerHTML = '<p class="py-8 text-center text-sm font-bold text-[color:var(--soft-fg)] uppercase col-span-full">NO AUDIO NODES FOUND IN DATABASE</p>';
+              loadFallbackRelease();
               return;
             }
 
-            container.innerHTML = "";
+            container.innerHTML = ""; // Czyszczenie loadera
 
+            // Pobieranie szczegółów wydań
+            let loadedCount = 0;
             jsonFiles.forEach(file => {
               fetch(`../data/music/${file.name}`)
                 .then(r => r.json())
                 .then(release => {
-                  const card = document.createElement("article");
-                  card.className = "reveal magnetic-card border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 backdrop-blur-xl transition hover:border-electric";
-                  
-                  const coverSrc = release.cover ? (release.cover.startsWith('/') ? `..${release.cover}` : `../${release.cover}`) : '../assets/xarowo-mark.png';
-
-                  // UŻYWAMY KLAS Z TAILWINDA DLA PEWNOŚCI DOBREGO KONTRASTU
-                  card.innerHTML = `
-                    <div class="relative overflow-hidden aspect-square w-full bg-zinc-800 mb-4 border border-[color:var(--hairline)]">
-                      <img src="${coverSrc}" alt="${release.title}" class="w-full h-full object-cover transition duration-500 hover:scale-105 block" />
-                    </div>
-                    <p class="text-[10px] font-black uppercase text-electric tracking-widest">${release.release_date || '2026 RELEASE'}</p>
-                    <h2 class="font-display mt-2 text-xl uppercase tracking-tight text-neutral-900 dark:text-white">${release.title}</h2>
-                    <div class="mt-4 pt-4 border-t border-[color:var(--hairline)] flex items-center justify-between">
-                      <a href="${release.link || '#'}" target="_blank" rel="noreferrer" class="text-xs font-black uppercase tracking-wider text-neutral-900 dark:text-white hover:text-electric transition inline-flex items-center gap-2">
-                        LAUNCH NODE <span class="text-electric">→</span>
-                      </a>
-                    </div>
-                  `;
-                  container.appendChild(card);
+                  renderReleaseCard(release.title, release.release_date, release.cover, release.link);
+                  loadedCount++;
+                })
+                .catch(() => {
+                  if(loadedCount === 0 && file === jsonFiles[jsonFiles.length - 1]) loadFallbackRelease();
                 });
             });
           })
           .catch(err => {
-            console.error(err);
-            container.innerHTML = '<p class="py-8 text-center text-sm font-bold text-[color:var(--soft-fg)] uppercase col-span-full">OFFLINE MODE // CATALOG ERROR</p>';
+            console.warn("Przełączam w tryb lokalny/fallback:", err);
+            loadFallbackRelease();
           });
       });
     </script>
