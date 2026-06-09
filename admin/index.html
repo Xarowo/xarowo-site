@@ -4,40 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager</title>
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
   </head>
   <body>
-    <script>
-      // 1. Zapisujemy konfigurację w bezpiecznym miejscu przed załadowaniem skryptu
-      window.CMS_CONFIG = {
-        backend: {
-          name: "github",
-          repo: "Xarowo/xarowo-site",
-          branch: "main",
-          base_url: "https://decap-cms-oauth.vercel.app",
-          auth_endpoint: "/api/auth"
-        },
-        media_folder: "assets",
-        public_folder: "/assets",
-        collections: [
-          {
-            name: "releases",
-            label: "Releases",
-            folder: "data",
-            extension: "json",
-            format: "json",
-            create: true,
-            slug: "{{title}}",
-            fields: [
-              { label: "Title", name: "title", widget: "string" },
-              { label: "Year", name: "year", widget: "number" },
-              { label: "Cover Image", name: "cover_image", widget: "image" },
-              { label: "Spotify Link", name: "spotify_link", widget: "string", required: false }
-            ]
-          }
-        ]
-      };
-    </script>
-
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </body>
 </html>
