@@ -140,5 +140,24 @@
     </aside>
 
     <script src="../assets/site.js"></script>
+
+    <script>
+      fetch('../data/homepage.json')
+        .then(res => {
+          if (res.ok) return res.json();
+          throw new Error('CMS file not found yet');
+        })
+        .then(data => {
+          if (data.hero_title) {
+            // Podmienia główny wielki napis Xarowo na to co wpiszesz w panelu
+            document.querySelector('h1.font-display').innerText = data.hero_title;
+          }
+          if (data.hero_subtitle) {
+            // Podmienia linijkę "Electronic Music Producer..."
+            document.querySelector('p.text-xl').innerText = data.hero_subtitle;
+          }
+        })
+        .catch(err => console.log('Używam domyślnego tekstu strony:', err));
+    </script>
   </body>
 </html>
