@@ -2,7 +2,7 @@
 <html lang="en" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content="Official web asset for Xarowo, Polish electronic music producer, DJ, and digital artist from Wrocław." />
     <title>Xarowo | Home</title>
     <script>
@@ -19,123 +19,140 @@
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../assets/site.css" />
+    <style>
+      /* Zabezpieczenie przed poziomym suwakiem i obsługa bezpiecznych stref dla iOS */
+      body {
+        overflow-x: hidden;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+    </style>
   </head>
-  <body data-page="home" class="bg-paper text-ink antialiased dark:bg-ink dark:text-paper">
+  <body data-page="home" class="bg-paper text-ink antialiased dark:bg-ink dark:text-paper min-h-screen flex flex-col justify-between">
     <canvas id="grain-canvas" aria-hidden="true"></canvas>
 
     <header class="fixed inset-x-0 top-0 z-40 border-b border-[color:var(--hairline)] bg-[color:var(--panel)] backdrop-blur-xl">
       <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Primary">
-        <a href="../home/" class="flex items-center gap-3" aria-label="Xarowo home">
-          <img src="../assets/xarowo-mark.png" alt="" class="brand-mark h-10 w-10 object-contain" />
-          <span class="font-display text-lg font-black uppercase text-electric">Xarowo</span>
+        <a href="../home/" class="flex items-center gap-2 sm:gap-3" aria-label="Xarowo home">
+          <img src="../assets/xarowo-mark.png" alt="" class="brand-mark h-8 w-8 sm:h-10 sm:w-10 object-contain" />
+          <span class="font-display text-base sm:text-lg font-black uppercase text-electric">Xarowo</span>
         </a>
-        <div class="hidden items-center gap-8 text-sm font-bold uppercase sm:flex">
-          <a class="nav-link transition hover:text-electric" data-page="home" href="../home/">Home</a>
+        <div class="flex items-center gap-4 sm:gap-8 text-xs sm:text-sm font-bold uppercase">
+          <a class="nav-link transition hover:text-electric text-electric" data-page="home" href="../home/">Home</a>
           <a class="nav-link transition hover:text-electric" data-page="music" href="../music/">Music</a>
           <a class="nav-link transition hover:text-electric" data-page="contact" href="../contact/">Contact</a>
         </div>
-        <button data-theme-toggle class="x-button premium-glow grid h-11 w-11 place-items-center border border-[color:var(--fg)] bg-[color:var(--bg)] text-electric transition hover:bg-electric hover:text-white dark:border-electric" type="button" aria-label="Toggle dark mode">
+        <button data-theme-toggle class="x-button premium-glow grid h-9 w-9 sm:h-11 sm:w-11 place-items-center border border-[color:var(--fg)] bg-[color:var(--bg)] text-electric transition hover:bg-electric hover:text-white dark:border-electric" type="button" aria-label="Toggle dark mode">
           <span data-theme-icon aria-hidden="true">L</span>
         </button>
       </nav>
     </header>
 
-    <main>
-      <section class="relative min-h-[92vh] overflow-hidden pt-24">
+    <main class="flex-1">
+      <section class="relative min-h-[92vh] overflow-hidden pt-24 flex items-center">
         <div class="absolute inset-0 -z-10">
           <img src="../assets/xarowo-banner.png" alt="" class="h-full w-full object-cover opacity-[0.22] mix-blend-multiply dark:opacity-30 dark:mix-blend-screen" />
           <div class="absolute inset-0 bg-[linear-gradient(90deg,var(--bg)_0%,rgba(255,255,255,0)_44%,var(--bg)_100%)] dark:bg-[linear-gradient(90deg,var(--bg)_0%,rgba(0,0,0,0)_44%,var(--bg)_100%)]"></div>
         </div>
 
-        <div class="mx-auto grid min-h-[calc(92vh-6rem)] max-w-7xl items-center gap-10 px-4 pb-16 sm:px-6 lg:grid-cols-[1.06fr_0.94fr] lg:px-8">
-          <div class="reveal">
-            <p class="premium-glow mb-5 max-w-fit border border-[color:var(--fg)] px-4 py-2 text-xs font-black uppercase text-electric dark:border-electric">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 w-full">
+          <div class="reveal order-2 lg:order-1 text-center lg:text-left">
+            <p class="premium-glow mb-5 mx-auto lg:mx-0 max-w-fit border border-[color:var(--fg)] px-4 py-2 text-[10px] sm:text-xs font-black uppercase text-electric dark:border-electric">
               Wroclaw, Poland // 2026
             </p>
-            <h1 class="font-display max-w-5xl text-balance text-6xl font-black uppercase leading-[0.82] text-electric text-glow sm:text-8xl lg:text-[9rem]">
+            <h1 class="font-display text-balance text-5xl sm:text-7xl md:text-8xl lg:text-[8.5rem] font-black uppercase leading-[0.85] text-electric text-glow">
               Xarowo
             </h1>
-            <p class="mt-6 max-w-2xl text-xl font-black uppercase leading-tight text-[color:var(--fg)] sm:text-3xl">
+            <p class="mt-6 max-w-2xl text-lg font-black uppercase leading-tight text-[color:var(--fg)] sm:text-2xl md:text-3xl">
               Electronic Music Producer • DJ • Creative Artist
             </p>
-            <p class="mt-5 max-w-xl text-lg leading-8 text-[color:var(--soft-fg)]">
+            <p class="mt-4 max-w-xl text-sm sm:text-base md:text-lg leading-relaxed text-[color:var(--soft-fg)]">
               Powerful Bass. Clean Production. Future Sound.
             </p>
-            <div class="mt-9 flex flex-wrap gap-3">
-              <a class="x-button premium-glow border border-electric bg-electric px-6 py-4 text-sm font-black uppercase text-white transition hover:-translate-y-1" href="../music/">
+            <div class="mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-3">
+              <a class="x-button premium-glow w-full sm:w-auto text-center border border-electric bg-electric px-6 py-4 text-sm font-black uppercase text-white transition hover:-translate-y-1" href="../music/">
                 Enter Music
               </a>
-              <a class="border border-[color:var(--hairline)] bg-[color:var(--bg)] px-6 py-4 text-sm font-black uppercase transition hover:border-electric hover:text-electric" href="../contact/">
+              <a class="w-full sm:w-auto text-center border border-[color:var(--hairline)] bg-[color:var(--bg)] px-6 py-4 text-sm font-black uppercase transition hover:border-electric hover:text-electric" href="../contact/">
                 Bookings
               </a>
             </div>
           </div>
 
-          <div class="reveal relative mx-auto w-full max-w-[520px] lg:mx-0">
-            <div class="slash-mask premium-glow absolute -left-10 top-8 h-[78%] w-28 bg-[color:var(--fg)] opacity-70 dark:bg-electric"></div>
-            <div class="slash-mask absolute right-0 top-0 h-full w-32 bg-electric opacity-60"></div>
+          <div class="reveal relative mx-auto w-full max-w-[260px] sm:max-w-[380px] lg:max-w-[520px] order-1 lg:order-2">
+            <div class="slash-mask premium-glow absolute -left-6 top-6 h-[78%] w-16 bg-[color:var(--fg)] opacity-70 dark:bg-electric hidden sm:block"></div>
+            <div class="slash-mask absolute right-0 top-0 h-full w-20 bg-electric opacity-60 hidden sm:block"></div>
             <img src="../assets/xarowo-mark.png" alt="Xarowo geometric mark" class="brand-mark relative z-10 mx-auto aspect-square w-full object-contain" />
           </div>
         </div>
       </section>
 
-      <section class="ticker theme-invert-bar overflow-hidden border-y border-[color:var(--hairline)] py-4">
-        <div class="ticker-track">
-          <span class="font-display px-8 text-2xl uppercase text-electric">Powerful Bass</span>
-          <span class="font-display px-8 text-2xl uppercase">Clean Production</span>
-          <span class="font-display px-8 text-2xl uppercase text-electric">Future Sound</span>
-          <span class="font-display px-8 text-2xl uppercase">Wroclaw Signal</span>
-          <span class="font-display px-8 text-2xl uppercase text-electric">Powerful Bass</span>
-          <span class="font-display px-8 text-2xl uppercase">Clean Production</span>
-          <span class="font-display px-8 text-2xl uppercase text-electric">Future Sound</span>
-          <span class="font-display px-8 text-2xl uppercase">Wroclaw Signal</span>
+      <section class="ticker theme-invert-bar overflow-hidden border-y border-[color:var(--hairline)] py-4 w-full">
+        <div class="ticker-track whitespace-nowrap inline-block">
+          <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase text-electric">Powerful Bass</span>
+          <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase">Clean Production</span>
+          <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase text-electric">Future Sound</span>
+          <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase">Wroclaw Signal</span>
+          <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase text-electric">Powerful Bass</span>
+          <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase">Clean Production</span>
+          <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase text-electric">Future Sound</span>
+          <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase">Wroclaw Signal</span>
         </div>
       </section>
 
-      <section class="px-4 py-20 sm:px-6 lg:px-8">
-        <div class="mx-auto grid max-w-7xl gap-6 lg:grid-cols-3">
+      <section class="px-4 py-16 sm:py-20 sm:px-6 lg:px-8">
+        <div class="mx-auto grid max-w-7xl gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           <article class="reveal magnetic-card border border-[color:var(--hairline)] bg-[color:var(--panel)] p-6 backdrop-blur-xl">
             <p class="text-sm font-black uppercase text-electric">01</p>
-            <h2 class="font-display mt-4 text-3xl uppercase leading-none text-electric">Bass-first identity</h2>
-            <p class="mt-5 leading-7 text-[color:var(--soft-fg)]">A sharp visual system built around pressure, contrast, and clean club-ready production energy.</p>
+            <h2 class="font-display mt-4 text-2xl sm:text-3xl uppercase leading-none text-electric">Bass-first identity</h2>
+            <p class="mt-4 text-sm sm:text-base leading-relaxed text-[color:var(--soft-fg)]">A sharp visual system built around pressure, contrast, and clean club-ready production energy.</p>
           </article>
           <article class="reveal magnetic-card border border-[color:var(--hairline)] bg-[color:var(--panel)] p-6 backdrop-blur-xl">
             <p class="text-sm font-black uppercase text-electric">02</p>
-            <h2 class="font-display mt-4 text-3xl uppercase leading-none text-electric">Release pulse</h2>
-            <p class="mt-5 leading-7 text-[color:var(--soft-fg)]">Countdowns, catalog flow, and embedded platforms keep listeners close to the next drop.</p>
+            <h2 class="font-display mt-4 text-2xl sm:text-3xl uppercase leading-none text-electric">Release pulse</h2>
+            <p class="mt-4 text-sm sm:text-base leading-relaxed text-[color:var(--soft-fg)]">Countdowns, catalog flow, and embedded platforms keep listeners close to the next drop.</p>
           </article>
-          <article class="reveal magnetic-card border border-[color:var(--hairline)] bg-[color:var(--panel)] p-6 backdrop-blur-xl">
+          <article class="reveal magnetic-card border border-[color:var(--hairline)] bg-[color:var(--panel)] p-6 backdrop-blur-xl md:col-span-2 lg:col-span-1">
             <p class="text-sm font-black uppercase text-electric">03</p>
-            <h2 class="font-display mt-4 text-3xl uppercase leading-none text-electric">Digital artist mode</h2>
-            <p class="mt-5 leading-7 text-[color:var(--soft-fg)]">A premium interface layer for music, motion, identity, and direct creative inquiries.</p>
+            <h2 class="font-display mt-4 text-2xl sm:text-3xl uppercase leading-none text-electric">Digital artist mode</h2>
+            <p class="mt-4 text-sm sm:text-base leading-relaxed text-[color:var(--soft-fg)]">A premium interface layer for music, motion, identity, and direct creative inquiries.</p>
           </article>
         </div>
       </section>
 
-      <section class="border-y border-[color:var(--hairline)] px-4 py-16 sm:px-6 lg:px-8">
-        <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
-          <div class="reveal">
-            <p class="text-sm font-black uppercase text-electric">Live Drop Sequence</p>
-            <h2 class="font-display mt-3 text-4xl font-black uppercase leading-none text-electric text-glow sm:text-6xl">Late 2026 release signal</h2>
+      <section class="border-y border-[color:var(--hairline)] px-4 py-12 sm:py-16 sm:px-6 lg:px-8">
+        <div class="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+          <div class="reveal text-center lg:text-left">
+            <p class="text-xs sm:text-sm font-black uppercase text-electric">Live Drop Sequence</p>
+            <h2 class="font-display mt-3 text-3xl sm:text-5xl font-black uppercase leading-none text-electric text-glow">Late 2026 release signal</h2>
           </div>
-          <div class="reveal grid grid-cols-2 gap-3 sm:grid-cols-4" aria-live="polite">
-            <div class="border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 backdrop-blur-xl"><span id="days" class="font-display block text-5xl text-electric sm:text-6xl">000</span><span class="text-xs font-black uppercase text-[color:var(--soft-fg)]">Days</span></div>
-            <div class="border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 backdrop-blur-xl"><span id="hours" class="font-display block text-5xl text-electric sm:text-6xl">00</span><span class="text-xs font-black uppercase text-[color:var(--soft-fg)]">Hours</span></div>
-            <div class="border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 backdrop-blur-xl"><span id="minutes" class="font-display block text-5xl text-electric sm:text-6xl">00</span><span class="text-xs font-black uppercase text-[color:var(--soft-fg)]">Minutes</span></div>
-            <div class="border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 backdrop-blur-xl"><span id="seconds" class="font-display block text-5xl text-electric sm:text-6xl">00</span><span class="text-xs font-black uppercase text-[color:var(--soft-fg)]">Seconds</span></div>
+          <div class="reveal grid grid-cols-2 sm:grid-cols-4 gap-3" aria-live="polite">
+            <div class="border border-[color:var(--hairline)] bg-[color:var(--panel)] p-4 sm:p-5 backdrop-blur-xl text-center"><span id="days" class="font-display block text-4xl sm:text-6xl text-electric">000</span><span class="text-[10px] sm:text-xs font-black uppercase text-[color:var(--soft-fg)]">Days</span></div>
+            <div class="border border-[color:var(--hairline)] bg-[color:var(--panel)] p-4 sm:p-5 backdrop-blur-xl text-center"><span id="hours" class="font-display block text-4xl sm:text-6xl text-electric">00</span><span class="text-[10px] sm:text-xs font-black uppercase text-[color:var(--soft-fg)]">Hours</span></div>
+            <div class="border border-[color:var(--hairline)] bg-[color:var(--panel)] p-4 sm:p-5 backdrop-blur-xl text-center"><span id="minutes" class="font-display block text-4xl sm:text-6xl text-electric">00</span><span class="text-[10px] sm:text-xs font-black uppercase text-[color:var(--soft-fg)]">Minutes</span></div>
+            <div class="border border-[color:var(--hairline)] bg-[color:var(--panel)] p-4 sm:p-5 backdrop-blur-xl text-center"><span id="seconds" class="font-display block text-4xl sm:text-6xl text-electric">00</span><span class="text-[10px] sm:text-xs font-black uppercase text-[color:var(--soft-fg)]">Seconds</span></div>
           </div>
         </div>
       </section>
     </main>
 
-    <footer class="border-t border-[color:var(--hairline)] px-4 py-8 text-sm font-bold text-[color:var(--soft-fg)] sm:px-6 lg:px-8">
-      <div class="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><span>© 2026 Xarowo. Official digital asset.</span><span class="text-electric">#009BF8</span></div>
+    <footer class="border-t border-[color:var(--hairline)] px-4 py-6 text-xs sm:text-sm font-bold text-[color:var(--soft-fg)] sm:px-6 lg:px-8">
+      <div class="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between text-center sm:text-left">
+        <span>© 2026 Xarowo. Official digital asset.</span>
+        <span class="text-electric">#009BF8</span>
+      </div>
     </footer>
 
-    <aside id="cookie-banner" class="cookie-hidden fixed inset-x-4 bottom-4 z-50 mx-auto max-w-4xl border border-[color:var(--fg)] bg-[color:var(--bg)] p-5 text-[color:var(--fg)] premium-glow transition duration-500 dark:border-electric sm:p-6" role="dialog" aria-live="polite" aria-label="Cookie consent">
-      <div class="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
-        <div><p class="text-lg font-black uppercase text-electric">Privacy signal</p><p class="mt-2 text-sm leading-6 text-[color:var(--soft-fg)]">Optional analytics can help measure listening traffic and site performance. Consent is stored locally on this device.</p></div>
-        <div class="flex flex-wrap gap-3"><button id="decline-cookies" class="border border-[color:var(--hairline)] px-5 py-3 text-sm font-black uppercase transition hover:border-electric hover:text-electric" type="button">Decline</button><button id="accept-cookies" class="x-button border border-electric bg-electric px-5 py-3 text-sm font-black uppercase text-white transition hover:-translate-y-1" type="button">Accept</button></div>
+    <aside id="cookie-banner" class="cookie-hidden fixed inset-x-4 bottom-4 z-50 mx-auto max-w-4xl border border-[color:var(--fg)] bg-[color:var(--bg)] p-4 sm:p-6 text-[color:var(--fg)] premium-glow transition duration-500 dark:border-electric" role="dialog" aria-live="polite" aria-label="Cookie consent">
+      <div class="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
+        <div class="text-center md:text-left">
+          <p class="text-base sm:text-lg font-black uppercase text-electric">Privacy signal</p>
+          <p class="mt-2 text-xs sm:text-sm leading-relaxed text-[color:var(--soft-fg)]">Optional analytics can help measure listening traffic and site performance. Consent is stored locally on this device.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
+          <button id="decline-cookies" class="w-full sm:w-auto border border-[color:var(--hairline)] px-5 py-3 text-xs sm:text-sm font-black uppercase transition hover:border-electric hover:text-electric" type="button">Decline</button>
+          <button id="accept-cookies" class="x-button w-full sm:w-auto border border-electric bg-electric px-5 py-3 text-xs sm:text-sm font-black uppercase text-white transition hover:-translate-y-1" type="button">Accept</button>
+        </div>
       </div>
     </aside>
 
