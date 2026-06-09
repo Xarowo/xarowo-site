@@ -10,7 +10,7 @@ public_folder: "/assets"
 
 collections:
   - name: "releases"
-  - label: "Releases"
+    label: "Releases"
     folder: "data"
     extension: "json"
     format: "json"
