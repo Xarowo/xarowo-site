@@ -30,6 +30,29 @@
         padding-top: env(safe-area-inset-top, 0px);
         padding-bottom: env(safe-area-inset-bottom, 0px);
       }
+      /* Style dla efektu Liquid Glass na przyciskach */
+      .glass-btn {
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+        transform-style: preserve-3d;
+        will-change: transform;
+      }
+      .glass-btn:hover {
+        box-shadow: 0 12px 30px rgba(0, 155, 248, 0.25);
+      }
+      .btn-glare {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle 80px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.2), transparent 80%);
+        z-index: 5;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        opacity: 0;
+      }
+      .glass-btn:hover .btn-glare {
+        opacity: 1;
+      }
     </style>
   </head>
   <body data-page="home" class="bg-ink text-paper antialiased flex flex-col justify-between">
@@ -72,11 +95,13 @@
               Powerful Bass. Clean Production. Future Sound.
             </p>
             <div class="mt-6 flex flex-col sm:flex-row justify-center lg:justify-start gap-3">
-              <a class="x-button premium-glow w-full sm:w-auto text-center border border-electric bg-electric px-6 py-3.5 text-xs sm:text-sm font-black uppercase text-white transition hover:-translate-y-1 rounded-xl" href="../music/">
-                Enter Music
+              <a class="glass-btn w-full sm:w-auto text-center border border-electric bg-electric px-6 py-3.5 text-xs sm:text-sm font-black uppercase text-white rounded-xl" href="../music/">
+                <div class="btn-glare"></div>
+                <span class="relative z-10">Enter Music</span>
               </a>
-              <a class="w-full sm:w-auto text-center border border-[color:var(--hairline)] bg-[color:var(--bg)] px-6 py-3.5 text-xs sm:text-sm font-black uppercase transition hover:border-electric hover:text-electric rounded-xl" href="../contact/">
-                Bookings
+              <a class="glass-btn w-full sm:w-auto text-center border border-[color:var(--hairline)] bg-[color:var(--panel)] px-6 py-3.5 text-xs sm:text-sm font-black uppercase text-white rounded-xl hover:border-electric" href="../contact/">
+                <div class="btn-glare"></div>
+                <span class="relative z-10">Bookings</span>
               </a>
             </div>
           </div>
@@ -144,19 +169,59 @@
       </div>
     </footer>
 
-    <aside id="cookie-banner" class="cookie-hidden fixed inset-x-4 bottom-4 z-50 mx-auto max-w-4xl border border-electric bg-[color:var(--bg)] p-4 sm:p-6 text-[color:var(--fg)] premium-glow transition duration-500" role="dialog" aria-live="polite" aria-label="Cookie consent">
+    <aside id="cookie-banner" class="cookie-hidden fixed inset-x-4 bottom-4 z-50 mx-auto max-w-4xl border border-electric bg-zinc-950 p-4 sm:p-6 text-paper premium-glow transition duration-500" role="dialog" aria-live="polite" aria-label="Cookie consent">
       <div class="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
         <div class="text-center md:text-left">
           <p class="text-sm sm:text-base font-black uppercase text-electric">Privacy signal</p>
-          <p class="mt-1 text-[11px] sm:text-xs leading-relaxed text-[color:var(--soft-fg)]">Optional analytics can help measure listening traffic and site performance. Consent is stored locally on this device.</p>
+          <p class="mt-1 text-[11px] sm:text-xs leading-relaxed text-zinc-400">Optional analytics can help measure listening traffic and site performance. Consent is stored locally on this device.</p>
         </div>
         <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
-          <button id="decline-cookies" class="w-full sm:w-auto border border-[color:var(--hairline)] px-4 py-2.5 text-xs font-black uppercase transition hover:border-electric hover:text-electric" type="button">Decline</button>
-          <button id="accept-cookies" class="x-button w-full sm:w-auto border border-electric bg-electric px-4 py-2.5 text-xs font-black uppercase text-white transition hover:-translate-y-1" type="button">Accept</button>
+          <button id="decline-cookies" class="glass-btn w-full sm:w-auto border border-zinc-800 bg-zinc-900 px-4 py-2.5 text-xs font-black uppercase text-zinc-300 transition hover:border-electric hover:text-electric" type="button">
+            <div class="btn-glare"></div>
+            <span class="relative z-10">Decline</span>
+          </button>
+          <button id="accept-cookies" class="glass-btn w-full sm:w-auto border border-electric bg-electric px-4 py-2.5 text-xs font-black uppercase text-white transition" type="button">
+            <div class="btn-glare"></div>
+            <span class="relative z-10">Accept</span>
+          </button>
         </div>
       </div>
     </aside>
 
     <script src="../assets/site.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const glassButtons = document.querySelectorAll(".glass-btn");
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+        glassButtons.forEach(btn => {
+          btn.addEventListener("mousemove", (e) => {
+            if (isTouchDevice) return;
+
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Delikatne wychylenie 3D (dostosowane gabarytowo do małych obiektów jak guziki)
+            const maxTilt = 6; 
+            const tiltX = ((centerY - y) / centerY) * maxTilt;
+            const tiltY = ((x - centerX) / centerX) * maxTilt;
+            
+            btn.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.03)`;
+            
+            btn.style.setProperty('--x', `${x}px`);
+            btn.style.setProperty('--y', `${y}px`);
+          });
+
+          btn.addEventListener("mouseleave", () => {
+            btn.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+          });
+        });
+      });
+    </script>
   </body>
 </html>
