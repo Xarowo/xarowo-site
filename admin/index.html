@@ -4,8 +4,39 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager</title>
-    <link href="config.json" type="application/json" rel="cms-config-url" />
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </head>
-  <body></body>
+  <body>
+    <script>
+      // Wstrzykujemy konfigurację bezpośrednio przed startem CMS-a
+      window.CMS_CONFIG = {
+        backend: {
+          name: "github",
+          repo: "Xarowo/xarowo-site",
+          branch: "main",
+          base_url: "https://api.decapcms.org",
+          auth_endpoint: "/auth"
+        },
+        media_folder: "assets",
+        public_folder: "/assets",
+        collections: [
+          {
+            name: "releases",
+            label: "Releases",
+            folder: "data",
+            extension: "json",
+            format: "json",
+            create: true,
+            slug: "{{title}}",
+            fields: [
+              { label: "Title", name: "title", widget: "string" },
+              { label: "Year", name: "year", widget: "number" },
+              { label: "Cover Image", name: "cover_image", widget: "image" },
+              { label: "Spotify Link", name: "spotify_link", widget: "string", required: false }
+            ]
+          }
+        ]
+      };
+    </script>
+  </body>
 </html>
