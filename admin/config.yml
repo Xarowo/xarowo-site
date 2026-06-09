@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: TWOJ_GITHUB_USER/NAZWA_REPOZYTORIUM  # Zmienisz to po wrzuceniu na GitHub
+  branch: main
+
+media_folder: "assets" # Zdjęcia okładek trafią do Twojego folderu assets
+public_folder: "/assets"
+
+collections:
+  - name: "releases"
+    label: "Releases"
+    folder: "data"
+    extension: "json"
+    format: "json"
+    create: true
+    slug: "{{title}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Year", name: "year", widget: "number" }
+      - { label: "Cover Image", name: "cover_image", widget: "image" }
+      - { label: "Spotify Link", name: "spotify_link", widget: "string", required: false }
