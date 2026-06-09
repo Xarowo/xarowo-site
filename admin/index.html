@@ -4,12 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager</title>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js" data-manual-init></script>
   </head>
   <body>
     <script>
-      // 1. Definiujemy czysty obiekt konfiguracyjny
-      const config = {
+      // 1. Zapisujemy konfigurację w bezpiecznym miejscu przed załadowaniem skryptu
+      window.CMS_CONFIG = {
         backend: {
           name: "github",
           repo: "Xarowo/xarowo-site",
@@ -37,10 +36,8 @@
           }
         ]
       };
-
-      // 2. Ręcznie przypisujemy konfigurację i odpalamy CMS dopiero teraz
-      window.CMS_CONFIG = config;
-      window.CMS.init({ config });
     </script>
+
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </body>
 </html>
