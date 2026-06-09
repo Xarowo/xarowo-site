@@ -115,8 +115,8 @@
       <section class="border-y border-[color:var(--hairline)] px-4 py-16 sm:px-6 lg:px-8">
         <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.75fr_1.25fr] lg:items-end">
           <div class="reveal">
-            <p class="text-sm font-black uppercase text-electric">Live Drop Sequence</p>
-            <h2 class="font-display mt-3 text-4xl font-black uppercase leading-none text-electric text-glow sm:text-6xl">Late 2026 release signal</h2>
+            <p id="timer-tag" class="text-sm font-black uppercase text-electric">Live Drop Sequence</p>
+            <h2 id="timer-title" class="font-display mt-3 text-4xl font-black uppercase leading-none text-electric text-glow sm:text-6xl">Late 2026 release signal</h2>
           </div>
           <div class="reveal grid grid-cols-2 gap-3 sm:grid-cols-4" aria-live="polite">
             <div class="border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 backdrop-blur-xl"><span id="days" class="font-display block text-5xl text-electric sm:text-6xl">000</span><span class="text-xs font-black uppercase text-[color:var(--soft-fg)]">Days</span></div>
@@ -132,32 +132,4 @@
       <div class="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><span>© 2026 Xarowo. Official digital asset.</span><span class="text-electric">#009BF8</span></div>
     </footer>
 
-    <aside id="cookie-banner" class="cookie-hidden fixed inset-x-4 bottom-4 z-50 mx-auto max-w-4xl border border-[color:var(--fg)] bg-[color:var(--bg)] p-5 text-[color:var(--fg)] premium-glow transition duration-500 dark:border-electric sm:p-6" role="dialog" aria-live="polite" aria-label="Cookie consent">
-      <div class="grid gap-5 md:grid-cols-[1fr_auto] md:items-center">
-        <div><p class="text-lg font-black uppercase text-electric">Privacy signal</p><p class="mt-2 text-sm leading-6 text-[color:var(--soft-fg)]">Optional analytics can help measure listening traffic and site performance. Consent is stored locally on this device.</p></div>
-        <div class="flex flex-wrap gap-3"><button id="decline-cookies" class="border border-[color:var(--hairline)] px-5 py-3 text-sm font-black uppercase transition hover:border-electric hover:text-electric" type="button">Decline</button><button id="accept-cookies" class="x-button border border-electric bg-electric px-5 py-3 text-sm font-black uppercase text-white transition hover:-translate-y-1" type="button">Accept</button></div>
-      </div>
-    </aside>
-
-    <script src="../assets/site.js"></script>
-
-    <script>
-      fetch('../data/homepage.json')
-        .then(res => {
-          if (res.ok) return res.json();
-          throw new Error('CMS file not found yet');
-        })
-        .then(data => {
-          if (data.hero_title) {
-            // Podmienia główny wielki napis Xarowo na to co wpiszesz w panelu
-            document.querySelector('h1.font-display').innerText = data.hero_title;
-          }
-          if (data.hero_subtitle) {
-            // Podmienia linijkę "Electronic Music Producer..."
-            document.querySelector('p.text-xl').innerText = data.hero_subtitle;
-          }
-        })
-        .catch(err => console.log('Używam domyślnego tekstu strony:', err));
-    </script>
-  </body>
-</html>
+    <aside id="cookie
