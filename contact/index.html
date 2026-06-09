@@ -1,1 +1,72 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Contact Xarowo for booking, remix, digital art, and collaboration inquiries." />
+    <title>Xarowo | Contact</title>
+    <script>
+      globalThis.tailwind = globalThis.tailwind || {};
+      tailwind.config = { darkMode: "class", theme: { extend: { colors: { electric: "#009BF8", ink: "#000000", paper: "#FFFFFF" }, fontFamily: { display: ["Moderniz", "Inter", "Arial", "sans-serif"] } } } };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/site.css" />
+  </head>
+  <body data-page="contact" class="bg-paper text-ink antialiased dark:bg-ink dark:text-paper">
+    <canvas id="grain-canvas" aria-hidden="true"></canvas>
+    <header class="fixed inset-x-0 top-0 z-40 border-b border-[color:var(--hairline)] bg-[color:var(--panel)] backdrop-blur-xl">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Primary">
+        <a href="../home/" class="flex items-center gap-3"><img src="../assets/xarowo-mark.png" alt="" class="brand-mark h-10 w-10 object-contain" /><span class="font-display text-lg font-black uppercase text-electric">Xarowo</span></a>
+        <div class="hidden items-center gap-8 text-sm font-bold uppercase sm:flex"><a class="nav-link transition hover:text-electric" data-page="home" href="../home/">Home</a><a class="nav-link transition hover:text-electric" data-page="music" href="../music/">Music</a><a class="nav-link transition hover:text-electric" data-page="contact" href="../contact/">Contact</a></div>
+        <button data-theme-toggle class="x-button premium-glow grid h-11 w-11 place-items-center border border-[color:var(--fg)] bg-[color:var(--bg)] text-electric transition hover:bg-electric hover:text-white dark:border-electric" type="button" aria-label="Toggle dark mode"><span data-theme-icon aria-hidden="true">L</span></button>
+      </nav>
+    </header>
 
+    <main class="pt-24">
+      <section class="px-4 py-16 sm:px-6 lg:px-8">
+        <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.85fr_1.15fr]">
+          <div class="reveal">
+            <p class="text-sm font-black uppercase text-electric">Contact</p>
+            <h1 class="font-display mt-3 text-5xl uppercase leading-[0.86] text-electric text-glow sm:text-7xl lg:text-8xl">Send the signal.</h1>
+            <p class="mt-7 max-w-xl text-lg leading-8 text-[color:var(--soft-fg)]">Bookings, remix work, visual identity, event concepts, and direct creative collaborations.</p>
+            <a class="premium-glow mt-8 inline-block border border-[color:var(--fg)] px-5 py-4 text-sm font-black uppercase text-electric transition hover:bg-electric hover:text-white dark:border-electric" href="mailto:xarowobusiness@gmail.com">xarowobusiness@gmail.com</a>
+          </div>
+
+          <form id="contact-form" class="reveal border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 backdrop-blur-xl sm:p-7">
+            <div class="grid gap-4 sm:grid-cols-2">
+              <label class="text-sm font-black uppercase text-electric">Name<input name="name" required class="theme-control mt-2 h-12 w-full border px-4 outline-none" /></label>
+              <label class="text-sm font-black uppercase text-electric">Email<input name="email" required type="email" class="theme-control mt-2 h-12 w-full border px-4 outline-none" /></label>
+            </div>
+            <label class="mt-4 block text-sm font-black uppercase text-electric">Subject<input name="subject" class="theme-control mt-2 h-12 w-full border px-4 outline-none" placeholder="Booking / Remix / Visual / Other" /></label>
+            <label class="mt-4 block text-sm font-black uppercase text-electric">Message<textarea name="message" required rows="7" class="theme-control mt-2 w-full resize-y border px-4 py-3 outline-none"></textarea></label>
+            <button class="x-button premium-glow mt-5 border border-electric bg-electric px-6 py-4 text-sm font-black uppercase text-white transition hover:-translate-y-1" type="submit">Open email draft</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="ticker theme-invert-bar overflow-hidden border-y border-[color:var(--hairline)] py-4">
+        <div class="ticker-track">
+          <span class="font-display px-8 text-2xl uppercase text-electric">Bookings</span><span class="font-display px-8 text-2xl uppercase">Remixes</span><span class="font-display px-8 text-2xl uppercase text-electric">Visuals</span><span class="font-display px-8 text-2xl uppercase">Collabs</span>
+          <span class="font-display px-8 text-2xl uppercase text-electric">Bookings</span><span class="font-display px-8 text-2xl uppercase">Remixes</span><span class="font-display px-8 text-2xl uppercase text-electric">Visuals</span><span class="font-display px-8 text-2xl uppercase">Collabs</span>
+        </div>
+      </section>
+
+      <section class="px-4 py-16 sm:px-6 lg:px-8">
+        <div class="mx-auto grid max-w-7xl gap-px overflow-hidden border border-[color:var(--hairline)] bg-[color:var(--hairline)] sm:grid-cols-2 lg:grid-cols-4">
+          <a class="bg-[color:var(--bg)] p-6 text-2xl font-black uppercase transition hover:bg-electric hover:text-white" href="https://www.instagram.com/xarowomusic" target="_blank" rel="noreferrer">Instagram</a>
+          <a class="bg-[color:var(--bg)] p-6 text-2xl font-black uppercase transition hover:bg-electric hover:text-white" href="https://www.tiktok.com/@xarowomusic" target="_blank" rel="noreferrer">TikTok</a>
+          <a class="bg-[color:var(--bg)] p-6 text-2xl font-black uppercase transition hover:bg-electric hover:text-white" href="https://www.youtube.com/@xarowo" target="_blank" rel="noreferrer">YouTube</a>
+          <a class="bg-[color:var(--bg)] p-6 text-2xl font-black uppercase transition hover:bg-electric hover:text-white" href="https://www.twitch.tv/xarowomusic" target="_blank" rel="noreferrer">Twitch</a>
+          <a class="bg-[color:var(--bg)] p-6 text-2xl font-black uppercase transition hover:bg-electric hover:text-white" href="https://open.spotify.com/artist/0T08LlrmaZesOsWD3VCrmw" target="_blank" rel="noreferrer">Spotify</a>
+          <a class="bg-[color:var(--bg)] p-6 text-2xl font-black uppercase transition hover:bg-electric hover:text-white" href="https://music.apple.com/us/artist/xarowo/1769504567" target="_blank" rel="noreferrer">Apple Music</a>
+          <a class="bg-[color:var(--bg)] p-6 text-2xl font-black uppercase transition hover:bg-electric hover:text-white" href="https://soundcloud.com/xarowo" target="_blank" rel="noreferrer">SoundCloud</a>
+          <a class="bg-[color:var(--bg)] p-6 text-2xl font-black uppercase transition hover:bg-electric hover:text-white" href="mailto:xarowobusiness@gmail.com">Email</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-[color:var(--hairline)] px-4 py-8 text-sm font-bold text-[color:var(--soft-fg)] sm:px-6 lg:px-8"><div class="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><span>© 2026 Xarowo. Official digital asset.</span><span class="text-electric">Wroclaw // Worldwide</span></div></footer>
+    <aside id="cookie-banner" class="cookie-hidden fixed inset-x-4 bottom-4 z-50 mx-auto max-w-4xl border border-[color:var(--fg)] bg-[color:var(--bg)] p-5 text-[color:var(--fg)] premium-glow transition duration-500 dark:border-electric sm:p-6" role="dialog" aria-live="polite" aria-label="Cookie consent"><div class="grid gap-5 md:grid-cols-[1fr_auto] md:items-center"><div><p class="text-lg font-black uppercase text-electric">Privacy signal</p><p class="mt-2 text-sm leading-6 text-[color:var(--soft-fg)]">Optional analytics can help measure listening traffic and site performance. Consent is stored locally on this device.</p></div><div class="flex flex-wrap gap-3"><button id="decline-cookies" class="border border-[color:var(--hairline)] px-5 py-3 text-sm font-black uppercase transition hover:border-electric hover:text-electric" type="button">Decline</button><button id="accept-cookies" class="x-button border border-electric bg-electric px-5 py-3 text-sm font-black uppercase text-white transition hover:-translate-y-1" type="button">Accept</button></div></div></aside>
+    <script src="../assets/site.js"></script>
+  </body>
+</html>
