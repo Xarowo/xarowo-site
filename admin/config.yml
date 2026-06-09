@@ -9,6 +9,7 @@ media_folder: "assets"
 public_folder: "/assets"
 
 collections:
+  # 1. KOLEKCJA DO EDYCJI STAŁYCH PODSTRON (Home, Kontakt)
   - name: "pages"
     label: "Edycja Podstron"
     delete: false
@@ -30,3 +31,17 @@ collections:
           - { label: "Tytuł strony", name: "title", widget: "string" }
           - { label: "Opis", name: "description", widget: "text" }
           - { label: "Adres E-mail", name: "email", widget: "string" }
+
+  # 2. KOLEKCJA DO DODAWANIA NOWYCH RELEASÓW (MUZYKI)
+  - name: "music"
+    label: "Wydania (Music)"
+    folder: "data/music"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{title}}"
+    format: "json"
+    fields:
+      - { label: "Tytuł wydania", name: "title", widget: "string" }
+      - { label: "Data wydania", name: "release_date", widget: "date" }
+      - { label: "Okładka (Zdjęcie)", name: "cover", widget: "image" }
+      - { label: "Link do Spotify/SoundCloud", name: "link", widget: "string" }
+      - { label: "Opis / Tracklista", name: "body", widget: "markdown" }
