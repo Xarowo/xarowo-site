@@ -84,47 +84,46 @@
       document.addEventListener("DOMContentLoaded", () => {
         const container = document.getElementById("catalog-list");
 
-        // Funkcja pomocnicza budująca kartę wydania w HTML z poprawnym kontrastem kolorów
         function renderReleaseCard(title, date, cover, link) {
           const card = document.createElement("article");
-          card.className = "reveal magnetic-card border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 backdrop-blur-xl transition hover:border-electric";
+          // CAŁKOWITY RESET KLAS I REZYGNACJA ZE ZMIENNYCH Z SITE.CSS DLA TEGO ELEMENTU
+          card.className = "block w-full border border-zinc-800 bg-zinc-950/90 p-5 backdrop-blur-xl transition duration-300 hover:border-text-electric select-text opacity-100 visible";
           
-          // Zabezpieczenie ścieżki do okładki
           let coverSrc = '../assets/xarowo-mark.png';
           if (cover) {
             coverSrc = cover.startsWith('/') ? `..${cover}` : `../${cover}`;
           }
 
+          // KOPIOWANIE ZABEZPIECZONE POPRZEZ WYMUSZENIE KLAS STRUKTURALNYCH TAILWINDA ORAZ DROBNY INLINE STYLE
           card.innerHTML = `
-            <div class="relative overflow-hidden aspect-square w-full bg-zinc-900 mb-4 border border-[color:var(--hairline)]">
-              <img src="${coverSrc}" alt="${title}" class="w-full h-full object-cover transition duration-500 hover:scale-105 block" />
+            <div class="relative overflow-hidden aspect-square w-full bg-zinc-900 mb-4 border border-zinc-800 block" style="opacity: 1 !important; visibility: visible !important;">
+              <img src="${coverSrc}" alt="${title}" class="w-full h-full object-cover transition duration-500 hover:scale-105 block opacity-100" style="opacity: 1 !important; filter: none !important;" />
             </div>
-            <p class="text-[10px] font-black uppercase text-electric tracking-widest">${date || '2026 RELEASE'}</p>
-            <h2 class="font-display mt-2 text-xl uppercase tracking-tight text-neutral-900 dark:text-white">${title}</h2>
-            <div class="mt-4 pt-4 border-t border-[color:var(--hairline)] flex items-center justify-between">
-              <a href="${link || '#'}" target="_blank" rel="noreferrer" class="text-xs font-black uppercase tracking-wider text-neutral-900 dark:text-white hover:text-electric transition inline-flex items-center gap-2">
-                LAUNCH NODE <span class="text-electric">→</span>
+            <p class="text-[10px] font-black uppercase text-[#009BF8] tracking-widest block">${date || '2026 RELEASE'}</p>
+            <h2 class="font-display mt-2 text-xl uppercase tracking-tight text-white block">${title}</h2>
+            <div class="mt-4 pt-4 border-t border-zinc-800 flex items-center justify-between block">
+              <a href="${link || '#'}" target="_blank" rel="noreferrer" class="text-xs font-black uppercase tracking-wider text-white hover:text-[#009BF8] transition inline-flex items-center gap-2">
+                LAUNCH NODE <span class="text-[#009BF8]">→</span>
               </a>
             </div>
           `;
           container.appendChild(card);
         }
 
-        // Funkcja ładująca domyślne wydanie (w razie blokady API GitHuba)
         function loadFallbackRelease() {
-          container.innerHTML = ""; // Czyszczenie loadera
+          container.innerHTML = "";
           renderReleaseCard(
-            "FIRST DROP Sequence",
+            "NIGHTSTORM",
             "2026-03-15",
             "/assets/xarowo-banner.png",
             "https://spotify.com"
           );
         }
 
-        // Odpytujemy API GitHuba (wymuszone małe litery w nazwie użytkownika dla bezpieczeństwa)
+        // Odpytujemy API
         fetch('https://api.github.com/repos/xarowo/xarowo-site/contents/data/music')
           .then(res => {
-            if (!res.ok) throw new Error("GitHub API rate limit lub brak folderu");
+            if (!res.ok) throw new Error("GitHub API Fallback");
             return res.json();
           })
           .then(files => {
@@ -134,9 +133,8 @@
               return;
             }
 
-            container.innerHTML = ""; // Czyszczenie loadera
+            container.innerHTML = "";
 
-            // Pobieranie szczegółów wydań
             let loadedCount = 0;
             jsonFiles.forEach(file => {
               fetch(`../data/music/${file.name}`)
@@ -151,7 +149,7 @@
             });
           })
           .catch(err => {
-            console.warn("Przełączam w tryb lokalny/fallback:", err);
+            console.warn("Uruchamiam tryb bezpośredni:", err);
             loadFallbackRelease();
           });
       });
