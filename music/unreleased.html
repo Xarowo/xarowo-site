@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth class">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Xarowo music - Private Node Access." />
+    <title>Xarowo | Private Node</title>
+    <script>
+      globalThis.tailwind = globalThis.tailwind || {};
+      tailwind.config = { darkMode: "class", theme: { extend: { colors: { electric: "#009BF8", ink: "#000000", paper: "#FFFFFF" }, fontFamily: { display: ["Moderniz", "Inter", "Arial", "sans-serif"] } } } };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../assets/site.css" />
+    <style>
+      /* Efekt fake liquid glass dla centralnego panelu */
+      .glass-panel {
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease-out, box-shadow 0.3s ease;
+      }
+      .glass-panel:hover {
+        box-shadow: 0 25px 50px rgba(0, 155, 248, 0.25);
+        transform: scale(1.01);
+      }
+      .glass-glare {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle 250px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.08), transparent 80%);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      .glass-panel:hover .glass-glare {
+        opacity: 1;
+      }
+      /* Animacja pulsującej diody "Private" */
+      @keyframes pulse-glow {
+        0%, 100% { opacity: 0.4; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.2); }
+      }
+      .status-pulse {
+        animation: pulse-glow 2s infinite ease-in-out;
+      }
+    </style>
+  </head>
+  <body data-page="music-private" class="bg-paper text-ink antialiased dark:bg-ink dark:text-paper min-h-screen flex flex-col justify-between">
+    <canvas id="grain-canvas" aria-hidden="true"></canvas>
+
+    <header class="fixed inset-x-0 top-0 z-40 border-b border-[color:var(--hairline)] bg-[color:var(--panel)] backdrop-blur-xl">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Primary">
+        <a href="../home/" class="flex items-center gap-3" aria-label="Xarowo home">
+          <img src="../assets/xarowo-mark.png" alt="" class="brand-mark h-10 w-10 object-contain" />
+          <span class="font-display text-lg font-black uppercase text-electric">Xarowo</span>
+        </a>
+        <div class="hidden items-center gap-8 text-sm font-bold uppercase sm:flex">
+          <a class="nav-link transition hover:text-electric" data-page="home" href="../home/">Home</a>
+          <a class="nav-link transition hover:text-electric text-electric" data-page="music" href="../music/">Music</a>
+          <a class="nav-link transition hover:text-electric" data-page="contact" href="../contact/">Contact</a>
+        </div>
+        <button data-theme-toggle class="x-button premium-glow grid h-11 w-11 place-items-center border border-[color:var(--fg)] bg-[color:var(--bg)] text-electric transition hover:bg-electric hover:text-white dark:border-electric" type="button" aria-label="Toggle dark mode">
+          <span data-theme-icon aria-hidden="true">L</span>
+        </button>
+      </nav>
+    </header>
+
+    <main class="flex-1 flex items-center justify-center px-4 pt-24 pb-12">
+      <div id="interactive-panel" class="glass-panel max-w-xl w-full border border-zinc-800 bg-zinc-950/85 p-8 sm:p-12 backdrop-blur-xl rounded-2xl text-center select-none">
+        <div class="glass-glare"></div>
+        
+        <div class="inline-flex items-center gap-2 bg-zinc-900 px-4 py-1.5 rounded-full border border-zinc-800 mb-6">
+          <span class="status-pulse w-2 h-2 rounded-full bg-red-500 shadow-[0_0_8px_#ef4444]"></span>
+          <span class="text-[10px] font-black uppercase tracking-widest text-zinc-400">RESTRICTED ACCESS</span>
+        </div>
+
+        <h1 class="font-display text-2xl sm:text-3xl uppercase tracking-tight text-white mb-4">
+          NODE UNRESOLVED
+        </h1>
+        
+        <p class="text-zinc-400 text-sm font-bold leading-relaxed mb-8 max-w-sm mx-auto">
+          Ten utwór jest aktualnie <span class="text-electric">niepubliczny</span> lub znajduje się w fazie masteringu. Dostęp do cyfrowego węzła audio został tymczasowo zablokowany.
+        </p>
+
+        <div class="border-t border-b border-zinc-900 py-4 my-6 flex justify-center gap-1 opacity-60">
+          <span class="w-1 h-6 bg-zinc-800 rounded-full animate-bounce" style="animation-delay: 0.1s"></span>
+          <span class="w-1 h-8 bg-electric rounded-full animate-bounce" style="animation-delay: 0.3s"></span>
+          <span class="w-1 h-10 bg-electric rounded-full animate-bounce" style="animation-delay: 0.5s"></span>
+          <span class="w-1 h-6 bg-zinc-800 rounded-full animate-bounce" style="animation-delay: 0.2s"></span>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+          <a href="../music/" class="w-full sm:w-auto text-xs font-black uppercase tracking-wider text-white border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-900 hover:border-electric transition px-6 py-3.5 rounded-xl inline-flex items-center justify-center gap-2">
+            ← WRÓĆ DO KATALOGU
+          </a>
+          <a href="../home/" class="w-full sm:w-auto text-xs font-black uppercase tracking-wider text-ink bg-white hover:bg-electric hover:text-white transition px-6 py-3.5 rounded-xl inline-flex items-center justify-center gap-2">
+            STRONA GŁÓWNA
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <footer class="border-t border-[color:var(--hairline)] px-4 py-8 text-sm font-bold text-[color:var(--soft-fg)] sm:px-6 lg:px-8">
+      <div class="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <span>© 2026 Xarowo. Official digital asset.</span>
+        <a class="text-electric" href="https://spotify.com" target="_blank" rel="noreferrer">Spotify</a>
+      </div>
+    </footer>
+
+    <script src="../assets/site.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const panel = document.getElementById("interactive-panel");
+        
+        // Płynne podążanie odblasku za kursorem na panelu
+        panel.addEventListener("mousemove", (e) => {
+          const rect = panel.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          panel.style.setProperty('--x', `${x}px`);
+          panel.style.setProperty('--y', `${y}px`);
+        });
+      });
+    </script>
+  </body>
+</html>
