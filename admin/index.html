@@ -17,13 +17,14 @@
         },
         media_folder: "assets",
         public_folder: "/assets",
+        // Dodajemy domyślny format na poziomie głównym
+        format: "json",
         collections: [
           {
             name: "releases",
             label: "Releases",
             folder: "data",
             extension: "json",
-            format: "json",
             create: true,
             slug: "{{title}}",
             fields: [
