@@ -13,13 +13,19 @@ collections:
     label: "Edycja Podstron"
     delete: false
     files:
-      - label: "Strona Główna" # Poprawione z title na label
+- label: "Strona Główna"
         name: "home"
         file: "data/homepage.json"
         fields:
           - { label: "Główny Nagłówek (Hero)", name: "hero_title", widget: "string" }
           - { label: "Podtekst (Hero)", name: "hero_subtitle", widget: "text" }
-
+          # --- SEKCJA TIMERA ---
+          - { label: "Timer - Mały Nagłówek", name: "timer_tag", widget: "string" }
+          - { label: "Timer - Tytuł", name: "timer_title", widget: "string" }
+          - { label: "Timer - Data Końcowa (np. 2026-12-31T23:59:59)", name: "timer_date", widget: "datetime" }
+          # --- SEKCJA KART (OPCJONALNIE) ---
+          - label: "Karta 1 - Tytuł", name: "card1_title", widget: "string"
+          - label: "Karta 1 - Opis", name: "card1_text", widget: "text"
       - label: "Strona Kontaktowa" # Poprawione z title na label
         name: "contact"
         file: "data/contactpage.json"
