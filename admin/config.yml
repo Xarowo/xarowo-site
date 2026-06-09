@@ -45,3 +45,24 @@ collections:
       - { label: "Okładka (Zdjęcie)", name: "cover", widget: "image" }
       - { label: "Link do Spotify/SoundCloud", name: "link", widget: "string" }
       - { label: "Opis / Tracklista", name: "body", widget: "markdown" }
+
+# 3. KOLEKCJA DO EDYCJI STRONY BIO (Sociale + Audio Player)
+  - name: "bio"
+    label: "Strona Bio"
+    delete: false
+    files:
+      - label: "Konfiguracja Bio"
+        name: "bio_data"
+        file: "data/biopage.json"
+        fields:
+          - { label: "Tytuł Utworu w Playerze", name: "player_title", widget: "string", hint: "np. XAROWO - UNTITLED DUB (ID)" }
+          - { label: "Album / Podpis w Playerze", name: "player_album", widget: "string", hint: "np. Dubplate Special // 2026" }
+          - { label: "Plik Audio (URL lub plik)", name: "player_source", widget: "file", hint: "Wgraj plik .mp3 lub wklej bezpośredni link" }
+          - label: "Ikony i Linki Społecznościowe"
+            name: "socials"
+            widget: "list"
+            allow_add: true
+            fields:
+              - { label: "Nazwa Platformy", name: "name", widget: "string" }
+              - { label: "Pełny Link (URL)", name: "url", widget: "string" }
+              - { label: "Czysty kod SVG ikony (Wnętrze path)", name: "svg", widget: "text", hint: "Wklej tutaj tylko to, co jest wewnątrz tagu <svg>...</svg>, np. <path d='...'/>" }
