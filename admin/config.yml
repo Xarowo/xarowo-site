@@ -9,40 +9,21 @@ media_folder: "assets"
 public_folder: "/assets"
 
 collections:
-  # 1. KOLEKCJA DO EDYCJI CAŁYCH PODSTRON (NA SZTYWNO)
   - name: "pages"
     label: "Edycja Podstron"
-    delete: false # Blokujemy usuwanie, bo to stałe elementy strony
+    delete: false
     files:
-      - title: "Strona Główna"
+      - label: "Strona Główna" # Poprawione z title na label
         name: "home"
         file: "data/homepage.json"
         fields:
           - { label: "Główny Nagłówek (Hero)", name: "hero_title", widget: "string" }
           - { label: "Podtekst (Hero)", name: "hero_subtitle", widget: "text" }
-          - { label: "Zdjęcie w tle", name: "hero_bg", widget: "image", required: false }
-          - { label: "O mnie - Tytuł", name: "about_title", widget: "string" }
-          - { label: "O mnie - Treść", name: "about_text", widget: "markdown" }
 
-      - title: "Strona Kontaktowa"
+      - label: "Strona Kontaktowa" # Poprawione z title na label
         name: "contact"
         file: "data/contactpage.json"
         fields:
           - { label: "Tytuł strony", name: "title", widget: "string" }
           - { label: "Opis", name: "description", widget: "text" }
           - { label: "Adres E-mail", name: "email", widget: "string" }
-          - { label: "Link do Instagrama", name: "instagram", widget: "string", required: false }
-
-  # 2. TWOJA POPRZEDNIA KOLEKCJA (DO DODAWANIA KOLEJNYCH ALBUMÓW)
-  - name: "releases"
-    label: "Releases (Wydania)"
-    folder: "data/releases"
-    extension: "json"
-    format: "json"
-    create: true
-    slug: "{{title}}"
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Year", name: "year", widget: "number" }
-      - { label: "Cover Image", name: "cover_image", widget: "image" }
-      - { label: "Spotify Link", name: "spotify_link", widget: "string", required: false }
