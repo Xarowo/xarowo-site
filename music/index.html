@@ -12,21 +12,31 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../assets/site.css" />
     <style>
-      /* Baza pod efekty interaktywne */
+      /* Baza pod zaawansowane efekty 3D */
       #catalog-list {
-        perspective: 1200px;
+        perspective: 1500px;
       }
       .music-card-node {
-        transition: transform 0.15s ease-out, opacity 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         transform-style: preserve-3d;
         will-change: transform, opacity;
       }
+      /* Płynne podświetlenie neonowe dopasowane do zaokrąglonych rogów */
       .music-card-node:hover {
-        box-shadow: 0 20px 40px rgba(0, 155, 248, 0.15);
+        box-shadow: 0 20px 45px rgba(0, 155, 248, 0.2);
       }
-      .music-card-node img {
-        transform: translateZ(25px);
-        backface-visibility: hidden;
+      /* Efekt Fake Liquid Glass Glare */
+      .glass-glare {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle 180px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.12), transparent 80%);
+        z-index: 5;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        opacity: 0;
+      }
+      .music-card-node:hover .glass-glare {
+        opacity: 1;
       }
     </style>
   </head>
@@ -104,17 +114,18 @@
 
         function renderReleaseCard(title, date, cover, link) {
           const card = document.createElement("article");
-          // W pełni odporna struktura klas
-          card.className = "music-card-node w-full border border-zinc-800 bg-zinc-950/90 p-5 backdrop-blur-xl hover:border-electric select-text opacity-100 visible cursor-pointer block";
+          // ZAOKRĄGLONE ROGI (rounded-2xl) ORAZ RELATIVE DO EFEKTU GLASS
+          card.className = "music-card-node relative overflow-hidden w-full border border-zinc-800 bg-zinc-950/85 p-5 backdrop-blur-xl hover:border-electric select-text opacity-100 visible cursor-pointer block rounded-2xl";
           
           let coverSrc = '../assets/xarowo-mark.png';
           if (cover) {
             coverSrc = cover.startsWith('/') ? `..${cover}` : `../${cover}`;
           }
 
-          // Wstrzyknięcie czystego HTML z przyciskiem STREAM NOW!
+          // Wstrzykiwanie HTML z warstwą fake liquid glass i zaokrągloną okładką (rounded-xl)
           card.innerHTML = `
-            <div class="relative overflow-hidden aspect-square w-full bg-zinc-900 mb-4 border border-zinc-800 block pointer-events-none" style="opacity: 1 !important; visibility: visible !important;">
+            <div class="glass-glare"></div>
+            <div class="relative overflow-hidden aspect-square w-full bg-zinc-900 mb-4 border border-zinc-800 block pointer-events-none rounded-xl" style="opacity: 1 !important; visibility: visible !important;">
               <img src="${coverSrc}" alt="${title}" class="w-full h-full object-cover transition duration-300 block opacity-100" style="opacity: 1 !important; filter: none !important;" />
             </div>
             <p class="text-[10px] font-black uppercase text-[#009BF8] tracking-widest block pointer-events-none">${date || '2026 RELEASE'}</p>
@@ -126,9 +137,7 @@
             </div>
           `;
 
-          // --- MATEMATYCZNA OBSŁUGA EFEKTÓW MODERNYCH (TILT + FOCUS OPACITY) ---
-          
-          // 1. Efekt 3D Tilt po najechaniu na kartę
+          // --- ULTRA-PŁYNNA OBSŁUGA TILT (4°) + LIQUID GLASS GLARE ---
           card.addEventListener("mousemove", (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -137,33 +146,38 @@
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const maxTilt = 10; // Kąt wychylenia w stopniach
+            // Subtelniejszy tilt (max 4 stopnie zamiast 10)
+            const maxTilt = 4; 
             const tiltX = ((centerY - y) / centerY) * maxTilt;
             const tiltY = ((x - centerX) / centerX) * maxTilt;
             
-            card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+            card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.015)`;
+            
+            // Dynamiczne mapowanie pozycji odblasku Liquid Glass na podstawie myszki
+            card.style.setProperty('--x', `${x}px`);
+            card.style.setProperty('--y', `${y}px`);
           });
 
-          // 2. Focus Mode (Ściemnianie pozostałych okładek)
+          // Focus Mode (Ściemnianie pozostałych okładek do 0.3)
           card.addEventListener("mouseenter", () => {
             const allCards = document.querySelectorAll(".music-card-node");
             allCards.forEach(c => {
               if (c !== card) {
-                c.style.opacity = "0.3"; // Wszystkie inne karty idą w tło
+                c.style.opacity = "0.3";
               }
             });
           });
 
-          // 3. Reset pozycji karty i przezroczystości innych okładek po zjechaniu myszką
+          // Reset przy zjechaniu myszką
           card.addEventListener("mouseleave", () => {
             card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
             const allCards = document.querySelectorAll(".music-card-node");
             allCards.forEach(c => {
-              c.style.opacity = "1"; // Powrót do normy
+              c.style.opacity = "1";
             });
           });
 
-          // Kliknięcie w całą przestrzeń kafelka odpala link strumieniowania
+          // Klik w całą kartę aktywuje streaming
           card.addEventListener("click", (e) => {
             if (e.target.tagName !== 'A') {
               window.open(link || '#', '_blank', 'noreferrer');
@@ -183,7 +197,7 @@
           );
         }
 
-        // Odpytywanie GitHuba o dane CMS (Z naprawionym błędem składni!)
+        // Ładowanie z API GitHuba
         fetch('https://api.github.com/repos/xarowo/xarowo-site/contents/data/music')
           .then(res => {
             if (!res.ok) throw new Error("GitHub API Error");
