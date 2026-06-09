@@ -11,6 +11,26 @@
     </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../assets/site.css" />
+    <style>
+      /* Wymuszenie perspektywy dla efektu 3D tilt */
+      #catalog-list {
+        perspective: 1000px;
+      }
+      /* Płynne animacje dla transformacji i przezroczystości */
+      .music-card-node {
+        transition: transform 0.15s ease-out, opacity 0.4s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        transform-style: preserve-3d;
+      }
+      /* Efekt delikatnego podświetlenia aktywnej karty */
+      .music-card-node:hover {
+        box-shadow: 0 15px 35px rgba(0, 155, 248, 0.15);
+      }
+      /* Zapobieganie "migotaniu" obrazka wewnątrz transformowanego kontenera */
+      .music-card-node img {
+        transform: translateZ(20px);
+        backface-visibility: hidden;
+      }
+    </style>
   </head>
   <body data-page="music" class="bg-paper text-ink antialiased dark:bg-ink dark:text-paper">
     <canvas id="grain-canvas" aria-hidden="true"></canvas>
@@ -52,7 +72,7 @@
           </div>
         </div>
 
-        <div id="catalog-list" class="reveal mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-300">
+        <div id="catalog-list" class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-300">
           <p class="py-8 text-center text-sm font-bold text-[color:var(--soft-fg)] uppercase col-span-full">Initializing digital log...</p>
         </div>
       </section>
@@ -86,27 +106,73 @@
 
         function renderReleaseCard(title, date, cover, link) {
           const card = document.createElement("article");
-          // CAŁKOWITY RESET KLAS I REZYGNACJA ZE ZMIENNYCH Z SITE.CSS DLA TEGO ELEMENTU
-          card.className = "block w-full border border-zinc-800 bg-zinc-950/90 p-5 backdrop-blur-xl transition duration-300 hover:border-text-electric select-text opacity-100 visible";
+          // Wstrzyknęliśmy klasę dedykowaną 'music-card-node' do sterowania animacjami przez JS
+          card.className = "music-card-node w-full border border-zinc-800 bg-zinc-950/90 p-5 backdrop-blur-xl hover:border-electric select-text opacity-100 visible cursor-pointer";
           
           let coverSrc = '../assets/xarowo-mark.png';
           if (cover) {
             coverSrc = cover.startsWith('/') ? `..${cover}` : `../${cover}`;
           }
 
-          // KOPIOWANIE ZABEZPIECZONE POPRZEZ WYMUSZENIE KLAS STRUKTURALNYCH TAILWINDA ORAZ DROBNY INLINE STYLE
+          // Tekst podmieniony na "STREAM NOW!" z zachowaniem Twojej identyfikacji wizualnej
           card.innerHTML = `
-            <div class="relative overflow-hidden aspect-square w-full bg-zinc-900 mb-4 border border-zinc-800 block" style="opacity: 1 !important; visibility: visible !important;">
-              <img src="${coverSrc}" alt="${title}" class="w-full h-full object-cover transition duration-500 hover:scale-105 block opacity-100" style="opacity: 1 !important; filter: none !important;" />
+            <div class="relative overflow-hidden aspect-square w-full bg-zinc-900 mb-4 border border-zinc-800 block pointer-events-none" style="opacity: 1 !important; visibility: visible !important;">
+              <img src="${coverSrc}" alt="${title}" class="w-full h-full object-cover transition duration-300 block opacity-100" style="opacity: 1 !important; filter: none !important;" />
             </div>
-            <p class="text-[10px] font-black uppercase text-[#009BF8] tracking-widest block">${date || '2026 RELEASE'}</p>
-            <h2 class="font-display mt-2 text-xl uppercase tracking-tight text-white block">${title}</h2>
+            <p class="text-[10px] font-black uppercase text-[#009BF8] tracking-widest block pointer-events-none">${date || '2026 RELEASE'}</p>
+            <h2 class="font-display mt-2 text-xl uppercase tracking-tight text-white block pointer-events-none">${title}</h2>
             <div class="mt-4 pt-4 border-t border-zinc-800 flex items-center justify-between block">
-              <a href="${link || '#'}" target="_blank" rel="noreferrer" class="text-xs font-black uppercase tracking-wider text-white hover:text-[#009BF8] transition inline-flex items-center gap-2">
-                LAUNCH NODE <span class="text-[#009BF8]">→</span>
+              <a href="${link || '#'}" target="_blank" rel="noreferrer" class="text-xs font-black uppercase tracking-wider text-white hover:text-[#009BF8] transition inline-flex items-center gap-2 z-10 relative">
+                STREAM NOW! <span class="text-[#009BF8]">→</span>
               </a>
             </div>
           `;
+
+          // --- IMPLEMENTACJA INTERAKTYWNYCH EFEKTÓW WIZUALNYCH (TILT + FOCUS) ---
+          
+          // 1. Ruch myszką po karcie (Pochylenie 3D Tilt)
+          card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left; // pozycja X kursora wewnątrz karty
+            const y = e.clientY - rect.top;  // pozycja Y kursora wewnątrz karty
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Maksymalny kąt obrotu (w stopniach) - ustawiony na bezpieczne, luksusowe 12 stopni
+            const maxTilt = 12; 
+            const tiltX = ((centerY - y) / centerY) * maxTilt;
+            const tiltY = ((x - centerX) / centerX) * maxTilt;
+            
+            card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+          });
+
+          // 2. Najazd myszką (Ściemnianie innych okładek - Focus Mode)
+          card.addEventListener("mouseenter", () => {
+            const allCards = document.querySelectorAll(".music-card-node");
+            allCards.forEach(c => {
+              if (c !== card) {
+                c.style.opacity = "0.35"; // Inne karty gasną w tle
+              }
+            });
+          });
+
+          // 3. Zjazd myszką z karty (Reset pozycji i przezroczystości)
+          card.addEventListener("mouseleave", () => {
+            card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+            const allCards = document.querySelectorAll(".music-card-node");
+            allCards.forEach(c => {
+              c.style.opacity = "1"; // Wszystkie karty wracają do pełnej jasności
+            });
+          });
+
+          // Kliknięcie w dowolne miejsce karty uruchamia streaming linku
+          card.addEventListener("click", (e) => {
+            if (e.target.tagName !== 'A') {
+              window.open(link || '#', '_blank', 'noreferrer');
+            }
+          });
+
           container.appendChild(card);
         }
 
@@ -120,12 +186,11 @@
           );
         }
 
-        // Odpytujemy API
+        // Odpytywanie repozytorium GitHub
         fetch('https://api.github.com/repos/xarowo/xarowo-site/contents/data/music')
           .then(res => {
             if (!res.ok) throw new Error("GitHub API Fallback");
-            return res.json();
-          })
+            return res.json())
           .then(files => {
             const jsonFiles = files.filter(f => f.name.endsWith('.json'));
             if(jsonFiles.length === 0) {
