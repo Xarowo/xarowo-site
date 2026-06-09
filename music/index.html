@@ -89,7 +89,7 @@
     <footer class="border-t border-[color:var(--hairline)] px-4 py-8 text-sm font-bold text-[color:var(--soft-fg)] sm:px-6 lg:px-8">
       <div class="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <span>© 2026 Xarowo. Official digital asset.</span>
-        <a class="text-electric" href="https://spotify.com" target="_blank" rel="noreferrer">Spotify</a>
+        <a class="text-electric" href="https://spotify.com" target="_blank" rel="noreferrer"></a>
       </div>
     </footer>
 
@@ -114,7 +114,6 @@
 
         function renderReleaseCard(title, date, cover, link) {
           const card = document.createElement("article");
-          // ZAOKRĄGLONE ROGI (rounded-2xl) ORAZ RELATIVE DO EFEKTU GLASS
           card.className = "music-card-node relative overflow-hidden w-full border border-zinc-800 bg-zinc-950/85 p-5 backdrop-blur-xl hover:border-electric select-text opacity-100 visible cursor-pointer block rounded-2xl";
           
           let coverSrc = '../assets/xarowo-mark.png';
@@ -122,7 +121,6 @@
             coverSrc = cover.startsWith('/') ? `..${cover}` : `../${cover}`;
           }
 
-          // Wstrzykiwanie HTML z warstwą fake liquid glass i zaokrągloną okładką (rounded-xl)
           card.innerHTML = `
             <div class="glass-glare"></div>
             <div class="relative overflow-hidden aspect-square w-full bg-zinc-900 mb-4 border border-zinc-800 block pointer-events-none rounded-xl" style="opacity: 1 !important; visibility: visible !important;">
@@ -146,19 +144,17 @@
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            // Subtelniejszy tilt (max 4 stopnie zamiast 10)
             const maxTilt = 4; 
             const tiltX = ((centerY - y) / centerY) * maxTilt;
             const tiltY = ((x - centerX) / centerX) * maxTilt;
             
             card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.015)`;
             
-            // Dynamiczne mapowanie pozycji odblasku Liquid Glass na podstawie myszki
             card.style.setProperty('--x', `${x}px`);
             card.style.setProperty('--y', `${y}px`);
           });
 
-          // Focus Mode (Ściemnianie pozostałych okładek do 0.3)
+          // Focus Mode
           card.addEventListener("mouseenter", () => {
             const allCards = document.querySelectorAll(".music-card-node");
             allCards.forEach(c => {
@@ -177,7 +173,6 @@
             });
           });
 
-          // Klik w całą kartę aktywuje streaming
           card.addEventListener("click", (e) => {
             if (e.target.tagName !== 'A') {
               window.open(link || '#', '_blank', 'noreferrer');
@@ -197,7 +192,7 @@
           );
         }
 
-        // Ładowanie z API GitHuba
+        // Ładowanie z API GitHuba z uwzględnieniem sortowania chronologicznego
         fetch('https://api.github.com/repos/xarowo/xarowo-site/contents/data/music')
           .then(res => {
             if (!res.ok) throw new Error("GitHub API Error");
@@ -210,18 +205,39 @@
               return;
             }
 
-            container.innerHTML = "";
+            let loadedReleases = [];
+            let processedCount = 0;
 
-            let loadedCount = 0;
             jsonFiles.forEach(file => {
               fetch(`../data/music/${file.name}`)
                 .then(r => r.json())
                 .then(release => {
-                  renderReleaseCard(release.title, release.release_date, release.cover, release.link);
-                  loadedCount++;
+                  loadedReleases.push(release);
                 })
-                .catch(() => {
-                  if(loadedCount === 0 && file === jsonFiles[jsonFiles.length - 1]) loadFallbackRelease();
+                .catch(err => console.error("Error loading release file:", err))
+                .finally(() => {
+                  processedCount++;
+                  // Kiedy wszystkie pliki zostaną pobrane do pamięci, sortujemy i renderujemy
+                  if (processedCount === jsonFiles.length) {
+                    if (loadedReleases.length === 0) {
+                      loadFallbackRelease();
+                    } else {
+                      container.innerHTML = "";
+                      
+                      // SORTOWANIE: Od najnowszej daty do najstarszej (new Date(b) - new Date(a))
+                      // Jeśli chcesz na odwrót (od najstarszych), zamień "b" z "a" miejscami.
+                      loadedReleases.sort((a, b) => {
+                        const dateA = new Date(a.release_date || '1970-01-01');
+                        const dateB = new Date(b.release_date || '1970-01-01');
+                        return dateB - dateA;
+                      });
+
+                      // Renderowanie posortowanej listy
+                      loadedReleases.forEach(rel => {
+                        renderReleaseCard(rel.title, rel.release_date, rel.cover, rel.link);
+                      });
+                    }
+                  }
                 });
             });
           })
