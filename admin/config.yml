@@ -1,14 +1,16 @@
 backend:
   name: github
-  repo: Xarowo/xarowo-site  # Zmienisz to po wrzuceniu na GitHub
+  repo: Xarowo/xarowo-site
   branch: main
+  base_url: https://api.decapcms.org
+  auth_endpoint: /auth
 
-media_folder: "assets" # Zdjęcia okładek trafią do Twojego folderu assets
+media_folder: "assets"
 public_folder: "/assets"
 
 collections:
   - name: "releases"
-    label: "Releases"
+  - label: "Releases"
     folder: "data"
     extension: "json"
     format: "json"
