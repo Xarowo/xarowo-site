@@ -92,6 +92,9 @@
 
         <hr class="border-zinc-900 my-8 max-w-xs mx-auto relative z-10" />
 
+        <div id="social-grid" class="relative z-10 grid grid-cols-4 gap-4 sm:flex sm:flex-wrap sm:justify-center sm:gap-6 max-w-xl mx-auto px-2 mb-8">
+          </div>
+
         <div class="relative z-10 max-w-md mx-auto bg-zinc-900/40 border border-zinc-800/80 rounded-2xl p-4 flex items-center gap-4 text-left backdrop-blur-md mb-4">
           <button id="player-play-btn" class="h-12 w-12 flex items-center justify-center bg-electric hover:bg-white text-white hover:text-ink rounded-full transition-colors flex-shrink-0">
             <svg id="play-icon" class="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -124,6 +127,7 @@
     <script src="../assets/site.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", async () => {
+        const grid = document.getElementById("social-grid");
         const audio = document.getElementById("audio-element");
         const playBtn = document.getElementById("player-play-btn");
         const playIcon = document.getElementById("play-icon");
@@ -134,15 +138,29 @@
         const progressContainer = document.getElementById("player-progress-container");
 
         try {
+          // Pobieranie pliku generowanego bezpośrednio przez CMS
           const response = await fetch('../data/biopage.json');
-          if (!response.ok) throw new Error("CMS data file missing");
+          if (!response.ok) throw new Error("Plik data/biopage.json nie istnieje. Zapisz zmiany w CMS.");
           const cmsData = await response.json();
 
-          // Podłączenie danych playera audio z CMS
+          // 1. DYNAMICZNY GENERATOR IKON I LINKÓW
+          if (cmsData.socials && cmsData.socials.length > 0) {
+            grid.innerHTML = cmsData.socials.map(item => `
+              <a href="${item.url}" target="_blank" rel="noreferrer" aria-label="${item.name}" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
+                <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                  ${item.svg}
+                </svg>
+              </a>
+            `).join('');
+          } else {
+            grid.innerHTML = `<div class="col-span-4 text-xs text-zinc-500 uppercase font-bold tracking-widest py-4">Brak dodanych aplikacji w panelu</div>`;
+          }
+
+          // 2. PARSOWANIE AUDIO Z CMS (Poprawione klucze z config.yml)
           if (cmsData.player_source) {
             audio.src = cmsData.player_source;
-            trackTitle.textContent = cmsData.player_title || "Untitled Track";
-            trackAlbum.textContent = cmsData.player_album || "Xarowo Records";
+            trackTitle.textContent = cmsData.player_title || "ID TRACK";
+            trackAlbum.textContent = cmsData.player_album || "XAROWO RECORDS";
 
             playBtn.addEventListener("click", () => {
               if (audio.paused) {
@@ -157,22 +175,28 @@
             });
 
             audio.addEventListener("timeupdate", () => {
-              const progress = (audio.currentTime / audio.duration) * 100;
-              progressBar.style.width = `${progress}%`;
+              if (audio.duration) {
+                const progress = (audio.currentTime / audio.duration) * 100;
+                progressBar.style.width = `${progress}%`;
+              }
             });
 
             progressContainer.addEventListener("click", (e) => {
               const rect = progressContainer.getBoundingClientRect();
               const clickX = e.clientX - rect.left;
-              audio.currentTime = (clickX / rect.width) * audio.duration;
+              if (audio.duration) {
+                audio.currentTime = (clickX / rect.width) * audio.duration;
+              }
             });
           } else {
-            trackTitle.textContent = "Player offline";
+            trackTitle.textContent = "Brak aktywnego utworu";
+            trackAlbum.textContent = "Ustaw plik w CMS";
           }
 
         } catch (err) {
-          console.error("CMS Sync Error:", err);
-          trackTitle.textContent = "Sync failed // Verify biopage.json";
+          console.error("Błąd synchronizacji z CMS:", err);
+          trackTitle.textContent = "Błąd synchronizacji CMS";
+          grid.innerHTML = `<div class="col-span-4 text-xs text-red-500 font-bold uppercase tracking-wide">Sync Error // Sprawdź data/biopage.json</div>`;
         }
 
         // Efekt Tilt 3D dla PC
