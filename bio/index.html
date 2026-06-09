@@ -18,7 +18,6 @@
         padding-top: env(safe-area-inset-top, 0px);
         padding-bottom: env(safe-area-inset-bottom, 0px);
       }
-      /* Zaawansowany Liquid Glass dla głównej karty profilowej */
       .profile-perspective {
         perspective: 1500px;
       }
@@ -42,7 +41,6 @@
       .glass-profile-card:hover .card-glare {
         opacity: 1;
       }
-      /* Animacja pulsującego tła sygnału */
       @keyframes radar-pulse {
         0% { transform: scale(0.95); opacity: 0.5; }
         50% { transform: scale(1.1); opacity: 0.1; }
@@ -51,7 +49,6 @@
       .radar-glow {
         animation: radar-pulse 3s infinite cubic-bezier(0.215, 0.610, 0.355, 1);
       }
-      /* Liquid Aura Drift - Płynny ruch luksusowego światła w tle */
       @keyframes aura-drift {
         0% { transform: translate(-30%, -30%) rotate(0deg) scale(1); }
         33% { transform: translate(20%, 10%) rotate(120deg) scale(1.2); }
@@ -103,43 +100,25 @@
 
         <hr class="border-zinc-900 my-8 max-w-xs mx-auto relative z-10" />
 
-        <div class="relative z-10 grid grid-cols-4 gap-4 sm:flex sm:flex-wrap sm:justify-center sm:gap-6 max-w-xl mx-auto px-2">
-          
-          <a href="https://www.instagram.com/xarowomusic" target="_blank" rel="noreferrer" aria-label="Instagram" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
-            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-          </a>
+        <div id="social-grid" class="relative z-10 grid grid-cols-4 gap-4 sm:flex sm:flex-wrap sm:justify-center sm:gap-6 max-w-xl mx-auto px-2 mb-8">
+          </div>
 
-          <a href="https://www.tiktok.com/@xarowomusic" target="_blank" rel="noreferrer" aria-label="TikTok" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
-            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12.53.02C13.84.06 15 .53 16 1.36c.15.12.23.17.4.11A6.97 6.97 0 0 0 20.31 0h2.9c-.07 1.25-.41 2.37-1.08 3.39-.76 1.16-1.78 2-3.08 2.46-.15.05-.22.13-.22.3v3.46c-.01 3.32-.99 6.14-3.09 8.44-2.08 2.28-4.73 3.4-7.75 3.4a10.05 10.05 0 0 1-7.15-2.91C1.04 16.33.01 13.73 0 10.75c-.01-3.14 1.09-5.79 3.37-7.9A10.01 10.01 0 0 1 10.58.02c.65.01 1.29.01 1.95 0zm-1.84 5.92c-1.32.02-2.46.5-3.38 1.46-.89.92-1.32 2.05-1.32 3.34.01 1.29.47 2.4 1.37 3.32.92.94 2.05 1.41 3.38 1.41 1.31 0 2.42-.46 3.34-1.4.91-.93 1.36-2.05 1.37-3.35v-4c-1.17-.02-2.25-.44-3.14-1.22-.65-.57-.11-.56-.62-.56z"/></svg>
-          </a>
-
-          <a href="https://open.spotify.com/artist/0T08LlrmaZesOsWD3VCrmw" target="_blank" rel="noreferrer" aria-label="Spotify" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
-            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm5.503 17.306c-.218.358-.683.474-1.037.256-2.876-1.758-6.497-2.157-10.76-1.18-.41.093-.814-.165-.907-.573-.093-.41.164-.814.573-.907 4.657-1.064 8.648-.61 11.874 1.362.353.218.47.683.257 1.042zm1.47-3.262c-.275.447-.86.593-1.307.318-3.292-2.023-8.31-2.61-12.2-1.428-.502.153-1.027-.135-1.18-.637-.153-.502.135-1.027.637-1.18 4.453-1.352 9.986-.704 13.733 1.598.447.275.593.86.318 1.308zm.126-3.416C15.148 8.214 8.572 8 4.763 9.155c-.596.18-1.23-.157-1.41-.752-.18-.596.157-1.23.752-1.41 4.37-1.325 11.623-1.077 16.203 1.64.536.317.712 1.007.394 1.543-.318.536-1.008.712-1.544.394z"/></svg>
-          </a>
-
-          <a href="https://soundcloud.com/xarowo" target="_blank" rel="noreferrer" aria-label="SoundCloud" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
-            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M11.56 16.75h.57V8.53h-.57zm-1.43 0h.58V7.47h-.58zm2.86 0h.57V8.12h-.57zm-4.29 0h.58V8.38h-.58zm5.72 0h.57V9.06h-.57zm-7.15 0h.58V9.81h-.58zm8.58 0h.57v-8.1h-.57zm-10.01 0h.58v-5.6h-.58zm11.44 0h.57V8.89h-.57zm-12.87 0h.58v-4.13h-.58zm14.3 0c1.78 0 3.22-1.4 3.22-3.13s-1.44-3.13-3.22-3.13c-.23 0-.46.03-.68.08V9.11c-.56-2.58-2.91-4.49-5.74-4.49-2.31 0-4.33 1.27-5.32 3.16-.31-.11-.64-.17-.98-.17-1.47 0-2.68 1.12-2.85 2.56a1.9 1.9 0 0 0-.68-.13c-1.05 0-1.91.82-1.91 1.83 0 1 .86 1.83 1.91 1.83h16.25z"/></svg>
-          </a>
-
-          <a href="https://www.youtube.com/@xarowo" target="_blank" rel="noreferrer" aria-label="YouTube" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
-            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-          </a>
-
-          <a href="https://music.apple.com/us/artist/xarowo/1769504567" target="_blank" rel="noreferrer" aria-label="Apple Music" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
-            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.33 12.35c-.09.52-.45.91-.97 1.05-.37.1-.76.01-1.1-.16-.21-.1-.4-.25-.6-.36-.08-.04-.17-.05-.26-.01-.31.17-.64.32-.99.37-.44.07-.84-.08-1.16-.4-.33-.33-.45-.75-.4-1.21.06-.48.32-.86.74-1.11.37-.23.79-.33 1.22-.34.31 0 .61.04.91.12.08.02.13-.01.17-.07.15-.27.23-.56.22-.88-.01-.51-.3-.85-.8-.91-.33-.04-.64.04-.92.2-.24.14-.39.34-.47.61-.04.13-.11.19-.24.16-.22-.04-.34-.18-.34-.41 0-.39.22-.71.54-.93.47-.32.99-.42 1.55-.31.8.17 1.27.72 1.31 1.54.04.72.02 1.44.01 2.16v.58z"/></svg>
-          </a>
-
-          <a href="https://www.twitch.tv/xarowomusic" target="_blank" rel="noreferrer" aria-label="Twitch" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
-            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.43l-3 3v-3H6.857V1.714h13.714Z"/></svg>
-          </a>
-
-          <a href="../contact/" aria-label="Contact Inquiries" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
-            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          </a>
-
+        <div class="relative z-10 max-w-md mx-auto bg-zinc-900/40 border border-zinc-800/80 rounded-2xl p-4 flex items-center gap-4 text-left backdrop-blur-md">
+          <button id="player-play-btn" class="h-12 w-12 flex items-center justify-center bg-electric hover:bg-white text-white hover:text-ink rounded-full transition-colors flex-shrink-0">
+            <svg id="play-icon" class="h-5 w-5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="pause-icon" class="h-5 w-5 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+          <div class="flex-1 min-w-0">
+            <span id="player-track-title" class="block text-xs font-black uppercase tracking-wide text-white truncate">Loading Track...</span>
+            <span id="player-track-album" class="block text-[10px] font-bold text-zinc-500 uppercase tracking-wider truncate">Xarowo Records</span>
+            <div class="w-full bg-zinc-800 h-1 rounded-full mt-2 overflow-hidden cursor-pointer" id="player-progress-container">
+              <div id="player-progress-bar" class="bg-electric h-full w-0 transition-all duration-100"></div>
+            </div>
+          </div>
+          <audio id="audio-element" preload="none"></audio>
         </div>
 
-        <div class="mt-10 relative z-10 max-w-sm mx-auto">
+        <div class="mt-8 relative z-10 max-w-sm mx-auto">
           <a href="../music/" class="premium-glow flex items-center justify-center gap-3 w-full border border-electric bg-electric px-6 py-4 text-xs sm:text-sm font-black uppercase text-white transition duration-300 hover:bg-transparent hover:text-electric rounded-xl">
             <span>Enter Main Music Experience</span>
             <span class="text-base">→</span>
@@ -155,35 +134,121 @@
 
     <script src="../assets/site.js"></script>
     <script>
+      /**
+       * ==========================================
+       * CENTRALNY PANEL ZARZĄDZANIA (ADMIN CONFIG)
+       * ==========================================
+       * Tutaj możesz ręcznie edytować linki, dodawać nowe platformy
+       * oraz podpiąć plik MP3 do odtwarzacza.
+       */
+      const CONFIG = {
+        // Dane odtwarzacza audio
+        audioTrack: {
+          title: "XAROWO - UNTITLED DUB (ID)",
+          album: "Dubplate Special // 2026",
+          sourceUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" // Wklej tu link do swojego pliku .mp3
+        },
+        // Lista platform społecznościowych. Możesz dodawać/usuwać obiekty.
+        // W pole 'svg' wklejasz czysty kod wnętrza ikony (patrz przykłady niżej).
+        socials: [
+          {
+            name: "Instagram",
+            url: "https://www.instagram.com/xarowomusic",
+            svg: '<path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>'
+          },
+          {
+            name: "TikTok",
+            url: "https://www.tiktok.com/@xarowomusic",
+            svg: '<path d="M12.525.02c1.31.043 2.5.512 3.491 1.342.146.123.23.167.404.113A6.974 6.974 0 0 0 20.315 0h2.9c-.067 1.25-.41 2.37-1.077 3.39-.757 1.157-1.782 1.992-3.076 2.457-.156.056-.226.136-.224.3.01.787.003 1.574.003 2.361v1.1c-.005 3.315-.992 6.137-3.091 8.441-2.072 2.274-4.73 3.39-7.747 3.39a10.05 10.05 0 0 1-7.147-2.91C1.037 16.326.012 13.73.001 10.745c-.012-3.141 1.09-5.787 3.366-7.896a10.01 10.01 0 0 1 7.218-2.833c.642.008 1.282.01 1.94.004zm-1.841 5.923c-1.318.02-2.458.504-3.376 1.455-.89.923-1.326 2.05-1.318 3.342.008 1.294.464 2.4 1.365 3.322.92.942 2.056 1.411 3.385 1.408 1.306-.003 2.42-.464 3.336-1.398.91-.928 1.366-2.052 1.371-3.356.005-1.127.001-2.254.002-3.38v-.613c-1.173-.016-2.247-.435-3.14-1.22-.647-.57-.11-.564-.625-.56z"/>'
+          },
+          {
+            name: "Spotify",
+            url: "https://open.spotify.com/artist/0T08LlrmaZesOsWD3VCrmw",
+            svg: '<path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm5.503 17.306c-.218.358-.683.474-1.037.256-2.876-1.758-6.497-2.157-10.76-1.18-.41.093-.814-.165-.907-.573-.093-.41.164-.814.573-.907 4.657-1.064 8.648-.61 11.874 1.362.353.218.47.683.257 1.042zm1.47-3.262c-.275.447-.86.593-1.307.318-3.292-2.023-8.31-2.61-12.2-1.428-.502.153-1.027-.135-1.18-.637-.153-.502.135-1.027.637-1.18 4.453-1.352 9.986-.704 13.733 1.598.447.275.593.86.318 1.308zm.126-3.416C15.148 8.214 8.572 8 4.763 9.155c-.596.18-1.23-.157-1.41-.752-.18-.596.157-1.23.752-1.41 4.37-1.325 11.623-1.077 16.203 1.64.536.317.712 1.007.394 1.543-.318.536-1.008.712-1.544.394z"/>'
+          },
+          {
+            name: "SoundCloud",
+            url: "https://soundcloud.com/xarowo",
+            svg: '<path d="M11.56 16.75h.57V8.53h-.57zm-1.43 0h.58V7.47h-.58zm2.86 0h.57V8.12h-.57zm-4.29 0h.58V8.38h-.58zm5.72 0h.57V9.06h-.57zm-7.15 0h.58V9.81h-.58zm8.58 0h.57v-8.1h-.57zm-10.01 0h.58v-5.6h-.58zm11.44 0h.57V8.89h-.57zm-12.87 0h.58v-4.13h-.58zm14.3 0c1.78 0 3.22-1.4 3.22-3.13s-1.44-3.13-3.22-3.13c-.23 0-.46.03-.68.08V9.11c-.56-2.58-2.91-4.49-5.74-4.49-2.31 0-4.33 1.27-5.32 3.16-.31-.11-.64-.17-.98-.17-1.47 0-2.68 1.12-2.85 2.56a1.9 1.9 0 0 0-.68-.13c-1.05 0-1.91.82-1.91 1.83 0 1 .86 1.83 1.91 1.83h16.25z"/>'
+          }
+        ]
+      };
+
       document.addEventListener("DOMContentLoaded", () => {
+        // 1. DYNAMICZNA GENERACJA IKON Z CONFIGU
+        const grid = document.getElementById("social-grid");
+        if (grid) {
+          grid.innerHTML = CONFIG.socials.map(item => `
+            <a href="${item.url}" target="_blank" rel="noreferrer" aria-label="${item.name}" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
+              <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                ${item.svg}
+              </svg>
+            </a>
+          `).join('');
+        }
+
+        // 2. OBSŁUGA MUSIC PLAYERA
+        const audio = document.getElementById("audio-element");
+        const playBtn = document.getElementById("player-play-btn");
+        const playIcon = document.getElementById("play-icon");
+        const pauseIcon = document.getElementById("pause-icon");
+        const trackTitle = document.getElementById("player-track-title");
+        const trackAlbum = document.getElementById("player-track-album");
+        const progressBar = document.getElementById("player-progress-bar");
+        const progressContainer = document.getElementById("player-progress-container");
+
+        // Załaduj meta-dane z panelu CONFIG
+        if (audio && playBtn) {
+          audio.src = CONFIG.audioTrack.sourceUrl;
+          trackTitle.textContent = CONFIG.audioTrack.title;
+          trackAlbum.textContent = CONFIG.audioTrack.album;
+
+          playBtn.addEventListener("click", () => {
+            if (audio.paused) {
+              audio.play();
+              playIcon.classList.add("hidden");
+              pauseIcon.classList.remove("hidden");
+            } else {
+              audio.pause();
+              playIcon.classList.remove("hidden");
+              pauseIcon.classList.add("hidden");
+            }
+          });
+
+          audio.addEventListener("timeupdate", () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = `${progress}%`;
+          });
+
+          progressContainer.addEventListener("click", (e) => {
+            const rect = progressContainer.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            audio.currentTime = (clickX / width) * audio.duration;
+          });
+        }
+
+        // 3. EFEKT TILT 3D DLA KARTY
         const card = document.querySelector(".glass-profile-card");
-        if (!card) return;
+        if (card && !('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+          card.addEventListener("mousemove", (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const tiltX = ((centerY - y) / centerY) * 3;
+            const tiltY = ((x - centerX) / centerX) * 3;
+            
+            card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.01)`;
+            card.style.setProperty('--x', `${x}px`);
+            card.style.setProperty('--y', `${y}px`);
+          });
 
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
-        card.addEventListener("mousemove", (e) => {
-          if (isTouchDevice) return;
-
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          
-          const maxTilt = 3; 
-          const tiltX = ((centerY - y) / centerY) * maxTilt;
-          const tiltY = ((x - centerX) / centerX) * maxTilt;
-          
-          card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.01)`;
-          
-          card.style.setProperty('--x', `${x}px`);
-          card.style.setProperty('--y', `${y}px`);
-        });
-
-        card.addEventListener("mouseleave", () => {
-          card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
-        });
+          card.addEventListener("mouseleave", () => {
+            card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+          });
+        }
       });
     </script>
   </body>
