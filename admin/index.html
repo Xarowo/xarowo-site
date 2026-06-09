@@ -4,10 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Content Manager</title>
+    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js" data-manual-init></script>
   </head>
   <body>
     <script>
-      window.CMS_CONFIG = {
+      // 1. Definiujemy czysty obiekt konfiguracyjny
+      const config = {
         backend: {
           name: "github",
           repo: "Xarowo/xarowo-site",
@@ -17,14 +19,13 @@
         },
         media_folder: "assets",
         public_folder: "/assets",
-        // Dodajemy domyślny format na poziomie głównym
-        format: "json",
         collections: [
           {
             name: "releases",
             label: "Releases",
             folder: "data",
             extension: "json",
+            format: "json",
             create: true,
             slug: "{{title}}",
             fields: [
@@ -36,7 +37,10 @@
           }
         ]
       };
+
+      // 2. Ręcznie przypisujemy konfigurację i odpalamy CMS dopiero teraz
+      window.CMS_CONFIG = config;
+      window.CMS.init({ config });
     </script>
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </body>
 </html>
