@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content="Xarowo | Digital Identity Hub. Producer, DJ, and Digital Artist portfolio." />
+    <meta name="description" content="Xarowo | Digital Identity Hub." />
     <title>Xarowo | Bio</title>
     <script>
       globalThis.tailwind = globalThis.tailwind || {};
@@ -18,161 +18,152 @@
         padding-top: env(safe-area-inset-top, 0px);
         padding-bottom: env(safe-area-inset-bottom, 0px);
       }
-      /* Liquid Glass Bento System */
-      .bento-perspective {
-        perspective: 1200px;
+      /* Zaawansowany Liquid Glass dla głównej karty profilowej */
+      .profile-perspective {
+        perspective: 1500px;
       }
-      .glass-hub-node {
-        position: relative;
-        overflow: hidden;
+      .glass-profile-card {
         transition: transform 0.25s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, box-shadow 0.3s ease;
         transform-style: preserve-3d;
         will-change: transform;
       }
-      .glass-hub-node:hover {
-        box-shadow: 0 15px 35px rgba(0, 155, 248, 0.2);
+      .glass-profile-card:hover {
+        box-shadow: 0 25px 60px rgba(0, 155, 248, 0.18);
       }
-      .node-glare {
+      .card-glare {
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle 180px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.12), transparent 80%);
+        background: radial-gradient(circle 300px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.1), transparent 80%);
         z-index: 5;
         pointer-events: none;
         transition: opacity 0.3s ease;
         opacity: 0;
       }
-      .glass-hub-node:hover .node-glare {
+      .glass-profile-card:hover .card-glare {
         opacity: 1;
+      }
+      /* Animacja pulsującego tła sygnału */
+      @keyframes radar-pulse {
+        0% { transform: scale(0.95); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 0.1; }
+        100% { transform: scale(1.3); opacity: 0; }
+      }
+      .radar-glow {
+        animation: radar-pulse 3s infinite cubic-bezier(0.215, 0.610, 0.355, 1);
       }
     </style>
   </head>
-  <body data-page="bio" class="bg-ink text-paper antialiased flex flex-col justify-between min-h-screen">
+  <body data-page="bio" class="bg-ink text-paper antialiased flex flex-col justify-center items-center min-h-screen relative p-4 sm:p-6 lg:p-8">
     <canvas id="grain-canvas" aria-hidden="true"></canvas>
 
-    <header class="w-full border-b border-zinc-900 bg-zinc-950/40 backdrop-blur-xl fixed top-0 inset-x-0 z-50">
-      <div class="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-        <a href="../home/" class="flex items-center gap-2">
-          <img src="../assets/xarowo-mark.png" alt="" class="h-6 w-6 object-contain" />
-          <span class="font-display text-xs font-black uppercase text-electric tracking-wider">Xarowo . Corp</span>
-        </a>
-        <span class="text-[10px] font-black uppercase tracking-widest text-zinc-500 bg-zinc-900 px-2.5 py-1 rounded-full border border-zinc-800">
-          Signal Active
-        </span>
-      </div>
-    </header>
+    <div class="profile-perspective w-full max-w-3xl z-10 my-auto">
+      <div class="glass-profile-card relative overflow-hidden border border-zinc-800/80 bg-zinc-950/75 backdrop-blur-2xl rounded-3xl p-6 sm:p-12 text-center hover:border-electric/50">
+        <div class="card-glare"></div>
 
-    <main class="flex-1 pt-24 pb-12 px-4 flex flex-col justify-center items-center">
-      <div class="w-full max-w-xl text-center mb-8">
-        <div class="reveal relative inline-block mx-auto mb-5">
-          <div class="absolute inset-0 bg-electric/20 rounded-full blur-xl scale-75"></div>
-          <img src="../assets/xarowo-mark.png" alt="Xarowo" class="relative z-10 h-24 w-24 sm:h-28 sm:w-28 object-contain mx-auto transition-transform duration-500 hover:rotate-90" />
+        <div class="relative z-10 flex flex-col items-center">
+          <div class="relative mb-6">
+            <div class="radar-glow absolute inset-0 bg-electric rounded-full -z-10"></div>
+            <div class="absolute inset-0 bg-electric/20 rounded-full blur-md"></div>
+            <img src="../assets/xarowo-mark.png" alt="Xarowo Logomark" class="relative z-10 h-28 w-28 sm:h-32 sm:w-32 object-contain aspect-square transition-transform duration-700 hover:rotate-180" />
+          </div>
+
+          <h1 class="font-display text-4xl sm:text-6xl uppercase font-black tracking-tighter text-white leading-none text-glow">
+            XAROWO
+          </h1>
+          
+          <div class="mt-3 flex items-center gap-2 bg-zinc-900/90 border border-zinc-800 px-3 py-1 rounded-full">
+            <span class="h-2 w-2 rounded-full bg-electric animate-pulse"></span>
+            <span class="text-[10px] font-black uppercase tracking-widest text-zinc-400">Wroclaw // Audio Signal Active</span>
+          </div>
+
+          <p class="mt-4 max-w-md text-xs sm:text-sm text-zinc-400 leading-relaxed font-medium">
+            Electronic music producer, DJ, and digital artist. Exploring heavy-duty low end grids and raw visual concepts.
+          </p>
         </div>
-        
-        <h1 class="font-display text-3xl sm:text-4xl md:text-5xl uppercase font-black tracking-tight text-white leading-none">
-          XAROWO
-        </h1>
-        <p class="mt-2 text-xs sm:text-sm font-black uppercase text-electric tracking-widest">
-          Audio Architecture // Digital Asset Hub
-        </p>
-        <p class="mt-3 max-w-sm mx-auto text-xs sm:text-sm text-zinc-400 leading-relaxed">
-          Wroclaw based electronic music producer, DJ, and digital artist. Pushing boundaries through heavy low-end layouts.
-        </p>
-      </div>
 
-      <div class="bento-perspective w-full max-w-xl grid gap-3 grid-cols-2">
-        
-        <a href="../music/" class="glass-hub-node reveal col-span-2 border border-electric bg-zinc-950/80 p-5 rounded-2xl flex items-center justify-between group hover:border-white">
-          <div class="node-glare"></div>
-          <div class="relative z-10">
-            <span class="text-[10px] font-black uppercase text-electric tracking-widest block mb-0.5">Primary Link</span>
-            <span class="font-display text-lg sm:text-xl uppercase font-black text-white group-hover:text-electric transition-colors">Enter Music Experience</span>
-          </div>
-          <span class="text-xl text-electric group-hover:translate-x-1 transition-transform relative z-10">→</span>
-        </a>
+        <hr class="border-zinc-900 my-8 max-w-xs mx-auto relative z-10" />
 
-        <a href="https://www.instagram.com/xarowomusic" target="_blank" rel="noreferrer" class="glass-hub-node reveal border border-zinc-800 bg-zinc-950/60 p-4 rounded-xl flex flex-col justify-between group hover:border-electric aspect-[1.4/1]">
-          <div class="node-glare"></div>
-          <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest relative z-10">01 // Feed</span>
-          <span class="font-display text-sm sm:text-base uppercase font-black text-white relative z-10 group-hover:text-electric transition-colors">Instagram</span>
-        </a>
+        <div class="relative z-10 grid grid-cols-4 gap-4 sm:flex sm:flex-wrap sm:justify-center sm:gap-6 max-w-xl mx-auto px-2">
+          
+          <a href="https://www.instagram.com/xarowomusic" target="_blank" rel="noreferrer" aria-label="Instagram" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
+            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
 
-        <a href="https://www.tiktok.com/@xarowomusic" target="_blank" rel="noreferrer" class="glass-hub-node reveal border border-zinc-800 bg-zinc-950/60 p-4 rounded-xl flex flex-col justify-between group hover:border-electric aspect-[1.4/1]">
-          <div class="node-glare"></div>
-          <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest relative z-10">02 // Clips</span>
-          <span class="font-display text-sm sm:text-base uppercase font-black text-white relative z-10 group-hover:text-electric transition-colors">TikTok</span>
-        </a>
+          <a href="https://www.tiktok.com/@xarowomusic" target="_blank" rel="noreferrer" aria-label="TikTok" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
+            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31.043 2.5.512 3.491 1.342.146.123.23.167.404.113A6.974 6.974 0 0 0 20.315 0h2.9c-.067 1.25-.41 2.37-1.077 3.39-.757 1.157-1.782 1.992-3.076 2.457-.156.056-.226.136-.224.3.01.787.003 1.574.003 2.361v1.1c-.005 3.315-.992 6.137-3.091 8.441-2.072 2.274-4.73 3.39-7.747 3.39a10.05 10.05 0 0 1-7.147-2.91C1.037 16.326.012 13.73.001 10.745c-.012-3.141 1.09-5.787 3.366-7.896a10.01 10.01 0 0 1 7.218-2.833c.642.008 1.282.01 1.94.004zm-1.841 5.923c-1.318.02-2.458.504-3.376 1.455-.89.923-1.326 2.05-1.318 3.342.008 1.294.464 2.4 1.365 3.322.92.942 2.056 1.411 3.385 1.408 1.306-.003 2.42-.464 3.336-1.398.91-.928 1.366-2.052 1.371-3.356.005-1.127.001-2.254.002-3.38v-.613c-1.173-.016-2.247-.435-3.14-1.22-.647-.57-.11-.564-.625-.56z"/></svg>
+          </a>
 
-        <a href="https://open.spotify.com/artist/0T08LlrmaZesOsWD3VCrmw" target="_blank" rel="noreferrer" class="glass-hub-node reveal border border-zinc-800 bg-zinc-950/60 p-4 rounded-xl flex flex-col justify-between group hover:border-electric aspect-[1.4/1]">
-          <div class="node-glare"></div>
-          <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest relative z-10">03 // Audio</span>
-          <span class="font-display text-sm sm:text-base uppercase font-black text-white relative z-10 group-hover:text-electric transition-colors">Spotify</span>
-        </a>
+          <a href="https://open.spotify.com/artist/0T08LlrmaZesOsWD3VCrmw" target="_blank" rel="noreferrer" aria-label="Spotify" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
+            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm5.503 17.306c-.218.358-.683.474-1.037.256-2.876-1.758-6.497-2.157-10.76-1.18-.41.093-.814-.165-.907-.573-.093-.41.164-.814.573-.907 4.657-1.064 8.648-.61 11.874 1.362.353.218.47.683.257 1.042zm1.47-3.262c-.275.447-.86.593-1.307.318-3.292-2.023-8.31-2.61-12.2-1.428-.502.153-1.027-.135-1.18-.637-.153-.502.135-1.027.637-1.18 4.453-1.352 9.986-.704 13.733 1.598.447.275.593.86.318 1.308zm.126-3.416C15.148 8.214 8.572 8 4.763 9.155c-.596.18-1.23-.157-1.41-.752-.18-.596.157-1.23.752-1.41 4.37-1.325 11.623-1.077 16.203 1.64.536.317.712 1.007.394 1.543-.318.536-1.008.712-1.544.394z"/></svg>
+          </a>
 
-        <a href="https://soundcloud.com/xarowo" target="_blank" rel="noreferrer" class="glass-hub-node reveal border border-zinc-800 bg-zinc-950/60 p-4 rounded-xl flex flex-col justify-between group hover:border-electric aspect-[1.4/1]">
-          <div class="node-glare"></div>
-          <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest relative z-10">04 // Dubs</span>
-          <span class="font-display text-sm sm:text-base uppercase font-black text-white relative z-10 group-hover:text-electric transition-colors">SoundCloud</span>
-        </a>
+          <a href="https://soundcloud.com/xarowo" target="_blank" rel="noreferrer" aria-label="SoundCloud" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
+            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M1.667 13.056c-.056 0-.111.018-.148.056l-.37.5c-.037.056-.056.111-.056.167v.444c0 .056.018.111.056.167l.37.5c.037.037.093.056.148.056h.278c.074 0 .148-.074.148-.148v-1.593c0-.074-.074-.148-.148-.148h-.278zm1.389-1.222c-.056 0-.111.018-.148.056l-.37.5c-.037.056-.056.111-.056.167v3.111c0 .056.018.111.056.167l.37.5c.037.037.093.056.148.056h.278c.074 0 .148-.074.148-.148V11.982c0-.074-.074-.148-.148-.148h-.278zm1.389-1c-.056 0-.111.018-.148.056l-.37.5c-.037.056-.056.111-.056.167v5.111c0 .056.018.111.056.167l.37.5c.037.037.093.056.148.056h.278c.074 0 .148-.074.148-.148v-5.389c0-.074-.074-.148-.148-.148h-.278zm1.389.778c-.056 0-.111.018-.148.056l-.37.5c-.037.056-.056.111-.056.167v4.611c0 .056.018.111.056.167l.37.5c.037.037.093.056.148.056h.278c.074 0 .148-.074.148-.148V11.778c0-.074-.074-.148-.148-.148h-.278zm1.389-2.056c-.056 0-.111.018-.148.056l-.37.5c-.037.056-.056.111-.056.167v6.5c0 .056.018.111.056.167l.37.5c.037.037.093.056.148.056h.278c.074 0 .148-.074.148-.148V9.722c0-.074-.074-.148-.148-.148h-.278zm1.389 1c-.056 0-.111.018-.148.056l-.37.5c-.037.056-.056.111-.056.167v5.5c0 .056.018.111.056.167l.37.5c.037.037.093.056.148.056h.278c.074 0 .148-.074.148-.148v-6.389c0-.074-.074-.148-.148-.148h-.278zm1.389-2.778c-.056 0-.111.018-.148.056l-.37.5c-.037.056-.056.111-.056.167v8.111c0 .056.018.111.056.167l.37.5c.037.037.093.056.148.056h.278c.074 0 .148-.074.148-.148V7.944c0-.074-.074-.148-.148-.148h-.278zm1.389 2.5c-.056 0-.111.018-.148.056l-.37.5c-.037.056-.056.111-.056.167v5.611c0 .056.018.111.056.167l.37.5c.037.037.093.056.148.056h.278c.074 0 .148-.074.148-.148V10.444c0-.074-.074-.148-.148-.148h-.278zm1.389-4.889c-.056 0-.111.018-.148.056l-.37.5c-.037.056-.056.111-.056.167v10.5c0 .056.018.111.056.167l.37.5c.037.037.093.056.148.056h.278c.074 0 .148-.074.148-.148V5.556c0-.074-.074-.148-.148-.148h-.278zm1.389 4.389c-.056 0-.111.018-.148.056l-.37.5c-.037.056-.056.111-.056.167v6.111c0 .056.018.111.056.167l.37.5c.037.037.093.056.148.056h.278c.074 0 .148-.074.148-.148V9.944c0-.074-.074-.148-.148-.148h-.278zm1.389-1.389c-.056 0-.111.018-.148.056l-.37.5c-.037.056-.056.111-.056.167v7.5c0 .056.018.111.056.167l.37.5c.037.037.093.056.148.056h.278c.074 0 .148-.074.148-.148V8.556c0-.074-.074-.148-.148-.148h-.278zm1.389 5.861c0 .074.074.148.148.148h.028c4.361 0 7.889-3.222 7.889-7.194 0-3.944-3.528-7.167-7.889-7.167-.444 0-.889.037-1.306.111-.074.018-.148.093-.148.167v14.074v-.139z"/></svg>
+          </a>
 
-        <a href="https://www.youtube.com/@xarowo" target="_blank" rel="noreferrer" class="glass-hub-node reveal border border-zinc-800 bg-zinc-950/60 p-4 rounded-xl flex flex-col justify-between group hover:border-electric aspect-[1.4/1]">
-          <div class="node-glare"></div>
-          <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest relative z-10">05 // Vision</span>
-          <span class="font-display text-sm sm:text-base uppercase font-black text-white relative z-10 group-hover:text-electric transition-colors">YouTube</span>
-        </a>
+          <a href="https://www.youtube.com/@xarowo" target="_blank" rel="noreferrer" aria-label="YouTube" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
+            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 0 0-2.11-2.11C19.517 3.545 12 3.545 12 3.545s-7.517 0-9.388.508a3.003 3.003 0 0 0-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 0 0 2.11 2.11c1.871.508 9.388.508 9.388.508s7.517 0 9.388-.508a3.003 3.003 0 0 0 2.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
 
-        <a href="https://music.apple.com/us/artist/xarowo/1769504567" target="_blank" rel="noreferrer" class="glass-hub-node reveal border border-zinc-800 bg-zinc-950/60 p-4 rounded-xl flex flex-col justify-between group hover:border-electric aspect-[1.4/1]">
-          <div class="node-glare"></div>
-          <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest relative z-10">06 // Lossless</span>
-          <span class="font-display text-sm sm:text-base uppercase font-black text-white relative z-10 group-hover:text-electric transition-colors">Apple Music</span>
-        </a>
+          <a href="https://music.apple.com/us/artist/xarowo/1769504567" target="_blank" rel="noreferrer" aria-label="Apple Music" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
+            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.43 12.15c-.15.82-.7 1.42-1.48 1.63-.58.15-1.18.02-1.72-.25-.33-.16-.62-.39-.93-.57-.12-.07-.27-.08-.4-.01-.48.27-.99.5-1.54.58-.69.11-1.32-.12-1.81-.62-.51-.52-.71-1.18-.62-1.89.09-.76.5-1.34 1.15-1.74.58-.36 1.23-.52 1.91-.53.48 0 .96.06 1.43.19.12.03.21-.01.27-.11.23-.42.36-.88.35-1.37-.02-.8-.47-1.33-1.25-1.42-.51-.06-1 .06-1.44.32-.38.22-.61.54-.73.95-.06.2-.17.29-.38.25-.35-.07-.54-.28-.54-.64 0-.61.34-1.11.85-1.46.73-.5 1.55-.66 2.42-.48 1.25.26 1.98 1.12 2.05 2.4.06 1.13.03 2.26.01 3.39v.91z"/></svg>
+          </a>
 
-        <a href="../contact/" class="glass-hub-node reveal col-span-2 border border-zinc-800 bg-zinc-950/60 p-5 rounded-2xl flex items-center justify-between group hover:border-electric">
-          <div class="node-glare"></div>
-          <div class="relative z-10">
-            <span class="text-[10px] font-black uppercase text-zinc-500 tracking-widest block mb-0.5">Secure Transmission</span>
-            <span class="font-display text-sm sm:text-base uppercase font-black text-white group-hover:text-electric transition-colors">Inquiries & Booking Contracts</span>
-          </div>
-          <span class="text-sm text-zinc-500 group-hover:text-electric group-hover:translate-x-1 transition-all relative z-10">// SEND SIGNAL</span>
-        </a>
+          <a href="https://www.twitch.tv/xarowomusic" target="_blank" rel="noreferrer" aria-label="Twitch" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
+            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.43l-3 3v-3H6.857V1.714h13.714Z"/></svg>
+          </a>
+
+          <a href="../contact/" aria-label="Contact Inquiries" class="group flex items-center justify-center bg-zinc-900/50 hover:bg-electric/10 border border-zinc-800 hover:border-electric p-4 rounded-2xl transition-all duration-300 transform hover:-translate-y-1 aspect-square sm:w-16 sm:h-16">
+            <svg class="h-6 w-6 text-white group-hover:text-electric transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          </a>
+
+        </div>
+
+        <div class="mt-10 relative z-10 max-w-sm mx-auto">
+          <a href="../music/" class="premium-glow flex items-center justify-center gap-3 w-full border border-electric bg-electric px-6 py-4 text-xs sm:text-sm font-black uppercase text-white transition duration-300 hover:bg-transparent hover:text-electric rounded-xl">
+            <span>Enter Main Music Experience</span>
+            <span class="text-base">→</span>
+          </a>
+        </div>
 
       </div>
-    </main>
+    </div>
 
-    <footer class="w-full border-t border-zinc-950 py-4 text-center text-[10px] font-bold text-zinc-600 tracking-wide">
-      <div>© 2026 Xarowo. Encrypted Asset. Design by Minimal Architecture.</div>
+    <footer class="absolute bottom-4 text-center text-[10px] font-bold text-zinc-700 tracking-widest z-10 uppercase">
+      © 2026 Xarowo // Protected Digital Hub
     </footer>
 
     <script src="../assets/site.js"></script>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const nodes = document.querySelectorAll(".glass-hub-node");
+        const card = document.querySelector(".glass-profile-card");
+        if (!card) return;
+
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-        nodes.forEach(node => {
-          node.addEventListener("mousemove", (e) => {
-            if (isTouchDevice) return;
+        card.addEventListener("mousemove", (e) => {
+          if (isTouchDevice) return;
 
-            const rect = node.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            // Wysoka czułość (3D tilt) dobrana idealnie pod format bento kafelków
-            const maxTilt = 5; 
-            const tiltX = ((centerY - y) / centerY) * maxTilt;
-            const tiltY = ((x - centerX) / centerX) * maxTilt;
-            
-            node.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
-            
-            node.style.setProperty('--x', `${x}px`);
-            node.style.setProperty('--y', `${y}px`);
-          });
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          // Delikatne, głębokie wychylenie całej karty (jak na desktopowych landing page'ach Apple)
+          const maxTilt = 3; 
+          const tiltX = ((centerY - y) / centerY) * maxTilt;
+          const tiltY = ((x - centerX) / centerX) * maxTilt;
+          
+          card.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.01)`;
+          
+          card.style.setProperty('--x', `${x}px`);
+          card.style.setProperty('--y', `${y}px`);
+        });
 
-          node.addEventListener("mouseleave", () => {
-            node.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
-          });
+        card.addEventListener("mouseleave", () => {
+          card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
         });
       });
     </script>
