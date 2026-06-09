@@ -35,15 +35,16 @@
       .music-card-node:hover .glass-glare {
         opacity: 1;
       }
-      /* Zabezpieczenie przed poziomym przewijaniem całej witryny */
       body {
         overflow-x: hidden;
+        /* dynamic viewport height zabezpiecza wysokość na ekranach od 16:9 do 21:9 */
+        min-height: 100dvh; 
         padding-top: env(safe-area-inset-top, 0px);
         padding-bottom: env(safe-area-inset-bottom, 0px);
       }
     </style>
   </head>
-  <body data-page="music" class="bg-paper text-ink antialiased dark:bg-ink dark:text-paper min-h-screen flex flex-col justify-between">
+  <body data-page="music" class="bg-paper text-ink antialiased dark:bg-ink dark:text-paper flex flex-col justify-between">
     <canvas id="grain-canvas" aria-hidden="true"></canvas>
 
     <header class="fixed inset-x-0 top-0 z-40 border-b border-[color:var(--hairline)] bg-[color:var(--panel)] backdrop-blur-xl">
@@ -63,16 +64,17 @@
       </nav>
     </header>
 
-    <main class="mx-auto max-w-7xl px-4 pt-24 sm:px-6 lg:px-8 flex-1 w-full box-border">
-      <section class="border-b border-[color:var(--hairline)] py-8 md:py-16 text-center sm:text-left" aria-labelledby="music-heading">
+    <main class="mx-auto max-w-7xl px-4 pt-20 pb-8 sm:px-6 lg:px-8 flex-1 w-full box-border flex flex-col justify-start">
+      
+      <section class="border-b border-[color:var(--hairline)] py-[4vh] text-center sm:text-left" aria-labelledby="music-heading">
         <div class="max-w-3xl">
           <h1 id="music-heading" class="reveal font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-normal uppercase tracking-tight text-[color:var(--fg)]">Discography</h1>
-          <p class="reveal text-muted mt-4 text-sm font-bold leading-relaxed text-[color:var(--soft-fg)] sm:text-base md:text-lg">Sonic architecture and release log. Use the dynamic controller below to scan indexes, apply filters, and access audio nodes across verified platforms.</p>
+          <p class="reveal text-muted mt-3 text-xs sm:text-sm md:text-base font-bold leading-relaxed text-[color:var(--soft-fg)]">Sonic architecture and release log. Use the dynamic controller below to scan indexes, apply filters, and access audio nodes across verified platforms.</p>
         </div>
       </section>
 
-      <section class="border-b border-[color:var(--hairline)] py-8" aria-label="Release navigation">
-        <div class="reveal flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <section class="py-[3vh] flex-1 flex flex-col" aria-label="Release navigation">
+        <div class="reveal flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between w-full">
           <div class="relative w-full sm:max-w-xs md:max-w-md">
             <label for="catalog-search" class="sr-only">Search catalog</label>
             <input id="catalog-search" type="search" placeholder="SEARCH CATALOG INDEX..." class="w-full border border-[color:var(--hairline)] bg-[color:var(--panel-strong)] px-4 py-3 font-display text-xs font-black uppercase tracking-wider text-[color:var(--fg)] placeholder-[color:var(--soft-fg)] transition focus:border-electric focus:outline-none focus:ring-0" />
@@ -83,14 +85,14 @@
           </div>
         </div>
 
-        <div id="catalog-list" class="mt-8 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-300 w-full">
+        <div id="catalog-list" class="mt-6 grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-300 w-full max-h-full">
           <p class="py-8 text-center text-sm font-bold text-[color:var(--soft-fg)] uppercase col-span-full">Initializing digital log...</p>
         </div>
       </section>
     </main>
 
-    <footer class="border-t border-[color:var(--hairline)] px-4 py-6 text-xs sm:text-sm font-bold text-[color:var(--soft-fg)] sm:px-6 lg:px-8 w-full">
-      <div class="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between text-center sm:text-left">
+    <footer class="border-t border-[color:var(--hairline)] px-4 py-4 text-xs font-bold text-[color:var(--soft-fg)] sm:px-6 lg:px-8 w-full">
+      <div class="mx-auto flex max-w-7xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-center sm:text-left">
         <span>© 2026 Xarowo. Official digital asset.</span>
         <a class="text-electric" href="https://spotify.com" target="_blank" rel="noreferrer">Spotify</a>
       </div>
@@ -99,12 +101,12 @@
     <aside id="cookie-banner" class="cookie-hidden fixed inset-x-4 bottom-4 z-50 mx-auto max-w-4xl border border-[color:var(--fg)] bg-[color:var(--bg)] p-4 sm:p-6 text-[color:var(--fg)] premium-glow transition duration-500 dark:border-electric" role="dialog" aria-live="polite" aria-label="Cookie consent">
       <div class="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
         <div class="text-center md:text-left">
-          <p class="text-base sm:text-lg font-black uppercase text-electric">Privacy signal</p>
-          <p class="mt-2 text-xs sm:text-sm leading-relaxed text-[color:var(--soft-fg)]">Optional analytics can help measure listening traffic and site performance. Consent is stored locally on this device.</p>
+          <p class="text-sm sm:text-base font-black uppercase text-electric">Privacy signal</p>
+          <p class="mt-1 text-[11px] sm:text-xs leading-relaxed text-[color:var(--soft-fg)]">Optional analytics can help measure listening traffic and site performance. Consent is stored locally on this device.</p>
         </div>
         <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
-          <button id="decline-cookies" class="w-full sm:w-auto border border-[color:var(--hairline)] px-5 py-3 text-xs sm:text-sm font-black uppercase transition hover:border-electric hover:text-electric" type="button">Decline</button>
-          <button id="accept-cookies" class="x-button w-full sm:w-auto border border-electric bg-electric px-5 py-3 text-xs sm:text-sm font-black uppercase text-white transition hover:-translate-y-1" type="button">Accept</button>
+          <button id="decline-cookies" class="w-full sm:w-auto border border-[color:var(--hairline)] px-4 py-2.5 text-xs font-black uppercase transition hover:border-electric hover:text-electric" type="button">Decline</button>
+          <button id="accept-cookies" class="x-button w-full sm:w-auto border border-electric bg-electric px-4 py-2.5 text-xs font-black uppercase text-white transition hover:-translate-y-1" type="button">Accept</button>
         </div>
       </div>
     </aside>
@@ -117,7 +119,8 @@
 
         function renderReleaseCard(title, date, cover, link) {
           const card = document.createElement("article");
-          card.className = "music-card-node relative overflow-hidden w-full border border-zinc-800 bg-zinc-950/85 p-5 backdrop-blur-xl hover:border-electric select-text opacity-100 visible cursor-pointer block rounded-2xl";
+          // Dodana klasa max-w-md i mx-auto chroni układ przed nienaturalnym rozciągnięciem na bardzo szerokich/długich telefonach
+          card.className = "music-card-node relative overflow-hidden w-full max-w-md mx-auto border border-zinc-800 bg-zinc-950/85 p-4 sm:p-5 backdrop-blur-xl hover:border-electric select-text opacity-100 visible cursor-pointer block rounded-2xl";
           
           let coverSrc = '../assets/xarowo-mark.png';
           if (cover) {
@@ -126,24 +129,22 @@
 
           card.innerHTML = `
             <div class="glass-glare"></div>
-            <div class="relative overflow-hidden aspect-square w-full bg-zinc-900 mb-4 border border-zinc-800 block pointer-events-none rounded-xl" style="opacity: 1 !important; visibility: visible !important;">
+            <div class="relative overflow-hidden aspect-square w-full bg-zinc-900 mb-3 sm:mb-4 border border-zinc-800 block pointer-events-none rounded-xl" style="opacity: 1 !important; visibility: visible !important;">
               <img src="${coverSrc}" alt="${title}" class="w-full h-full object-cover transition duration-300 block opacity-100" style="opacity: 1 !important; filter: none !important;" />
             </div>
-            <p class="text-[10px] font-black uppercase text-[#009BF8] tracking-widest block pointer-events-none">${date || '2026 RELEASE'}</p>
-            <h2 class="font-display mt-2 text-xl uppercase tracking-tight text-white block pointer-events-none">${title}</h2>
-            <div class="mt-4 pt-4 border-t border-zinc-800 flex items-center justify-between block">
+            <p class="text-[9px] sm:text-[10px] font-black uppercase text-[#009BF8] tracking-widest block pointer-events-none">${date || '2026 RELEASE'}</p>
+            <h2 class="font-display mt-1 sm:mt-2 text-lg sm:text-xl uppercase tracking-tight text-white block pointer-events-none">${title}</h2>
+            <div class="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-zinc-800 flex items-center justify-between block">
               <a href="${link || '#'}" target="_blank" rel="noreferrer" class="text-xs font-black uppercase tracking-wider text-white hover:text-[#009BF8] transition inline-flex items-center gap-2 z-10 relative">
                 STREAM NOW! <span class="text-[#009BF8]">→</span>
               </a>
             </div>
           `;
 
-          // --- BEZPIECZNA OBSŁUGA TILT DLA SMARTFONÓW ---
-          // Blokuje zacinanie strony przy przewijaniu palcem na iOS/Androidzie
           const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
           card.addEventListener("mousemove", (e) => {
-            if (isTouchDevice) return; // Jeśli ekran dotykowy, ignorujemy obracanie 3D
+            if (isTouchDevice) return;
 
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
@@ -162,24 +163,16 @@
             card.style.setProperty('--y', `${y}px`);
           });
 
-          // Focus Mode - tylko na urządzeniach stacjonarnych
           card.addEventListener("mouseenter", () => {
             if (isTouchDevice) return;
             const allCards = document.querySelectorAll(".music-card-node");
-            allCards.forEach(c => {
-              if (c !== card) {
-                c.style.opacity = "0.3";
-              }
-            });
+            allCards.forEach(c => { if (c !== card) c.style.opacity = "0.3"; });
           });
 
-          // Reset po zjechaniu kursorem
           card.addEventListener("mouseleave", () => {
             card.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
             const allCards = document.querySelectorAll(".music-card-node");
-            allCards.forEach(c => {
-              c.style.opacity = "1";
-            });
+            allCards.forEach(c => { c.style.opacity = "1"; });
           });
 
           card.addEventListener("click", (e) => {
@@ -201,7 +194,6 @@
           );
         }
 
-        // Ładowanie z API GitHuba
         fetch('https://api.github.com/repos/xarowo/xarowo-site/contents/data/music')
           .then(res => {
             if (!res.ok) throw new Error("GitHub API Error");
