@@ -48,7 +48,7 @@
         padding-top: env(safe-area-inset-top, 0px);
         padding-bottom: env(safe-area-inset-bottom, 0px);
       }
-      .glass-btn {
+      .glass-btn, .liquid-glass-card {
         position: relative;
         overflow: hidden;
         transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, box-shadow 0.3s ease;
@@ -58,16 +58,19 @@
       .glass-btn:hover {
         box-shadow: 0 12px 30px rgba(0, 155, 248, 0.25);
       }
+      .liquid-glass-card:hover {
+        box-shadow: 0 20px 40px rgba(0, 155, 248, 0.15);
+      }
       .btn-glare {
         position: absolute;
         inset: 0;
-        background: radial-gradient(circle 80px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.2), transparent 80%);
+        background: radial-gradient(circle 120px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.25), transparent 80%);
         z-index: 5;
         pointer-events: none;
         transition: opacity 0.3s ease;
         opacity: 0;
       }
-      .glass-btn:hover .btn-glare {
+      .glass-btn:hover .btn-glare, .liquid-glass-card:hover .btn-glare {
         opacity: 1;
       }
     </style>
@@ -164,6 +167,31 @@
         </div>
       </section>
 
+      <section class="px-4 py-12 sm:py-20 sm:px-6 lg:px-8 bg-[radial-gradient(circle_at_80%_20%,rgba(0,155,248,0.08),transparent_50%)]">
+        <div class="mx-auto max-w-7xl">
+          <div class="reveal glass-btn liquid-glass-card w-full border border-zinc-800/60 bg-zinc-950/40 backdrop-blur-2xl p-8 sm:p-12 rounded-3xl grid gap-8 lg:grid-cols-[0.8fr_1.2fr] items-center">
+            <div class="btn-glare"></div>
+            
+            <div class="relative z-10">
+              <span class="text-xs sm:text-sm font-black uppercase text-electric tracking-widest block mb-2">// INTRO</span>
+              <h2 class="font-display text-3xl sm:text-5xl font-black uppercase leading-none text-white tracking-tight">
+                About <br class="hidden lg:block"/><span class="text-electric text-glow">Me</span>
+              </h2>
+              <div class="mt-6 h-1 w-12 bg-electric rounded-full"></div>
+            </div>
+
+            <div class="relative z-10 space-y-4 text-sm sm:text-base leading-relaxed text-zinc-300 font-medium">
+              <p>
+                I am a 16 yo music producer, DJ, and digital artist operating from Wrocław, Poland. My work focuses on detailed and good quality sound.
+              </p>
+              <p>
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       <section class="border-y border-[color:var(--hairline)] px-4 py-[4vh] sm:px-6 lg:px-8">
         <div class="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
           <div class="reveal text-center lg:text-left">
@@ -213,11 +241,12 @@
       window.startTimer = function() { return false; }; 
 
       document.addEventListener("DOMContentLoaded", () => {
-        // --- OBSŁUGA PRZYCISKÓW (EFEKT 3D GLASS) ---
-        const glassButtons = document.querySelectorAll(".glass-btn");
+        // --- OBSŁUGA PRZYCISKÓW I KART (EFEKT 3D GLASS) ---
+        // Zaktualizowano selektor, aby łapał również kartę liquid-glass-card
+        const glassElements = document.querySelectorAll(".glass-btn, .liquid-glass-card");
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-        glassButtons.forEach(btn => {
+        glassElements.forEach(btn => {
           btn.addEventListener("mousemove", (e) => {
             if (isTouchDevice) return;
 
@@ -228,11 +257,13 @@
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const maxTilt = 6; 
+            // Delikatniejszy tilt dla dużej karty, mocniejszy dla małych buttonów
+            const maxTilt = btn.classList.contains('liquid-glass-card') ? 2 : 6; 
             const tiltX = ((centerY - y) / centerY) * maxTilt;
             const tiltY = ((x - centerX) / centerX) * maxTilt;
             
-            btn.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.03)`;
+            const scale = btn.classList.contains('liquid-glass-card') ? 1.01 : 1.03;
+            btn.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(${scale})`;
             
             btn.style.setProperty('--x', `${x}px`);
             btn.style.setProperty('--y', `${y}px`);
