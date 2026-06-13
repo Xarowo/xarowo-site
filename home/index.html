@@ -48,7 +48,6 @@
         padding-top: env(safe-area-inset-top, 0px);
         padding-bottom: env(safe-area-inset-bottom, 0px);
       }
-      /* Style dla efektu Liquid Glass na przyciskach */
       .glass-btn {
         position: relative;
         overflow: hidden;
@@ -209,6 +208,10 @@
     <script src="../assets/site.js"></script>
 
     <script>
+      // ABSOLUTNE ZABLOKOWANIE STARYCH INTERWAŁÓW I FUNKCJI Z PLIKU SITE.JS
+      if (typeof countdownInterval !== 'undefined') clearInterval(countdownInterval);
+      window.startTimer = function() { return false; }; 
+
       document.addEventListener("DOMContentLoaded", () => {
         // --- OBSŁUGA PRZYCISKÓW (EFEKT 3D GLASS) ---
         const glassButtons = document.querySelectorAll(".glass-btn");
@@ -240,8 +243,8 @@
           });
         });
 
-        // --- OBSŁUGA TIMERA + SYSTEMU CMS ---
-        let countdownInterval;
+        // --- NOWY, BEZPIECZNY SYSTEM TIMERA ---
+        let localCountdownInterval;
 
         function clearTimerDisplay() {
           const ids = ["days", "hours", "minutes", "seconds"];
@@ -251,7 +254,7 @@
           });
         }
 
-        function startTimer(targetDateString) {
+        function startLocalTimer(targetDateString) {
           const daysEl = document.getElementById("days");
           const hoursEl = document.getElementById("hours");
           const minutesEl = document.getElementById("minutes");
@@ -263,15 +266,14 @@
           }
           
           const targetTime = new Date(targetDateString).getTime();
-
-          if (countdownInterval) clearInterval(countdownInterval);
+          if (localCountdownInterval) clearInterval(localCountdownInterval);
 
           function updateCountdown() {
             const now = new Date().getTime();
             const difference = targetTime - now;
 
             if (difference <= 0 || isNaN(difference)) {
-              clearInterval(countdownInterval);
+              clearInterval(localCountdownInterval);
               clearTimerDisplay();
               return;
             }
@@ -288,11 +290,11 @@
           }
 
           updateCountdown();
-          countdownInterval = setInterval(updateCountdown, 1000);
+          localCountdownInterval = setInterval(updateCountdown, 1000);
         }
 
-        // Pobieranie konfiguracji wyłącznie z pliku JSON generowanego przez Decap CMS
-        fetch('../data/homepage.json')
+        // Dodanie znacznika czasu (?cb=...) zapobiega czytaniu starego pliku z cache
+        fetch('../data/homepage.json?cb=' + new Date().getTime())
           .then(res => {
             if (!res.ok) throw new Error("Brak pliku konfiguracji.");
             return res.json();
@@ -304,13 +306,13 @@
             if (data.timer_title) document.getElementById("timer-title").textContent = data.timer_title;
             
             if (data.timer_date) {
-              startTimer(data.timer_date);
+              startLocalTimer(data.timer_date);
             } else {
               clearTimerDisplay();
             }
           })
           .catch(err => {
-            console.warn("CMS offline lub brak pliku homepage.json:", err);
+            console.warn("CMS offline lub błąd danych:", err);
             clearTimerDisplay();
           });
       });
