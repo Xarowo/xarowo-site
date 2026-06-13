@@ -57,30 +57,6 @@ document.querySelectorAll(".ticker-track").forEach((track) => {
   track.innerHTML = Array.from({ length: 8 }, () => original).join("");
 });
 
-const targetDrop = new Date("2026-12-21T20:00:00+01:00").getTime();
-const timeNodes = {
-  days: document.querySelector("#days"),
-  hours: document.querySelector("#hours"),
-  minutes: document.querySelector("#minutes"),
-  seconds: document.querySelector("#seconds"),
-};
-
-function updateCountdown() {
-  if (!timeNodes.days) return;
-  const remaining = Math.max(0, targetDrop - Date.now());
-  const days = Math.floor(remaining / 86400000);
-  const hours = Math.floor((remaining % 86400000) / 3600000);
-  const minutes = Math.floor((remaining % 3600000) / 60000);
-  const seconds = Math.floor((remaining % 60000) / 1000);
-  timeNodes.days.textContent = String(days).padStart(3, "0");
-  timeNodes.hours.textContent = String(hours).padStart(2, "0");
-  timeNodes.minutes.textContent = String(minutes).padStart(2, "0");
-  timeNodes.seconds.textContent = String(seconds).padStart(2, "0");
-}
-
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
 const catalogList = document.querySelector("#catalog-list");
 const yearFilter = document.querySelector("#year-filter");
 const statusFilter = document.querySelector("#status-filter");
@@ -115,8 +91,7 @@ if (catalogList && yearFilter && statusFilter && searchInput) {
             <div>
               <h3 class="font-display text-2xl font-black uppercase leading-tight text-[color:var(--fg)]">${release.title}</h3>
               <p class="mt-1 text-sm font-bold text-[color:var(--soft-fg)]">${release.artists} / ${dateFormatter.format(new Date(`${release.date}T12:00:00`))}</p>
-              <!-- Streaming iframe/media embed slot for "${release.title}" -->
-            </div>
+              </div>
             <span class="w-fit border ${paused ? "border-electric text-electric" : "border-[color:var(--hairline)] text-[color:var(--soft-fg)]"} px-3 py-2 text-xs font-black uppercase">
               ${paused ? "Paused / Exclusive Work" : "Released"}
             </span>
