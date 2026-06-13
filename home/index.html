@@ -1,352 +1,642 @@
 <!doctype html>
+
 <html lang="en" class="scroll-smooth dark">
+
   <head>
+
     <meta charset="utf-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content="Official web asset for Xarowo, Polish electronic music producer, DJ, and digital artist from Wrocław." />
+
+    <meta name="description" content="Official Xarowo's website" />
+
     <title>Xarowo | Home</title>
+
     
+
     <link rel="icon" type="image/png" href="../assets/favicon.png" />
+
     <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon.png" />
 
-    <meta property="og:title" content="Xarowo | Home" />
-    <meta property="og:description" content="Official web asset for Xarowo, Polish electronic music producer, DJ, and digital artist from Wrocław." />
+
+
+    <meta property="og:title" content="Xarowo" />
+
+    <meta property="og:description" content="Official Xarowo's website" />
+
     <meta property="og:type" content="website" />
+
     <meta property="og:url" content="https://xarowo.com/home/" />
 
+
+
     <meta property="og:image" content="https://xarowo.com/assets/favicon.png" />
+
     <meta property="og:image:type" content="image/png" />
+
     <meta property="og:image:width" content="256" />
+
     <meta property="og:image:height" content="256" />
 
+
+
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Xarowo | Home" />
-    <meta name="twitter:description" content="Official web asset for Xarowo, Polish electronic music producer, DJ, and digital artist." />
+
+    <meta name="twitter:title" content="Xarowo" />
+
+    <meta name="twitter:description" content="Official Xarowo's website" />
+
     <meta name="twitter:image" content="https://xarowo.com/assets/favicon.png" />
 
+
+
     <link rel="preload" href="../assets/moderniz.woff2" as="font" type="font/woff2" crossorigin />
+
     <link rel="preload" href="../assets/inter.woff2" as="font" type="font/woff2" crossorigin />
 
+
+
     <script>
+
       globalThis.tailwind = globalThis.tailwind || {};
+
       tailwind.config = {
+
         darkMode: "class",
+
         theme: {
+
           extend: {
+
             colors: { electric: "#009BF8", ink: "#000000", paper: "#FFFFFF" },
+
             fontFamily: { display: ["Moderniz", "Inter", "Arial", "sans-serif"] },
+
           },
+
         },
+
       };
+
     </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="stylesheet" href="../assets/site.css" />
+
     <style>
+
       body {
+
         overflow-x: hidden;
+
         min-height: 100dvh;
+
         padding-top: env(safe-area-inset-top, 0px);
+
         padding-bottom: env(safe-area-inset-bottom, 0px);
+
       }
-      .glass-btn, .liquid-glass-card {
+
+      .glass-btn {
+
         position: relative;
+
         overflow: hidden;
+
         transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+
         transform-style: preserve-3d;
+
         will-change: transform;
+
       }
+
       .glass-btn:hover {
+
         box-shadow: 0 12px 30px rgba(0, 155, 248, 0.25);
+
       }
-      .liquid-glass-card:hover {
-        box-shadow: 0 20px 40px rgba(0, 155, 248, 0.15);
-      }
+
       .btn-glare {
+
         position: absolute;
+
         inset: 0;
-        background: radial-gradient(circle 120px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.25), transparent 80%);
+
+        background: radial-gradient(circle 80px at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.2), transparent 80%);
+
         z-index: 5;
+
         pointer-events: none;
+
         transition: opacity 0.3s ease;
+
         opacity: 0;
+
       }
-      .glass-btn:hover .btn-glare, .liquid-glass-card:hover .btn-glare {
+
+      .glass-btn:hover .btn-glare {
+
         opacity: 1;
+
       }
+
     </style>
+
   </head>
+
   <body data-page="home" class="bg-ink text-paper antialiased flex flex-col justify-between">
+
     <canvas id="grain-canvas" aria-hidden="true"></canvas>
 
+
+
     <header class="fixed inset-x-0 top-0 z-40 border-b border-[color:var(--hairline)] bg-[color:var(--panel)] backdrop-blur-xl">
+
       <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8" aria-label="Primary">
+
         <a href="../home/" class="flex items-center gap-2 sm:gap-3" aria-label="Xarowo home">
+
           <img src="../assets/xarowo-mark.png" alt="" class="brand-mark h-8 w-8 sm:h-10 sm:w-10 object-contain" />
+
           <span class="font-display text-base sm:text-lg font-black uppercase text-electric">Xarowo</span>
+
         </a>
+
         <div class="flex items-center gap-4 sm:gap-8 text-xs sm:text-sm font-bold uppercase">
+
           <a class="nav-link transition hover:text-electric text-electric" data-page="home" href="../home/">Home</a>
+
           <a class="nav-link transition hover:text-electric" data-page="music" href="../music/">Music</a>
+
           <a class="nav-link transition hover:text-electric" data-page="contact" href="../contact/">Contact</a>
+
         </div>
+
         <div class="w-9 h-9 sm:w-11 sm:h-11 hidden sm:block"></div>
+
       </nav>
+
     </header>
 
+
+
     <main class="flex-1">
+
       <section class="relative min-h-[90dvh] overflow-hidden pt-20 flex items-center">
+
         <div class="absolute inset-0 -z-10">
+
           <img src="../assets/xarowo-banner.png" alt="" class="h-full w-full object-cover opacity-30 mix-blend-screen" />
+
           <div class="absolute inset-0 bg-[linear-gradient(90deg,var(--bg)_0%,rgba(0,0,0,0)_44%,var(--bg)_100%)]"></div>
+
         </div>
+
+
 
         <div class="mx-auto grid max-w-7xl items-center gap-6 px-4 py-[4vh] sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 w-full box-border">
+
           <div class="reveal order-2 lg:order-1 text-center lg:text-left">
+
             <p id="hero-tag" class="premium-glow mb-4 mx-auto lg:mx-0 max-w-fit border border-electric px-4 py-2 text-[10px] sm:text-xs font-black uppercase text-electric rounded-md">
+
               Wroclaw, Poland // 2026
+
             </p>
+
             <h1 id="hero-title" class="font-display text-balance text-4xl sm:text-7xl md:text-8xl lg:text-[8.5rem] font-black uppercase leading-[0.85] text-electric text-glow">
+
               Xarowo
+
             </h1>
+
             <p id="hero-subtitle" class="mt-4 max-w-2xl text-base font-black uppercase leading-tight text-[color:var(--fg)] sm:text-2xl md:text-3xl">
+
               Electronic Music Producer • DJ • Creative Artist
+
             </p>
+
             <p id="hero-desc" class="mt-3 max-w-xl mx-auto lg:mx-0 text-xs sm:text-base md:text-lg leading-relaxed text-[color:var(--soft-fg)]">
+
               Powerful Bass. Clean Production. Future Sound.
+
             </p>
+
             <div class="mt-6 flex flex-col sm:flex-row justify-center lg:justify-start gap-3">
+
               <a class="glass-btn w-full sm:w-auto text-center border border-electric bg-electric px-6 py-3.5 text-xs sm:text-sm font-black uppercase text-white rounded-xl" href="../music/">
+
                 <div class="btn-glare"></div>
+
                 <span class="relative z-10">Enter Music</span>
+
               </a>
+
               <a class="glass-btn w-full sm:w-auto text-center border border-[color:var(--hairline)] bg-[color:var(--panel)] px-6 py-3.5 text-xs sm:text-sm font-black uppercase text-white rounded-xl hover:border-electric" href="../contact/">
+
                 <div class="btn-glare"></div>
+
                 <span class="relative z-10">Bookings</span>
+
               </a>
+
             </div>
+
           </div>
+
+
 
           <div class="reveal relative mx-auto w-full max-w-[200px] sm:max-w-[340px] lg:max-w-[500px] order-1 lg:order-2">
+
             <div class="slash-mask premium-glow absolute -left-6 top-6 h-[78%] w-16 bg-electric opacity-70 hidden sm:block"></div>
+
             <div class="slash-mask absolute right-0 top-0 h-full w-20 bg-electric opacity-60 hidden sm:block"></div>
+
             <img src="../assets/xarowo-mark.png" alt="Xarowo geometric mark" class="brand-mark relative z-10 mx-auto aspect-square w-full object-contain" />
+
           </div>
+
         </div>
+
       </section>
+
+
 
       <section class="ticker overflow-hidden border-y border-[color:var(--hairline)] py-4 w-full">
+
         <div class="ticker-track whitespace-nowrap inline-block">
+
           <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase text-electric">Powerful Bass</span>
+
           <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase">Clean Production</span>
+
           <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase text-electric">Future Sound</span>
+
           <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase">Music</span>
+
           <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase text-electric">Powerful Bass</span>
+
           <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase">Clean Production</span>
+
           <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase text-electric">Future Sound</span>
+
           <span class="font-display px-4 sm:px-8 text-xl sm:text-2xl uppercase">Music</span>
+
         </div>
+
       </section>
+
+
 
       <section class="px-4 py-12 sm:py-20 sm:px-6 lg:px-8">
+
         <div class="mx-auto grid max-w-7xl gap-4 sm:gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+
           <article class="reveal magnetic-card border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 sm:p-6 backdrop-blur-xl rounded-2xl">
+
             <p class="text-xs sm:text-sm font-black uppercase text-electric">01</p>
+
             <h2 class="font-display mt-3 text-xl sm:text-3xl uppercase leading-none text-electric">Bass-first identity</h2>
+
             <p class="mt-3 text-xs sm:text-sm leading-relaxed text-[color:var(--soft-fg)]">A sharp visual system built around pressure, contrast, and clean club-ready production energy.</p>
+
           </article>
+
           <article class="reveal magnetic-card border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 sm:p-6 backdrop-blur-xl rounded-2xl">
+
             <p class="text-xs sm:text-sm font-black uppercase text-electric">02</p>
+
             <h2 class="font-display mt-3 text-xl sm:text-3xl uppercase leading-none text-electric">Release pulse</h2>
+
             <p class="mt-3 text-xs sm:text-sm leading-relaxed text-[color:var(--soft-fg)]">Countdowns, catalog flow, and embedded platforms keep listeners close to the next drop.</p>
+
           </article>
+
           <article class="reveal magnetic-card border border-[color:var(--hairline)] bg-[color:var(--panel)] p-5 sm:p-6 backdrop-blur-xl rounded-2xl md:col-span-2 lg:col-span-1">
+
             <p class="text-xs sm:text-sm font-black uppercase text-electric">03</p>
+
             <h2 class="font-display mt-3 text-xl sm:text-3xl uppercase leading-none text-electric">Digital artist mode</h2>
+
             <p class="mt-3 text-xs sm:text-sm leading-relaxed text-[color:var(--soft-fg)]">A premium interface layer for music, motion, identity, and direct creative inquiries.</p>
+
           </article>
+
         </div>
+
       </section>
 
-      <section class="px-4 py-12 sm:py-20 sm:px-6 lg:px-8 bg-[radial-gradient(circle_at_80%_20%,rgba(0,155,248,0.08),transparent_50%)]">
-        <div class="mx-auto max-w-7xl">
-          <div class="reveal glass-btn liquid-glass-card w-full border border-zinc-800/60 bg-zinc-950/40 backdrop-blur-2xl p-8 sm:p-12 rounded-3xl grid gap-8 lg:grid-cols-[0.8fr_1.2fr] items-center">
-            <div class="btn-glare"></div>
-            
-            <div class="relative z-10">
-              <span class="text-xs sm:text-sm font-black uppercase text-electric tracking-widest block mb-2">// INTRO</span>
-              <h2 class="font-display text-3xl sm:text-5xl font-black uppercase leading-none text-white tracking-tight">
-                About <br class="hidden lg:block"/><span class="text-electric text-glow">Me</span>
-              </h2>
-              <div class="mt-6 h-1 w-12 bg-electric rounded-full"></div>
-            </div>
 
-            <div class="relative z-10 space-y-4 text-sm sm:text-base leading-relaxed text-zinc-300 font-medium">
-              <p>
-                I am a 16 yo music producer, DJ, and digital artist operating from Wrocław, Poland. My work focuses on detailed and good quality sound.
-              </p>
-              <p>
-              </p>
-            </div>
-
-          </div>
-        </div>
-      </section>
 
       <section class="border-y border-[color:var(--hairline)] px-4 py-[4vh] sm:px-6 lg:px-8">
+
         <div class="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+
           <div class="reveal text-center lg:text-left">
+
             <p id="timer-tag" class="text-xs sm:text-sm font-black uppercase text-electric">Live Drop Sequence</p>
+
             <h2 id="timer-title" class="font-display mt-2 text-2xl sm:text-5xl font-black uppercase leading-none text-electric text-glow">Late 2026 release signal</h2>
+
           </div>
+
           <div class="reveal grid grid-cols-2 sm:grid-cols-4 gap-3" aria-live="polite">
+
             <div class="border border-[color:var(--hairline)] bg-[color:var(--panel)] p-3 sm:p-5 backdrop-blur-xl text-center rounded-xl"><span id="days" class="font-display block text-3xl sm:text-6xl text-electric">000</span><span class="text-[9px] sm:text-xs font-black uppercase text-[color:var(--soft-fg)]">Days</span></div>
+
             <div class="border border-[color:var(--hairline)] bg-[color:var(--panel)] p-3 sm:p-5 backdrop-blur-xl text-center rounded-xl"><span id="hours" class="font-display block text-3xl sm:text-6xl text-electric">00</span><span class="text-[9px] sm:text-xs font-black uppercase text-[color:var(--soft-fg)]">Hours</span></div>
+
             <div class="border border-[color:var(--hairline)] bg-[color:var(--panel)] p-3 sm:p-5 backdrop-blur-xl text-center rounded-xl"><span id="minutes" class="font-display block text-3xl sm:text-6xl text-electric">00</span><span class="text-[9px] sm:text-xs font-black uppercase text-[color:var(--soft-fg)]">Minutes</span></div>
+
             <div class="border border-[color:var(--hairline)] bg-[color:var(--panel)] p-3 sm:p-5 backdrop-blur-xl text-center rounded-xl"><span id="seconds" class="font-display block text-3xl sm:text-6xl text-electric">00</span><span class="text-[9px] sm:text-xs font-black uppercase text-[color:var(--soft-fg)]">Seconds</span></div>
+
           </div>
+
         </div>
+
       </section>
+
     </main>
 
+
+
     <footer class="border-t border-[color:var(--hairline)] px-4 py-5 text-xs sm:text-sm font-bold text-[color:var(--soft-fg)] sm:px-6 lg:px-8">
+
       <div class="mx-auto flex max-w-7xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-center sm:text-left">
+
         <span>© 2026 Xarowo. Official digital asset.</span>
+
       </div>
+
     </footer>
 
+
+
     <aside id="cookie-banner" class="cookie-hidden fixed inset-x-4 bottom-4 z-50 mx-auto max-w-4xl border border-electric bg-zinc-950 p-4 sm:p-6 text-paper premium-glow transition duration-500" role="dialog" aria-live="polite" aria-label="Cookie consent">
+
       <div class="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
+
         <div class="text-center md:text-left">
+
           <p class="text-sm sm:text-base font-black uppercase text-electric">Privacy signal</p>
+
           <p class="mt-1 text-[11px] sm:text-xs leading-relaxed text-zinc-400">Optional analytics can help measure listening traffic and site performance. Consent is stored locally on this device.</p>
+
         </div>
+
         <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full md:w-auto">
+
           <button id="decline-cookies" class="glass-btn w-full sm:w-auto border border-zinc-800 bg-zinc-900 px-4 py-2.5 text-xs font-black uppercase text-zinc-300 transition hover:border-electric hover:text-electric" type="button">
+
             <div class="btn-glare"></div>
+
             <span class="relative z-10">Decline</span>
+
           </button>
+
           <button id="accept-cookies" class="glass-btn w-full sm:w-auto border border-electric bg-electric px-4 py-2.5 text-xs font-black uppercase text-white transition" type="button">
+
             <div class="btn-glare"></div>
+
             <span class="relative z-10">Accept</span>
+
           </button>
+
         </div>
+
       </div>
+
     </aside>
+
+
 
     <script src="../assets/site.js"></script>
 
+
+
     <script>
+
       // ABSOLUTNE ZABLOKOWANIE STARYCH INTERWAŁÓW I FUNKCJI Z PLIKU SITE.JS
+
       if (typeof countdownInterval !== 'undefined') clearInterval(countdownInterval);
+
       window.startTimer = function() { return false; }; 
 
+
+
       document.addEventListener("DOMContentLoaded", () => {
-        // --- OBSŁUGA PRZYCISKÓW I KART (EFEKT 3D GLASS) ---
-        // Zaktualizowano selektor, aby łapał również kartę liquid-glass-card
-        const glassElements = document.querySelectorAll(".glass-btn, .liquid-glass-card");
+
+        // --- OBSŁUGA PRZYCISKÓW (EFEKT 3D GLASS) ---
+
+        const glassButtons = document.querySelectorAll(".glass-btn");
+
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-        glassElements.forEach(btn => {
+
+
+        glassButtons.forEach(btn => {
+
           btn.addEventListener("mousemove", (e) => {
+
             if (isTouchDevice) return;
 
+
+
             const rect = btn.getBoundingClientRect();
+
             const x = e.clientX - rect.left;
+
             const y = e.clientY - rect.top;
+
             
+
             const centerX = rect.width / 2;
+
             const centerY = rect.height / 2;
+
             
-            // Delikatniejszy tilt dla dużej karty, mocniejszy dla małych buttonów
-            const maxTilt = btn.classList.contains('liquid-glass-card') ? 2 : 6; 
+
+            const maxTilt = 6; 
+
             const tiltX = ((centerY - y) / centerY) * maxTilt;
+
             const tiltY = ((x - centerX) / centerX) * maxTilt;
+
             
-            const scale = btn.classList.contains('liquid-glass-card') ? 1.01 : 1.03;
-            btn.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(${scale})`;
+
+            btn.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.03)`;
+
             
+
             btn.style.setProperty('--x', `${x}px`);
+
             btn.style.setProperty('--y', `${y}px`);
+
           });
+
+
 
           btn.addEventListener("mouseleave", () => {
+
             btn.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+
           });
+
         });
 
+
+
         // --- NOWY, BEZPIECZNY SYSTEM TIMERA ---
+
         let localCountdownInterval;
 
+
+
         function clearTimerDisplay() {
+
           const ids = ["days", "hours", "minutes", "seconds"];
+
           ids.forEach(id => {
+
             const el = document.getElementById(id);
+
             if (el) el.textContent = id === "days" ? "000" : "00";
+
           });
+
         }
+
+
 
         function startLocalTimer(targetDateString) {
+
           const daysEl = document.getElementById("days");
+
           const hoursEl = document.getElementById("hours");
+
           const minutesEl = document.getElementById("minutes");
+
           const secondsEl = document.getElementById("seconds");
 
+
+
           if (!targetDateString) {
+
             clearTimerDisplay();
+
             return;
+
           }
+
           
+
           const targetTime = new Date(targetDateString).getTime();
+
           if (localCountdownInterval) clearInterval(localCountdownInterval);
 
+
+
           function updateCountdown() {
+
             const now = new Date().getTime();
+
             const difference = targetTime - now;
 
+
+
             if (difference <= 0 || isNaN(difference)) {
+
               clearInterval(localCountdownInterval);
+
               clearTimerDisplay();
+
               return;
+
             }
+
+
 
             const d = Math.floor(difference / (1000 * 60 * 60 * 24));
+
             const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+
             const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+
             const s = Math.floor((difference % (1000 * 60)) / 1000);
 
+
+
             if (daysEl) daysEl.textContent = String(d).padStart(3, '0');
+
             if (hoursEl) hoursEl.textContent = String(h).padStart(2, '0');
+
             if (minutesEl) minutesEl.textContent = String(m).padStart(2, '0');
+
             if (secondsEl) secondsEl.textContent = String(s).padStart(2, '0');
+
           }
 
+
+
           updateCountdown();
+
           localCountdownInterval = setInterval(updateCountdown, 1000);
+
         }
 
+
+
         // Dodanie znacznika czasu (?cb=...) zapobiega czytaniu starego pliku z cache
+
         fetch('../data/homepage.json?cb=' + new Date().getTime())
+
           .then(res => {
+
             if (!res.ok) throw new Error("Brak pliku konfiguracji.");
+
             return res.json();
+
           })
+
           .then(data => {
+
             if (data.hero_title) document.getElementById("hero-title").textContent = data.hero_title;
+
             if (data.hero_subtitle) document.getElementById("hero-subtitle").textContent = data.hero_subtitle;
+
             if (data.timer_tag) document.getElementById("timer-tag").textContent = data.timer_tag;
+
             if (data.timer_title) document.getElementById("timer-title").textContent = data.timer_title;
+
             
+
             if (data.timer_date) {
+
               startLocalTimer(data.timer_date);
+
             } else {
+
               clearTimerDisplay();
+
             }
+
           })
+
           .catch(err => {
+
             console.warn("CMS offline lub błąd danych:", err);
+
             clearTimerDisplay();
+
           });
+
       });
+
     </script>
+
   </body>
-</html>
+
+</html> 
+
