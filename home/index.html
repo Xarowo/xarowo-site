@@ -243,15 +243,25 @@
         // --- OBSŁUGA TIMERA + SYSTEMU CMS ---
         let countdownInterval;
 
+        function clearTimerDisplay() {
+          const ids = ["days", "hours", "minutes", "seconds"];
+          ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = id === "days" ? "000" : "00";
+          });
+        }
+
         function startTimer(targetDateString) {
           const daysEl = document.getElementById("days");
           const hoursEl = document.getElementById("hours");
           const minutesEl = document.getElementById("minutes");
           const secondsEl = document.getElementById("seconds");
 
-          if (!targetDateString) return;
+          if (!targetDateString) {
+            clearTimerDisplay();
+            return;
+          }
           
-          // Bezpieczny parse daty niezależnie od formatu dostarczonego przez CMS
           const targetTime = new Date(targetDateString).getTime();
 
           if (countdownInterval) clearInterval(countdownInterval);
@@ -260,13 +270,9 @@
             const now = new Date().getTime();
             const difference = targetTime - now;
 
-            // Zabezpieczenie na wypadek, gdy data z CMS już minęła
             if (difference <= 0 || isNaN(difference)) {
               clearInterval(countdownInterval);
-              if (daysEl) daysEl.textContent = "000";
-              if (hoursEl) hoursEl.textContent = "00";
-              if (minutesEl) minutesEl.textContent = "00";
-              if (secondsEl) secondsEl.textContent = "00";
+              clearTimerDisplay();
               return;
             }
 
@@ -275,7 +281,6 @@
             const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
             const s = Math.floor((difference % (1000 * 60)) / 1000);
 
-            // padStart gwarantuje stałą szerokość cyfr (np. 003 zamiast 3 dni)
             if (daysEl) daysEl.textContent = String(d).padStart(3, '0');
             if (hoursEl) hoursEl.textContent = String(h).padStart(2, '0');
             if (minutesEl) minutesEl.textContent = String(m).padStart(2, '0');
@@ -286,10 +291,10 @@
           countdownInterval = setInterval(updateCountdown, 1000);
         }
 
-        // Pobieranie konfiguracji asynchronicznie z pliku JSON generowanego przez Decap CMS
+        // Pobieranie konfiguracji wyłącznie z pliku JSON generowanego przez Decap CMS
         fetch('../data/homepage.json')
           .then(res => {
-            if (!res.ok) throw new Error("Plik homepage.json nie został jeszcze wygenerowany przez CMS.");
+            if (!res.ok) throw new Error("Brak pliku konfiguracji.");
             return res.json();
           })
           .then(data => {
@@ -301,14 +306,12 @@
             if (data.timer_date) {
               startTimer(data.timer_date);
             } else {
-              // Awaryjna data jeśli w CMS pole zostało puste
-              startTimer("2026-12-31T23:59:59");
+              clearTimerDisplay();
             }
           })
           .catch(err => {
-            console.warn("CMS offline lub brak konfiguracji. Uruchamiam tryb demo:", err);
-            // Domyślne odliczanie na koniec roku 2026 w trybie awaryjnym
-            startTimer("2026-12-31T23:59:59");
+            console.warn("CMS offline lub brak pliku homepage.json:", err);
+            clearTimerDisplay();
           });
       });
     </script>
