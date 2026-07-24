@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin/   # Blokuje botom indeksowanie panelu logowania CMS
 
-Sitemap: https://xarowo.pl/sitemap.xml
+Sitemap: https://xarowo.com/sitemap.xml
