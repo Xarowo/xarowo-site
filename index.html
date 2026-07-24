@@ -1,72 +1,126 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content="Xarowo - Official Gateway." />
-    <title>Xarowo</title>
-    <link rel="icon" type="image/png" href="./assets/favicon.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon.png" />
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 
-    <meta property="og:title" content="Xarowo | Official Web Asset" />
-    <meta property="og:description" content="Official platform for Xarowo – electronic music producer, DJ, and digital artist from Wrocław." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://xarowo.com/" />
+<title>Xarowo | Official Website | Electronic Music Producer & DJ</title>
 
-    <meta property="og:image" content="https://xarowo.com/assets/favicon.png" />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="512" />
-    <meta property="og:image:height" content="512" />
+<meta name="description" content="Official website of Xarowo, a Polish electronic music producer, DJ and artist. Explore music releases, collaborations, DJ sets, press information and booking." />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Xarowo | Official Web Asset" />
-    <meta name="twitter:description" content="Official platform for Xarowo – electronic music producer, DJ, and digital artist." />
-    <meta name="twitter:image" content="https://xarowo.com/assets/favicon.png" />
-    
-    <link rel="canonical" href="https://xarowo.com/home/" />
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-      @keyframes fadeOut {
-        from { opacity: 1; }
-        to { opacity: 0; }
-      }
-      body {
-        min-height: 100dvh;
-        background-color: #000000;
-        padding-top: env(safe-area-inset-top, 0px);
-        padding-bottom: env(safe-area-inset-bottom, 0px);
-      }
-      .fade-container {
-        animation: fadeIn 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-      }
-      .fade-out-active {
-        animation: fadeOut 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
-      }
-    </style>
-  </head>
-  <body style="background-color: #000000;" class="bg-black flex items-center justify-center overflow-hidden select-none">
-    
-    <div id="gateway-core" class="fade-container flex items-center justify-center">
-      <img src="assets/xarowo-mark.png" alt="Xarowo" class="h-20 w-20 sm:h-44 sm:w-44 object-contain block" />
-    </div>
+<meta name="keywords" content="Xarowo, DJ, electronic music, EDM, house, melodic house, progressive house, music producer, producer, electronic artist, festival DJ, club DJ, booking, Poland, Wrocław" />
 
-    <script>
-      const core = document.getElementById("gateway-core");
+<meta name="author" content="Xarowo" />
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
 
-      // Szybki fade-out po 0.8 sekundy
-      setTimeout(() => {
-        core.classList.add("fade-out-active");
-      }, 800);
+<link rel="canonical" href="https://xarowo.com/" />
 
-      // Przekierowanie po 1.2 sekundy
-      setTimeout(() => {
-        window.location.href = "home/";
-      }, 1200);
-    </script>
-  </body>
+<link rel="icon" type="image/png" href="./assets/favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon.png" />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://xarowo.com/" />
+<meta property="og:title" content="Xarowo | Electronic Music Producer & DJ" />
+<meta property="og:description" content="Official website of Xarowo. Discover music releases, DJ performances, collaborations, press materials and booking." />
+<meta property="og:image" content="https://xarowo.com/assets/favicon.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="512" />
+<meta property="og:image:height" content="512" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Xarowo | Electronic Music Producer & DJ" />
+<meta name="twitter:description" content="Official website of Xarowo. Music, DJ sets, releases and booking." />
+<meta name="twitter:image" content="https://xarowo.com/assets/favicon.png" />
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Person",
+  "@id":"https://xarowo.com/#artist",
+  "name":"Xarowo",
+  "alternateName":"XAROWO",
+  "url":"https://xarowo.com",
+  "image":"https://xarowo.com/assets/favicon.png",
+  "description":"Xarowo is a Polish electronic music producer and DJ creating original electronic music and performing live DJ sets.",
+  "jobTitle":"Electronic Music Producer & DJ",
+  "nationality":"Polish",
+
+  "knowsAbout":[
+    "Electronic Music",
+    "EDM",
+    "House Music",
+    "Melodic House",
+    "Progressive House",
+    "Dance Music",
+    "DJ Performance",
+    "Music Production",
+    "Mixing",
+    "Mastering"
+  ],
+
+  "sameAs":[
+    "https://soundcloud.com/xarowo",
+    "https://www.youtube.com/@xarowo",
+    "https://www.instagram.com/xarowo",
+    "https://www.tiktok.com/@xarowo",
+    "https://open.spotify.com/artist/TWOJE_SPOTIFY_ID",
+    "https://music.apple.com/artist/TWOJE_APPLE_ID"
+  ]
+}
+</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+@keyframes fadeIn {
+from { opacity:0; }
+to { opacity:1; }
+}
+
+@keyframes fadeOut {
+from { opacity:1; }
+to { opacity:0; }
+}
+
+body{
+min-height:100dvh;
+background:#000;
+padding-top:env(safe-area-inset-top,0px);
+padding-bottom:env(safe-area-inset-bottom,0px);
+}
+
+.fade-container{
+animation:fadeIn .6s cubic-bezier(.25,1,.5,1) forwards;
+}
+
+.fade-out-active{
+animation:fadeOut .4s cubic-bezier(.25,1,.5,1) forwards!important;
+}
+</style>
+
+</head>
+
+<body class="bg-black flex items-center justify-center overflow-hidden select-none">
+
+<div id="gateway-core" class="fade-container flex items-center justify-center">
+<img
+src="assets/xarowo-mark.png"
+alt="Xarowo Official Logo"
+class="h-20 w-20 sm:h-44 sm:w-44 object-contain block"
+/>
+</div>
+
+<script>
+const core=document.getElementById("gateway-core");
+
+setTimeout(()=>{
+core.classList.add("fade-out-active");
+},800);
+
+setTimeout(()=>{
+window.location.href="home/";
+},1200);
+</script>
+
+</body>
 </html>
